@@ -17,6 +17,16 @@ class _HomeWidgetState extends State<HomeWidget> {
     });
   }
 
+  static const List<BottomNavigationBarItem> bottomNavItems =
+      <BottomNavigationBarItem>[
+    BottomNavigationBarItem(
+      icon: Icon(Icons.dashboard),
+      label: "Home",
+    ),
+    BottomNavigationBarItem(icon: Icon(Icons.cases), label: "Properties"),
+    BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile")
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,13 +35,7 @@ class _HomeWidgetState extends State<HomeWidget> {
         backgroundColor: Colors.amber[700],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.cases), label: "Properties"),
-        ],
+        items: bottomNavItems,
         currentIndex: _selectedIndex,
         onTap: changeSelectedItemIndex,
       ),

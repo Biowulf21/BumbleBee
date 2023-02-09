@@ -5,8 +5,10 @@ class PropertiesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Text("Properties"),
+    return Scaffold(
+      body: Container(
+        child: const Text("Properties"),
+      ),
     );
   }
 }

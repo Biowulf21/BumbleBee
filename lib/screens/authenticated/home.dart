@@ -11,7 +11,7 @@ class HomeWidget extends StatefulWidget {
 
 class _HomeWidgetState extends State<HomeWidget> {
   // ignore: prefer_final_fields
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   void changeSelectedItemIndex(int index) {
     setState(() {
@@ -22,7 +22,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   static const List<Widget> _bottomNavBarChildren = <Widget>[
     HomePageLayout(),
     PropertiesPage(),
-    ProfilePage()
+    ProfilePage(),
   ];
 
   static const List<BottomNavigationBarItem> bottomNavItems =
@@ -32,7 +32,7 @@ class _HomeWidgetState extends State<HomeWidget> {
       label: "Home",
     ),
     BottomNavigationBarItem(icon: Icon(Icons.cases), label: "Properties"),
-    BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile")
+    BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
   ];
 
   @override
@@ -47,6 +47,11 @@ class _HomeWidgetState extends State<HomeWidget> {
         items: bottomNavItems,
         currentIndex: _selectedIndex,
         onTap: changeSelectedItemIndex,
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        onPressed: () => {},
+        child: const Icon(Icons.add),
       ),
     );
   }

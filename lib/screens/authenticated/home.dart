@@ -1,6 +1,7 @@
 import 'package:bumblebee/screens/authenticated/profile_page.dart';
 import 'package:bumblebee/screens/authenticated/properties_page.dart';
 import 'package:flutter/material.dart';
+import 'package:speed_dial_fab/speed_dial_fab.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
@@ -12,12 +13,6 @@ class HomeWidget extends StatefulWidget {
 class _HomeWidgetState extends State<HomeWidget> {
   // ignore: prefer_final_fields
   int _selectedIndex = 0;
-
-  void changeSelectedItemIndex(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   static const List<Widget> _bottomNavBarChildren = <Widget>[
     HomePageLayout(),
@@ -35,6 +30,22 @@ class _HomeWidgetState extends State<HomeWidget> {
     BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
   ];
 
+  static const List<IconData> _secondaryMenuIcons = <IconData>[
+    Icons.house_sharp,
+    Icons.search
+  ];
+
+  static const List<String> _secondaryMenuLabels = <String>[
+    "Add New Property",
+    "Search"
+  ];
+
+  void changeSelectedItemIndex(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,11 +59,12 @@ class _HomeWidgetState extends State<HomeWidget> {
         currentIndex: _selectedIndex,
         onTap: changeSelectedItemIndex,
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        onPressed: () => {},
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: SpeedDialFabWidget(
+          primaryBackgroundColor: Theme.of(context).colorScheme.primary,
+          primaryIconExpand: Icons.add,
+          secondaryIconsList: _secondaryMenuIcons,
+          secondaryIconsOnPress: [() => {}, () => {}],
+          secondaryIconsText: _secondaryMenuLabels),
     );
   }
 }

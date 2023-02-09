@@ -8,6 +8,15 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
+  // ignore: prefer_final_fields
+  int _selectedIndex = 0;
+
+  void changeSelectedItemIndex(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,8 +24,16 @@ class _HomeWidgetState extends State<HomeWidget> {
         title: const Text("BumbleBee"),
         backgroundColor: Colors.amber[700],
       ),
-      body: Container(
-        child: const Text("oten"),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.dashboard),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.cases), label: "Properties"),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: changeSelectedItemIndex,
       ),
     );
   }

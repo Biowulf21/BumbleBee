@@ -13,6 +13,7 @@ class BumbleBee extends StatelessWidget {
     return const MaterialApp(
       title: "BumbleBee",
       home: HomeWidget(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

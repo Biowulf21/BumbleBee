@@ -10,10 +10,12 @@ class BumbleBee extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: "BumbleBee",
-      home: HomeWidget(),
+      home: const HomeWidget(),
       debugShowCheckedModeBanner: false,
+      theme: ThemeData.from(
+          colorScheme: ColorScheme.light(primary: Colors.amber[600]!)),
     );
   }
 }

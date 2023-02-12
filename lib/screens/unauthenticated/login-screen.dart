@@ -1,3 +1,4 @@
+import 'package:bumblebee/repositories/input-validator-repository.dart';
 import 'package:flutter/material.dart';
 
 class Loginpage extends StatefulWidget {
@@ -8,15 +9,32 @@ class Loginpage extends StatefulWidget {
 }
 
 class _LoginpageState extends State<Loginpage> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final _loginFormKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        child: Form(
+          key: _loginFormKey,
           child: Column(
-        children: const [
-          Text('Oten'),
-        ],
-      )),
+            children: [
+              TextFormField(
+                controller: _usernameController,
+                validator: (value) {
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _passwordController,
+                validator: (value) => InputValidator.validatePassword(value),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

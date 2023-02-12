@@ -1,6 +1,9 @@
 import 'package:bumblebee/screens/authenticated/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({super.key});
@@ -8,6 +11,7 @@ class LoginWidget extends StatefulWidget {
   @override
   State<LoginWidget> createState() => _LoginWidgetState();
 }
+
 
 class _LoginWidgetState extends State<LoginWidget> {
   @override

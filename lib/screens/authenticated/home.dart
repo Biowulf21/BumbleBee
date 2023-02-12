@@ -1,5 +1,5 @@
-import 'package:bumblebee/screens/authenticated/profile_page.dart';
-import 'package:bumblebee/screens/authenticated/properties_page.dart';
+import 'package:bumblebee/screens/authenticated/profile-page.dart';
+import 'package:bumblebee/screens/authenticated/properties-page.dart';
 import 'package:flutter/material.dart';
 import 'package:speed_dial_fab/speed_dial_fab.dart';
 

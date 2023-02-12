@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "70041805741",
+    "project_id": "bumblebee-e36f2",
+    "storage_bucket": "bumblebee-e36f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70041805741:android:87c9395c022397c9a3f724",
+        "android_client_info": {
+          "package_name": "com.example.bumblebee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "70041805741-p7l8iqlgfijo6sj3ub50lofbthg79va3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7VRNOynBhiBmbgX3hU1noavkyefpGavc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "70041805741-p7l8iqlgfijo6sj3ub50lofbthg79va3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

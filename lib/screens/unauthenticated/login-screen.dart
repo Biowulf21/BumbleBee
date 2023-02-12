@@ -23,9 +23,7 @@ class _LoginpageState extends State<Loginpage> {
             children: [
               TextFormField(
                 controller: _usernameController,
-                validator: (value) {
-                  return null;
-                },
+                validator: (value) => InputValidator.validateEmail(value),
               ),
               TextFormField(
                 controller: _passwordController,

@@ -124,7 +124,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                     ),
                     TextButton(
                       child: const Text('Login'),
-                      onPressed: () {},
+                      onPressed: () => Navigator.pushNamed(context, '/login'),
                     )
                   ],
                 ),

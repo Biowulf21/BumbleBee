@@ -1,15 +1,17 @@
 import 'package:bumblebee/repositories/input-validator-repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Loginpage extends StatefulWidget {
-  const Loginpage({super.key});
+import '../../providers/auth-provider.dart';
 
+class LoginPage extends ConsumerStatefulWidget {
+  const LoginPage({super.key});
   @override
-  State<Loginpage> createState() => _LoginpageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _LoginPageState();
 }
 
-class _LoginpageState extends State<Loginpage> {
-  final TextEditingController _usernameController = TextEditingController();
+class _LoginPageState extends ConsumerState<LoginPage> {
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _loginFormKey = GlobalKey<FormState>();
 
@@ -22,7 +24,7 @@ class _LoginpageState extends State<Loginpage> {
           child: Column(
             children: [
               TextFormField(
-                controller: _usernameController,
+                controller: _emailController,
                 validator: (value) => InputValidator.validateEmail(value),
               ),
               TextFormField(
@@ -32,7 +34,11 @@ class _LoginpageState extends State<Loginpage> {
               TextButton(
                   onPressed: () {
                     if (_loginFormKey.currentState!.validate()) {
-                      print('otenhehe');
+                      final authProvider = ref
+                          .watch(authRepositoryProvider)
+                          .loginWithEmailandPassword(
+                              _emailController.text.trim(),
+                              _passwordController.text.trim());
                     }
                   },
                   child: const Text('Submit'))

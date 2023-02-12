@@ -3,11 +3,7 @@ class InputValidator {
     final passwordRegexPattern =
         RegExp(r"^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{11,}$");
 
-<<<<<<< HEAD
-    if (value == null || value.isEmpty) return "Please enter an email address.";
-=======
     if (value == null || value.isEmpty) return "Please enter a password.";
->>>>>>> feature/home
 
     if (!passwordRegexPattern.hasMatch(value)) {
       return """Password must contain at least:
@@ -29,8 +25,6 @@ class InputValidator {
     }
     return null;
   }
-<<<<<<< HEAD
-=======
 
   static String? validateName(String? value, String nametype) {
     Map nameRegexPatterns = {
@@ -82,5 +76,4 @@ class InputValidator {
 
     return 'Please enter a valid Philippine phone number.';
   }
->>>>>>> feature/home
 }

@@ -3,7 +3,7 @@ class InputValidator {
     final passwordRegexPattern =
         RegExp(r"^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{11,}$");
 
-    if (value == null || value.isEmpty) return "Please enter an email address.";
+    if (value == null || value.isEmpty) return "Please enter a password.";
 
     if (!passwordRegexPattern.hasMatch(value)) {
       return """Password must contain at least:

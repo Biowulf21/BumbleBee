@@ -32,6 +32,10 @@ dependencies:
   firebase_core: ^2.5.0
   flutter:
     sdk: flutter
+<<<<<<< HEAD
+=======
+  intl_phone_number_input: ^0.7.2
+>>>>>>> feature/home
 
 dev_dependencies:
   cloud_firestore: ^4.3.2

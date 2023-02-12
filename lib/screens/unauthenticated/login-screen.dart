@@ -1,4 +1,8 @@
 import 'package:bumblebee/repositories/input-validator-repository.dart';
+<<<<<<< HEAD
+=======
+import 'package:bumblebee/reusable-widgets/buttons.dart';
+>>>>>>> feature/home
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -31,6 +35,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 controller: _passwordController,
                 validator: (value) => InputValidator.validatePassword(value),
               ),
+<<<<<<< HEAD
               TextButton(
                   onPressed: () {
                     if (_loginFormKey.currentState!.validate()) {
@@ -42,6 +47,31 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     }
                   },
                   child: const Text('Submit'))
+=======
+              const SizedBox(
+                height: 10,
+              ),
+              PrimaryButton(
+                buttonText: "Log in",
+                buttonCallback: () {
+                  if (_loginFormKey.currentState!.validate()) {
+                    final authProvider = ref
+                        .watch(authRepositoryProvider)
+                        .loginWithEmailandPassword(_emailController.text.trim(),
+                            _passwordController.text.trim());
+                  }
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SecondaryButton(
+                buttonCallback: () {
+                  Navigator.pushNamed(context, '/signup');
+                },
+                buttonText: "Sign up",
+              ),
+>>>>>>> feature/home
             ],
           ),
         ),

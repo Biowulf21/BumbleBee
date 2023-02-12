@@ -3,7 +3,11 @@ class InputValidator {
     final passwordRegexPattern =
         RegExp(r"^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{11,}$");
 
+<<<<<<< HEAD
     if (value == null || value.isEmpty) return "Please enter an email address.";
+=======
+    if (value == null || value.isEmpty) return "Please enter a password.";
+>>>>>>> feature/home
 
     if (!passwordRegexPattern.hasMatch(value)) {
       return """Password must contain at least:
@@ -25,4 +29,58 @@ class InputValidator {
     }
     return null;
   }
+<<<<<<< HEAD
+=======
+
+  static String? validateName(String? value, String nametype) {
+    Map nameRegexPatterns = {
+      'first': '^[A-Z][a-z]{1,30}\$',
+      'middle': '^[A-Z][a-z]+([- ][A-Z][a-z]+)*\$',
+      'last': '^[A-Z][a-z]+([- ][A-Z][a-z]+)*\$',
+    };
+
+    // if (RegExp('r' + nameRegexPatterns[nametype]).hasMatch(value)) {
+    //   print('r' + nameRegexPatterns[nametype]);
+    //   return null;
+    // }
+
+    if (nametype == "middle") {
+      if (value == null || value.isEmpty) return null;
+      if (RegExp(nameRegexPatterns['middle']).hasMatch(value)) return null;
+    }
+
+    if (value != null &&
+        nametype == "first" &&
+        RegExp(nameRegexPatterns['first']).hasMatch(value)) return null;
+
+    if (nametype == '') if (nametype == "middle" &&
+        value != null &&
+        RegExp(nameRegexPatterns['middle']).hasMatch(value)) {
+      return null;
+    }
+
+    if (value != null &&
+        nametype == "last" &&
+        RegExp(nameRegexPatterns['last']).hasMatch(value)) {
+      return null;
+    }
+
+    return 'Please enter a valid $nametype name';
+  }
+
+  static String? validatePhilippinePhoneNumber(String? value) {
+    print(value);
+    final phoneNumberRegex = RegExp(r'^(09|\+639)\d{9}$');
+
+    if (value == null || value.isEmpty) {
+      return 'Please enter a valid Philippine phone number.';
+    }
+
+    if (phoneNumberRegex.hasMatch(value)) {
+      return null;
+    }
+
+    return 'Please enter a valid Philippine phone number.';
+  }
+>>>>>>> feature/home
 }

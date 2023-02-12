@@ -29,6 +29,13 @@ class _LoginpageState extends State<Loginpage> {
                 controller: _passwordController,
                 validator: (value) => InputValidator.validatePassword(value),
               ),
+              TextButton(
+                  onPressed: () {
+                    if (_loginFormKey.currentState!.validate()) {
+                      print('otenhehe');
+                    }
+                  },
+                  child: const Text('Submit'))
             ],
           ),
         ),

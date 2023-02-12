@@ -95,7 +95,6 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   onChanged: (value) {
                     setState(() {
                       currentUserRole = value!;
-                      print(currentUserRole);
                     });
                   },
                 ),
@@ -107,9 +106,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   countries: const ['PH'],
                   validator: (value) =>
                       InputValidator.validatePhilippinePhoneNumber(value),
-                  onInputChanged: (newValue) {
-                    // print(newValue.phoneNumber);
-                  },
+                  onInputChanged: (newValue) {},
                 ),
                 const SizedBox(
                   height: 10,

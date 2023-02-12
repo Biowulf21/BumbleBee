@@ -61,4 +61,19 @@ class InputValidator {
 
     return 'Please enter a valid $nametype name';
   }
+
+  static String? validatePhilippinePhoneNumber(String? value) {
+    print(value);
+    final phoneNumberRegex = RegExp(r'^(09|\+639)\d{9}$');
+
+    if (value == null || value.isEmpty) {
+      return 'Please enter a valid Philippine phone number.';
+    }
+
+    if (phoneNumberRegex.hasMatch(value)) {
+      return null;
+    }
+
+    return 'Please enter a valid Philippine phone number.';
+  }
 }

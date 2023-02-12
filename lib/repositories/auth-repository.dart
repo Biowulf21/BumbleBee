@@ -20,9 +20,15 @@ class AuthRepository {
       } else {
         throw AuthException('An exception occured. Please try again later.');
       }
-      print(e);
     }
   }
+
+  /* This function will get the current user's firebase document through getting the user's UID */
+
+  // Future<User> getUserInformation(){
+  //   return
+  //
+  // }
 
   Future<void> logout() async {
     await _auth.signOut();

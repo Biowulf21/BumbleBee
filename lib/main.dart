@@ -7,7 +7,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 Future<void> main(List<String> args) async {
   const String host = "10.0.2.2";
-
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(

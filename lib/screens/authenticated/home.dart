@@ -1,7 +1,9 @@
+import 'package:bumblebee/reusable-widgets/buttons.dart';
 import 'package:bumblebee/screens/authenticated/profile-page.dart';
 import 'package:bumblebee/screens/authenticated/properties-page.dart';
 import 'package:flutter/material.dart';
 import 'package:speed_dial_fab/speed_dial_fab.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
@@ -69,13 +71,26 @@ class _HomeWidgetState extends State<HomeWidget> {
   }
 }
 
-class HomePageLayout extends StatelessWidget {
+class HomePageLayout extends ConsumerWidget {
   const HomePageLayout({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      child: const Text('Home'),
+      child: PrimaryButton(
+          buttonText: 'Get Document',
+          buttonCallback: () async {
+            // final doc = await ref.watch(FirestoreDatabaseProvider).getDocument(
+            //     collectionID: 'oten', documentID: 'Ctn5eaxFJRNG0u7awA0m');
+            // print(doc!.data());
+
+            // final doc = await ref
+            //     .watch(FirestoreDatabaseProvider)
+            //     .getDocsInCollection(collectionID: 'oten');
+            // for (var element in doc) {
+            //   print(element.data());
+            }
+          }),
     );
   }
 }

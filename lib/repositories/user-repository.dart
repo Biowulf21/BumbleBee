@@ -7,14 +7,22 @@ class UserRepository {
   //   return null;
   // }
 
-  Future<void> createUserFromJSON(
+  static final firestoreInstance = FirebaseFirestore.instance;
+
+  static Future<void> createUserFromJSON(
       {required Map<String, dynamic> dataMap}) async {
-    FirestoreRepository(FirebaseFirestore.instance)
+    FirestoreRepository(firestoreInstance)
         .addDocument(collectionID: 'users', dataMap: dataMap);
   }
 
-  Future<void> createUserFromObject({required User userObject}) async {
-    FirestoreRepository(FirebaseFirestore.instance)
+  static Future<void> createUserFromObject({required User userObject}) async {
+    FirestoreRepository(firestoreInstance)
         .addDocument(collectionID: 'users', dataMap: userObject.toJson());
+  }
+
+  static Future<DocumentSnapshot<Object?>?> getUserInfo(
+      {required String userID}) async {
+    return FirestoreRepository(firestoreInstance)
+        .getDocument(collectionID: 'users', documentID: userID);
   }
 }

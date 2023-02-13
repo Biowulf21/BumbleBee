@@ -9,7 +9,9 @@ class FirestoreRepository {
 
   Future<DocumentSnapshot?> getDocument(
       {required String collectionID, required String documentID}) async {
-    final result = _database.collection(collectionID).doc(documentID).get();
+    final result =
+        await _database.collection(collectionID).doc(documentID).get();
+    print('result = ${result.data()}');
     return result;
   }
 

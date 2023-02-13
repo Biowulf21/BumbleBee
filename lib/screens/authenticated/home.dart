@@ -1,7 +1,12 @@
+import 'package:bumblebee/providers/auth-provider.dart';
+import 'package:bumblebee/repositories/firestore-repository.dart';
+import 'package:bumblebee/repositories/user-repository.dart';
+import 'package:bumblebee/reusable-widgets/buttons.dart';
 import 'package:bumblebee/screens/authenticated/profile-page.dart';
 import 'package:bumblebee/screens/authenticated/properties-page.dart';
 import 'package:flutter/material.dart';
 import 'package:speed_dial_fab/speed_dial_fab.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
@@ -69,13 +74,25 @@ class _HomeWidgetState extends State<HomeWidget> {
   }
 }
 
-class HomePageLayout extends StatelessWidget {
+class HomePageLayout extends ConsumerWidget {
   const HomePageLayout({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      child: const Text('Home'),
+      child: PrimaryButton(
+        buttonText: 'Test',
+        buttonCallback: () async {
+          final user = await ref.watch(authRepositoryProvider).getCurrentUser();
+          // final result = await UserRepository.getUserInfo(userID: user!.uid);
+          // print(result!.data());
+          final result =
+              await FirestoreRepository(UserRepository.firestoreInstance)
+                  .getDocument(collectionID: 'users', documentID: user!.uid);
+
+          print(result!.data());
+        },
+      ),
     );
   }
 }

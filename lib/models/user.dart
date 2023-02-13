@@ -1,9 +1,11 @@
+enum userRoles { Tenant, Landlord }
+
 class User {
   final String contactNumber;
 
   final String email;
 
-  final String role;
+  final userRoles role;
 
   User({required this.email, required this.contactNumber, required this.role});
 
@@ -11,9 +13,13 @@ class User {
       : this(
             email: json['email']! as String,
             contactNumber: json['contactNumber']! as String,
-            role: json['role']! as String);
+            role: json['role']! as userRoles);
 
   Map<String, Object?> toJson() {
-    return {'email': email, 'contactNumber': contactNumber, 'role': role};
+    return {
+      'email': email,
+      'contactNumber': contactNumber,
+      'role': role.toString()
+    };
   }
 }

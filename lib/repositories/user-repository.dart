@@ -11,8 +11,12 @@ class UserRepository {
 
   static Future<void> createUserFromJSON(
       {required Map<String, dynamic> dataMap}) async {
+    try {
     FirestoreRepository(firestoreInstance)
         .addDocument(collectionID: 'users', dataMap: dataMap);
+    } catch (e) {
+      print(e); 
+    }
   }
 
   static Future<void> createUserFromObject({required User userObject}) async {

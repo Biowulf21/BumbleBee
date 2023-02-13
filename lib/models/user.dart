@@ -7,7 +7,7 @@ class User {
 
   User({required this.email, required this.contactNumber, required this.role});
 
-  User.fromJson(Map<String, Object?> json)
+  User.fromJson(Map<String, dynamic?> json)
       : this(
             email: json['email']! as String,
             contactNumber: json['contactNumber']! as String,

@@ -79,20 +79,26 @@ class HomePageLayout extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       child: PrimaryButton(
-          buttonText: 'Get Document',
-          buttonCallback: () async {
-            // final doc = await ref.watch(FirestoreDatabaseProvider).getDocument(
-            //     collectionID: 'oten', documentID: 'Ctn5eaxFJRNG0u7awA0m');
-            // print(doc!.data());
+        buttonText: 'Get Document',
+        buttonCallback: () async {
+          // final doc = await ref.watch(FirestoreDatabaseProvider).getDocument(
+          //     collectionID: 'oten', documentID: 'Ctn5eaxFJRNG0u7awA0m');
+          // print(doc!.data());
 
-            // final doc = await ref
-            //     .watch(FirestoreDatabaseProvider)
-            //     .getDocsInCollection(collectionID: 'oten');
-            // for (var element in doc) {
-            //   print(element.data());
-      
-            // }
-          }),
+          // final doc = await ref
+          //     .watch(FirestoreDatabaseProvider)
+          //     .getDocsInCollection(collectionID: 'oten');
+          // for (var element in doc) {
+          //   print(element.data());
+
+          // }
+
+          final doc = await ref.watch(FirestoreDatabaseProvider).addDocument(
+              collectionID: 'oten',
+              dataMap: {'mimi': 'gwapa'},
+              documentName: 'KqhGehLqWhg6rAx1Nbrp');
+        },
+      ),
     );
   }
 }

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:bumblebee/errors/failure.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreRepository {
@@ -9,19 +12,31 @@ class FirestoreRepository {
 
   Future<DocumentSnapshot?> getDocument(
       {required String collectionID, required String documentID}) async {
-    final result =
-        await _database.collection(collectionID).doc(documentID).get();
-    print('result = ${result.data()}');
-    return result;
+    try {
+      final result =
+          await _database.collection(collectionID).doc(documentID).get();
+      return result;
+    } on SocketException {
+      Failure(
+          message: 'Cannot get document. No internet connection.',
+          failureCode: FailureCodes.NoInternet);
+    }
+    return null;
   }
 
   Future<List<QueryDocumentSnapshot<Object?>>> getDocsInCollection(
       {required String collectionID}) async {
     List<QueryDocumentSnapshot<Object?>> docsInCollection = [];
-    final result = await _database
-        .collection(collectionID)
-        .get()
-        .then((QuerySnapshot snapshot) => {docsInCollection = snapshot.docs});
+    try {
+      final result = await _database
+          .collection(collectionID)
+          .get()
+          .then((QuerySnapshot snapshot) => {docsInCollection = snapshot.docs});
+    } on SocketException {
+      Failure(
+          message: 'Cannot get documents. No internet connection.',
+          failureCode: FailureCodes.NoInternet);
+    }
 
     return docsInCollection;
   }
@@ -32,13 +47,19 @@ class FirestoreRepository {
       {required String collectionID,
       required Map<String, dynamic> dataMap,
       String? documentName}) async {
-    if (documentName == null) {
-      final docRef = await _database.collection(collectionID).add(dataMap);
-    } else {
-      final docRef = await _database
-          .collection(collectionID)
-          .doc(documentName)
-          .set(dataMap);
+    try {
+      if (documentName == null) {
+        final docRef = await _database.collection(collectionID).add(dataMap);
+      } else {
+        final docRef = await _database
+            .collection(collectionID)
+            .doc(documentName)
+            .set(dataMap);
+      }
+    } on SocketException {
+      Failure(
+          message: 'Cannot add document. No internet connection.',
+          failureCode: FailureCodes.NoInternet);
     }
   }
 
@@ -46,7 +67,15 @@ class FirestoreRepository {
       {required String collectionID,
       required Map<String, dynamic> dataMap,
       String? documentName}) async {
-    final docRef =
-        await _database.collection(collectionID).doc(documentName).set(dataMap);
+    try {
+      final docRef = await _database
+          .collection(collectionID)
+          .doc(documentName)
+          .set(dataMap);
+    } on SocketException {
+      Failure(
+          message: 'Cannot update document. No internet connection',
+          failureCode: FailureCodes.NoInternet);
+    }
   }
 }

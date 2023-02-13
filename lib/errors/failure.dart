@@ -1,8 +1,10 @@
+enum FailureCodes { NoInternet }
+
 class Failure {
   final String message;
-  final int code;
+  final FailureCodes failureCode;
 
-  Failure({required this.message, required this.code});
+  Failure({required this.message, required this.failureCode});
 
   @override
   String toString() => message;

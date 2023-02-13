@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:bumblebee/errors/failure.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepository {
@@ -31,12 +34,25 @@ class AuthRepository {
   // }
 
   Future<void> logout() async {
-    await _auth.signOut();
+    try {
+      await _auth.signOut();
+    } on SocketException {
+      Failure(
+          message: 'No internet connection. Cannot log out',
+          failureCode: FailureCodes.NoInternet);
+    }
   }
 
   Future<User?> getCurrentUser() async {
-    final currentUser = _auth.currentUser;
-    return currentUser;
+    try {
+      final currentUser = _auth.currentUser;
+      return currentUser;
+    } on SocketException {
+      Failure(
+          message: 'No internet connection. Cannot get current user.',
+          failureCode: FailureCodes.NoInternet);
+    }
+    return null;
   }
 }
 

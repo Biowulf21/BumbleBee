@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FirestoreRepository {
   final FirebaseFirestore _database;
 
+  // Document Getters
+
   FirestoreRepository(this._database);
 
   Future<DocumentSnapshot?> getDocument(
@@ -21,6 +23,8 @@ class FirestoreRepository {
 
     return docsInCollection;
   }
+
+  // Document Setters
 
   Future<void> addDocument(
       {required String collectionID,

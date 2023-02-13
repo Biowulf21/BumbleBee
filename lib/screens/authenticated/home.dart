@@ -1,5 +1,3 @@
-import 'package:bumblebee/providers/firebase-provider.dart';
-import 'package:bumblebee/reusable-widgets/buttons.dart';
 import 'package:bumblebee/screens/authenticated/profile-page.dart';
 import 'package:bumblebee/screens/authenticated/properties-page.dart';
 import 'package:flutter/material.dart';
@@ -77,28 +75,6 @@ class HomePageLayout extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      child: PrimaryButton(
-        buttonText: 'Get Document',
-        buttonCallback: () async {
-          // final doc = await ref.watch(FirestoreDatabaseProvider).getDocument(
-          //     collectionID: 'oten', documentID: 'Ctn5eaxFJRNG0u7awA0m');
-          // print(doc!.data());
-
-          // final doc = await ref
-          //     .watch(FirestoreDatabaseProvider)
-          //     .getDocsInCollection(collectionID: 'oten');
-          // for (var element in doc) {
-          //   print(element.data());
-
-          // }
-
-          final doc = await ref.watch(FirestoreDatabaseProvider).addDocument(
-              collectionID: 'oten',
-              dataMap: {'mimi': 'gwapa'},
-              documentName: 'KqhGehLqWhg6rAx1Nbrp');
-        },
-      ),
-    );
+    return Container(child: const Text('home'));
   }
 }

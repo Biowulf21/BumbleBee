@@ -1,3 +1,4 @@
+import 'package:bumblebee/providers/firebase-provider.dart';
 import 'package:bumblebee/reusable-widgets/buttons.dart';
 import 'package:bumblebee/screens/authenticated/profile-page.dart';
 import 'package:bumblebee/screens/authenticated/properties-page.dart';
@@ -89,7 +90,8 @@ class HomePageLayout extends ConsumerWidget {
             //     .getDocsInCollection(collectionID: 'oten');
             // for (var element in doc) {
             //   print(element.data());
-            }
+      
+            // }
           }),
     );
   }

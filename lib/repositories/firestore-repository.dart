@@ -21,4 +21,11 @@ class FirestoreRepository {
 
     return docsInCollection;
   }
+
+  Future<void> addDocument(
+      {required String collectionID, required Map dataMap}) async {
+        
+      }
+
+  Future<void> updateDocument({required Object dataObject}) async {}
 }

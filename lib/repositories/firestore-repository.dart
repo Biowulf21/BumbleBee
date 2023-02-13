@@ -36,5 +36,11 @@ class FirestoreRepository {
     }
   }
 
-  Future<void> updateDocument({required Object dataObject}) async {}
+  Future<void> updateDocument(
+      {required String collectionID,
+      required Map<String, dynamic> dataMap,
+      String? documentName}) async {
+    final docRef =
+        await _database.collection(collectionID).doc(documentName).set(dataMap);
+  }
 }

@@ -33,11 +33,6 @@ class InputValidator {
       'last': '^[A-Z][a-z]+([- ][A-Z][a-z]+)*\$',
     };
 
-    // if (RegExp('r' + nameRegexPatterns[nametype]).hasMatch(value)) {
-    //   print('r' + nameRegexPatterns[nametype]);
-    //   return null;
-    // }
-
     if (nametype == "middle") {
       if (value == null || value.isEmpty) return null;
       if (RegExp(nameRegexPatterns['middle']).hasMatch(value)) return null;
@@ -63,7 +58,6 @@ class InputValidator {
   }
 
   static String? validatePhilippinePhoneNumber(String? value) {
-    print(value);
     final phoneNumberRegex = RegExp(r'^(09|\+639)\d{9}$');
 
     if (value == null || value.isEmpty) {

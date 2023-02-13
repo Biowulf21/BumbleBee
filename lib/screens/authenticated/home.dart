@@ -84,13 +84,9 @@ class HomePageLayout extends ConsumerWidget {
         buttonText: 'Test',
         buttonCallback: () async {
           final user = await ref.watch(authRepositoryProvider).getCurrentUser();
-          // final result = await UserRepository.getUserInfo(userID: user!.uid);
-          // print(result!.data());
           final result =
               await FirestoreRepository(UserRepository.firestoreInstance)
                   .getDocument(collectionID: 'users', documentID: user!.uid);
-
-          print(result!.data());
         },
       ),
     );

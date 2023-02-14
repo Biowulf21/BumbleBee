@@ -9,3 +9,11 @@ final authRepositoryProvider = Provider((ref) {
 final authStateProvider = StreamProvider((ref) {
   return ref.read(authRepositoryProvider).authStateChange;
 });
+
+final userIDProvider = Provider((ref) {
+  return FirebaseAuth.instance.currentUser?.uid;
+});
+
+final userProvider = Provider((ref) {
+  return FirebaseAuth.instance.currentUser;
+});

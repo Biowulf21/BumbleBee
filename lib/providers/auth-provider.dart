@@ -2,8 +2,10 @@ import 'package:bumblebee/repositories/auth-repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+final _firebaseAuthInstance = FirebaseAuth.instance;
+
 final authRepositoryProvider = Provider((ref) {
-  return AuthRepository(FirebaseAuth.instance);
+  return AuthRepository(_firebaseAuthInstance);
 });
 
 final authStateProvider = StreamProvider((ref) {
@@ -11,9 +13,9 @@ final authStateProvider = StreamProvider((ref) {
 });
 
 final userIDProvider = Provider((ref) {
-  return FirebaseAuth.instance.currentUser?.uid;
+  return _firebaseAuthInstance.currentUser?.uid;
 });
 
 final userProvider = Provider((ref) {
-  return FirebaseAuth.instance.currentUser;
+  return _firebaseAuthInstance.currentUser;
 });

@@ -66,12 +66,12 @@ class FirestoreRepository {
   Future<void> updateDocument(
       {required String collectionID,
       required Map<String, dynamic> dataMap,
-      String? documentName}) async {
+      required String documentName}) async {
     try {
       final docRef = await _database
           .collection(collectionID)
           .doc(documentName)
-          .set(dataMap);
+          .update(dataMap);
     } on SocketException {
       Failure(
           message: 'Cannot update document. No internet connection',

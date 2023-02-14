@@ -14,4 +14,17 @@ void main() {
     expect({'name': 'test user', 'age': 21, 'cash': 2000.15},
         snapshot.docs.first.data());
   });
+
+  test('Update document correctly', () async {
+    final snapshot = await instance.collection('users').get();
+
+    await FirestoreRepository(instance).updateDocument(
+        collectionID: 'users',
+        dataMap: {'name': 'new test user'},
+        documentName: snapshot.docs.first.id);
+
+    final updatedDoc = await instance.collection('users').get();
+
+    expect(updatedDoc.docs.first.get('name'), equals('new test user'));
+  });
 }

@@ -1,12 +1,13 @@
 import 'package:bumblebee/providers/auth-provider.dart';
 import 'package:bumblebee/repositories/firestore-repository.dart';
-import 'package:bumblebee/repositories/user-repository.dart';
 import 'package:bumblebee/reusable-widgets/buttons.dart';
 import 'package:bumblebee/screens/authenticated/profile-page.dart';
 import 'package:bumblebee/screens/authenticated/properties-page.dart';
 import 'package:flutter/material.dart';
 import 'package:speed_dial_fab/speed_dial_fab.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../providers/firebase-provider.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
@@ -84,9 +85,9 @@ class HomePageLayout extends ConsumerWidget {
         buttonText: 'Test',
         buttonCallback: () async {
           final user = await ref.watch(authRepositoryProvider).getCurrentUser();
-          final result =
-              await FirestoreRepository(UserRepository.firestoreInstance)
-                  .getDocument(collectionID: 'users', documentID: user!.uid);
+          final firestoreInstance = ref.watch(FirestoreInstanceProvider);
+          final result = await FirestoreRepository(firestoreInstance)
+              .getDocument(collectionID: 'users', documentID: user!.uid);
         },
       ),
     );

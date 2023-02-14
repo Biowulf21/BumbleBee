@@ -24,23 +24,6 @@ class FirestoreRepository {
     return null;
   }
 
-  Future<List<QueryDocumentSnapshot<Object?>>> getDocsInCollection(
-      {required String collectionID}) async {
-    List<QueryDocumentSnapshot<Object?>> docsInCollection = [];
-    try {
-      final result = await _database
-          .collection(collectionID)
-          .get()
-          .then((QuerySnapshot snapshot) => {docsInCollection = snapshot.docs});
-    } on SocketException {
-      Failure(
-          message: 'Cannot get documents. No internet connection.',
-          failureCode: FailureCodes.NoInternet);
-    }
-
-    return docsInCollection;
-  }
-
   // Document Setters
 
   Future<void> addDocument(

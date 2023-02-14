@@ -6,7 +6,7 @@ void main() {
   final instance = FakeFirebaseFirestore();
 
   test('Add document correctly', () async {
-    final addDocTest = FirestoreRepository(instance).addDocument(
+    await FirestoreRepository(instance).addDocument(
         collectionID: 'users',
         dataMap: {'name': 'test user', 'age': 21, 'cash': 2000.15});
 
@@ -30,7 +30,11 @@ void main() {
 
   test('Get document', () async {
     final snapshot = await instance.collection('users').get();
-    final docData = snapshot.docs.first.data();
-    expect(docData, {'name': 'new test user', 'age': 21, 'cash': 2000.15});
+    final doc = snapshot.docs.first.id;
+    final docFromFirestore = await FirestoreRepository(instance)
+        .getDocument(collectionID: 'users', documentID: doc);
+    expect(docFromFirestore!.data(),
+        {'name': 'new test user', 'age': 21, 'cash': 2000.15});
   });
+
 }

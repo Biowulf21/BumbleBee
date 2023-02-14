@@ -68,6 +68,7 @@ class FirestoreRepository {
       required Map<String, dynamic> dataMap,
       required String documentName}) async {
     try {
+      // Add error handling for document not existing
       final docRef = await _database
           .collection(collectionID)
           .doc(documentName)

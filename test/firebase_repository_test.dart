@@ -27,4 +27,10 @@ void main() {
 
     expect(updatedDoc.docs.first.get('name'), equals('new test user'));
   });
+
+  test('Get document', () async {
+    final snapshot = await instance.collection('users').get();
+    final docData = snapshot.docs.first.data();
+    expect(docData, {'name': 'new test user', 'age': 21, 'cash': 2000.15});
+  });
 }

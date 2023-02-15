@@ -70,7 +70,7 @@ class AuthRepository {
 }
 
 class AuthException implements Exception {
-  AuthException(this._errormessage);
+  AuthException(this.errormessage);
 
-  final String _errormessage;
+  final String errormessage;
 }

@@ -158,6 +158,9 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                       } on Failure catch (e) {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(SnackBar(content: Text(e.message)));
+                      } on AuthException catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(e.errormessage)));
                       }
                     }),
                 const SizedBox(

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bumblebee/errors/failure.dart';
 import 'package:bumblebee/models/user.dart';
 import 'package:bumblebee/providers/auth-provider.dart';
@@ -154,13 +156,16 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
 
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                             content: Text(
-                                'Please make sure all information has been filled up')));
+                                'Please make sure all information has been filled up correctly.')));
                       } on Failure catch (e) {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(SnackBar(content: Text(e.message)));
                       } on AuthException catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(e.errormessage)));
+                      } on SocketException catch (e) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text(e.message)));
                       }
                     }),
                 const SizedBox(

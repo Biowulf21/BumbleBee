@@ -1,6 +1,6 @@
 import 'package:bumblebee/providers/auth-provider.dart';
 import 'package:bumblebee/repositories/firestore-repository.dart';
-import 'package:bumblebee/reusable-widgets/buttons.dart';
+import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
 import 'package:bumblebee/screens/authenticated/profile-page.dart';
 import 'package:bumblebee/screens/authenticated/properties-page.dart';
 import 'package:flutter/material.dart';

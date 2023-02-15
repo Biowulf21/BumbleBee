@@ -1,8 +1,9 @@
+import 'package:bumblebee/controllers/login-state-controller.dart';
 import 'package:bumblebee/models/user.dart';
 import 'package:bumblebee/providers/auth-provider.dart';
 import 'package:bumblebee/providers/firebase-provider.dart';
 import 'package:bumblebee/repositories/input-validator-repository.dart';
-import 'package:bumblebee/reusable-widgets/buttons.dart';
+import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -32,6 +33,9 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
     final firebaseAuthInstance = ref.watch(firebaseAuthInstanceProvider);
 
     final userID = ref.read(userIDProvider);
+
+    final oten = ref.read(loginControllerProvider);
+
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -119,7 +123,21 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   height: 10,
                 ),
                 PrimaryButton(
-                    buttonText: "Submit", buttonCallback: () async {}),
+                    buttonText: "Submit",
+                    buttonCallback: () async {
+                      final userObject = User(
+                          firstName: _firstNameController.text,
+                          middleName: _middleNameController.text,
+                          lastName: _lastNameController.text,
+                          email: _emailController.text,
+                          role: currentUserRole,
+                          contactNumber: _numberController.text);
+
+                      ref.read(loginControllerProvider.notifier).signUp(
+                          key: _signupKey,
+                          userObject: userObject,
+                          password: _passwordController.text);
+                    }),
                 const SizedBox(
                   height: 10,
                 ),

@@ -1,5 +1,5 @@
 import 'package:bumblebee/repositories/input-validator-repository.dart';
-import 'package:bumblebee/reusable-widgets/buttons.dart';
+import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

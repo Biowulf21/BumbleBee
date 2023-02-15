@@ -29,8 +29,9 @@ class LoginStateSuccess extends LoginState {
 }
 
 class LoginStateFailure extends LoginState {
-  const LoginStateFailure();
+  final String error;
+  const LoginStateFailure(this.error);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [error];
 }

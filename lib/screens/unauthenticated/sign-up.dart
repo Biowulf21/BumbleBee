@@ -1,12 +1,7 @@
-import 'dart:io';
-
-import 'package:bumblebee/errors/failure.dart';
 import 'package:bumblebee/models/user.dart';
 import 'package:bumblebee/providers/auth-provider.dart';
 import 'package:bumblebee/providers/firebase-provider.dart';
-import 'package:bumblebee/repositories/auth-repository.dart';
 import 'package:bumblebee/repositories/input-validator-repository.dart';
-import 'package:bumblebee/repositories/user-repository.dart';
 import 'package:bumblebee/reusable-widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,7 +31,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
 
     final firebaseAuthInstance = ref.watch(firebaseAuthInstanceProvider);
 
-    final userID = ref.watch(userIDProvider);
+    final userID = ref.read(userIDProvider);
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -124,50 +119,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   height: 10,
                 ),
                 PrimaryButton(
-                    buttonText: "Submit",
-                    buttonCallback: () async {
-                      try {
-                        final currentUser =
-                            await AuthRepository(firebaseAuthInstance)
-                                .createAccountWithEmailAndPassword(
-                                    _emailController.text,
-                                    _passwordController.text);
-
-                        if (_signupKey.currentState!.validate()) {
-                          await UserRepository(
-                                  firestoreInstance: firestoreInstance)
-                              .createUserFromObject(
-                                  userID: currentUser!.uid,
-                                  userObject: User(
-                                      email: _emailController.text.trim(),
-                                      contactNumber:
-                                          _numberController.text.trim(),
-                                      role: currentUserRole,
-                                      firstName:
-                                          _firstNameController.text.trim(),
-                                      middleName:
-                                          _middleNameController.text.trim(),
-                                      lastName:
-                                          _lastNameController.text.trim()));
-
-                          Navigator.of(context).pushNamed('/');
-                          return;
-                        }
-
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text(
-                                'Please make sure all information has been filled up correctly.')));
-                      } on Failure catch (e) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(SnackBar(content: Text(e.message)));
-                      } on AuthException catch (e) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(e.errormessage)));
-                      } on SocketException catch (e) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(SnackBar(content: Text(e.message)));
-                      }
-                    }),
+                    buttonText: "Submit", buttonCallback: () async {}),
                 const SizedBox(
                   height: 10,
                 ),

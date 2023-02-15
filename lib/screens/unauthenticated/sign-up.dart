@@ -1,4 +1,4 @@
-import 'package:bumblebee/controllers/login-state-controller.dart';
+import 'package:bumblebee/controllers/auth-controller.dart';
 import 'package:bumblebee/models/user.dart';
 import 'package:bumblebee/providers/auth-provider.dart';
 import 'package:bumblebee/providers/firebase-provider.dart';

@@ -56,6 +56,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text("BumbleBee"),
         backgroundColor: Colors.amber[700],
       ),

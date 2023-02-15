@@ -19,3 +19,7 @@ final userIDProvider = Provider((ref) {
 final userProvider = Provider((ref) {
   return _firebaseAuthInstance.currentUser;
 });
+
+final firebaseAuthInstanceProvider = Provider((ref) {
+  return FirebaseAuth.instance;
+});

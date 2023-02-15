@@ -10,8 +10,8 @@ class BumbleBee extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "BumbleBee",
-      home: const AuthChecker(),
       routes: {
+        '/': (context) => const AuthChecker(),
         '/signup': (context) => const SignUpPage(),
         '/login': (context) => const LoginPage(),
       },

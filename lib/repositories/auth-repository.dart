@@ -26,12 +26,25 @@ class AuthRepository {
     }
   }
 
-  /* This function will get the current user's firebase document through getting the user's UID */
-
-  // Future<User> getUserInformation(){
-  //   return
-  //
-  // }
+  Future<User?> createAccountWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      final result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      return result.user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        throw AuthException('Email already in use.');
+      } else if (e.code == 'invalid-email') {
+        throw AuthException('Invalid email. Please use a valid email.');
+      } else if (e.code == 'weak-password') {
+        throw AuthException(
+            'Password too weak. Please retry with a stronger password');
+      } else {
+        throw AuthException('An exception occured. Please try again later.');
+      }
+    }
+  }
 
   Future<void> logout() async {
     try {

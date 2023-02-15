@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:bumblebee/errors/failure.dart';
+import 'package:bumblebee/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../models/user.dart';
 import 'firestore-repository.dart';
 
 class UserRepository {
@@ -25,10 +25,13 @@ class UserRepository {
     }
   }
 
-  Future<void> createUserFromObject({required User userObject}) async {
+  Future<void> createUserFromObject(
+      {required User userObject, required String userID}) async {
     try {
-      FirestoreRepository(firestoreInstance)
-          .addDocument(collectionID: 'users', dataMap: userObject.toJson());
+      FirestoreRepository(firestoreInstance).addDocument(
+          documentName: userID,
+          collectionID: 'users',
+          dataMap: {...userObject.toJson(), 'uid': userID});
     } on SocketException {
       Failure(
           message: 'Cannot create user. No internet connection.',

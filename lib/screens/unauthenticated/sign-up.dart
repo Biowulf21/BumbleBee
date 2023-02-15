@@ -40,7 +40,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
     ref.listen<LoginState>(loginControllerProvider, ((previous, state) {
       if (state is LoginStateFailure) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(state.  error),
+          content: Text(state.error),
         ));
       }
     }));
@@ -133,19 +133,26 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                 ),
                 PrimaryButton(
                     buttonText: "Submit",
-                    buttonCallback: () async {
-                      final userObject = User(
-                          firstName: _firstNameController.text,
-                          middleName: _middleNameController.text,
-                          lastName: _lastNameController.text,
-                          email: _emailController.text,
-                          role: currentUserRole,
-                          contactNumber: _numberController.text);
+                    buttonCallback: () {
+                      if (_signupKey.currentState!.validate()) {
+                        final userObject = User(
+                            firstName: _firstNameController.text,
+                            middleName: _middleNameController.text,
+                            lastName: _lastNameController.text,
+                            email: _emailController.text,
+                            role: currentUserRole,
+                            contactNumber: _numberController.text);
 
-                      ref.read(loginControllerProvider.notifier).signUp(
-                          key: _signupKey,
-                          userObject: userObject,
-                          password: _passwordController.text);
+                        ref.read(loginControllerProvider.notifier).signUp(
+                            userObject: userObject,
+                            password: _passwordController.text);
+
+                        Navigator.of(context).pop();
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text(
+                                'Please make sure all fields are correct.')));
+                      }
                     }),
                 const SizedBox(
                   height: 10,

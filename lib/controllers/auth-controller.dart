@@ -37,6 +37,8 @@ class AuthController extends StateNotifier<LoginState> {
       state = LoginStateFailure(e.message!);
     } on Failure catch (e) {
       state = LoginStateFailure(e.message);
+    } on AuthException catch (e) {
+      state = LoginStateFailure(e.errormessage);
     }
   }
 }

@@ -3,6 +3,7 @@ import 'package:bumblebee/models/user.dart';
 import 'package:bumblebee/providers/auth-provider.dart';
 import 'package:bumblebee/providers/firebase-provider.dart';
 import 'package:bumblebee/repositories/input-validator-repository.dart';
+import 'package:bumblebee/screens/login-state.dart';
 import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,6 +36,14 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
     final userID = ref.read(userIDProvider);
 
     final oten = ref.read(loginControllerProvider);
+
+    ref.listen<LoginState>(loginControllerProvider, ((previous, state) {
+      if (state is LoginStateFailure) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(state.  error),
+        ));
+      }
+    }));
 
     return Scaffold(
       // resizeToAvoidBottomInset: false,

@@ -21,6 +21,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     return Scaffold(
       body: SafeArea(
         child: Form(
+          autovalidateMode: AutovalidateMode.always,
           key: _loginFormKey,
           child: Column(
             children: [
@@ -40,7 +41,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 buttonCallback: () {
                   if (_loginFormKey.currentState!.validate()) {
                     final authProvider = ref
-                        .watch(authRepositoryProvider)
+                        .read(authRepositoryProvider)
                         .loginWithEmailandPassword(_emailController.text.trim(),
                             _passwordController.text.trim());
                   }

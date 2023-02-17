@@ -17,6 +17,7 @@ class LoginPage extends ConsumerStatefulWidget {
 class _LoginPageState extends ConsumerState<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _passwordIsVisible = true;
   final _loginFormKey = GlobalKey<FormState>();
 
   @override
@@ -28,7 +29,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ));
       }
     }));
-
     return Scaffold(
       body: SafeArea(
         child: Form(
@@ -39,10 +39,23 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextFormField(
+                  decoration: const InputDecoration(label: Text('Email')),
                   controller: _emailController,
                   validator: (value) => InputValidator.validateEmail(value),
                 ),
                 TextFormField(
+                  obscureText: _passwordIsVisible,
+                  decoration: InputDecoration(
+                      label: const Text('Password'),
+                      suffix: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _passwordIsVisible = !_passwordIsVisible;
+                            });
+                          },
+                          icon: _passwordIsVisible
+                              ? const Icon(Icons.visibility_outlined)
+                              : const Icon(Icons.visibility_off))),
                   controller: _passwordController,
                   validator: (value) => InputValidator.validatePassword(value),
                 ),
@@ -65,8 +78,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     } on Failure catch (e) {
                       ScaffoldMessenger(
                           child: SnackBar(content: Text(e.message)));
-                    } catch (e) {
-                      print(e);
                     }
                   },
                 ),

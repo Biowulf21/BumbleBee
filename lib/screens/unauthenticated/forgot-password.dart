@@ -61,8 +61,9 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
                             content: Text(
                                 'Invalid email address provided. Please try again')));
                       }
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text(e.message!)));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content:
+                              Text('Something went wrong. Please try again')));
                     }
                   }),
             ],

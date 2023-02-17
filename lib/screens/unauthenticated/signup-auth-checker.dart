@@ -14,7 +14,7 @@ class SignUpAuthChecker extends ConsumerWidget {
 
     return authState.when(
       data: (user) {
-        if (user != null) return const HomeWidget();
+        if (user != null) return const LandlordHomeWidget();
         return const SignUpPage();
       },
       loading: () => const SplashScreen(),

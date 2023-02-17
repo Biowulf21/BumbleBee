@@ -22,7 +22,6 @@ class _TenantHomePageState extends ConsumerState<TenantHomePage> {
       icon: Icon(Icons.dashboard),
       label: "Home",
     ),
-    BottomNavigationBarItem(icon: Icon(Icons.cases), label: "Properties"),
     BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
   ];
 

@@ -9,15 +9,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../providers/firebase-provider.dart';
 
-class HomeWidget extends StatefulWidget {
-  const HomeWidget({super.key});
+class HomePageLayout extends ConsumerWidget {
+  const HomePageLayout({super.key});
 
   @override
-  State<HomeWidget> createState() => _HomeWidgetState();
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Container(
+      child: PrimaryButton(
+        buttonText: 'Test',
+        buttonCallback: () async {
+          final user = await ref.read(authRepositoryProvider).getCurrentUser();
+          final firestoreInstance = ref.read(FirestoreInstanceProvider);
+          final result = await FirestoreRepository(firestoreInstance)
+              .getDocument(collectionID: 'users', documentID: user!.uid);
+        },
+      ),
+    );
+  }
 }
 
-class _HomeWidgetState extends State<HomeWidget> {
-  // ignore: prefer_final_fields
+class LandlordHomeWidget extends ConsumerStatefulWidget {
+  const LandlordHomeWidget({super.key});
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _LandlordHomeWidgetState();
+}
+
+class _LandlordHomeWidgetState extends ConsumerState<LandlordHomeWidget> {
   int _selectedIndex = 0;
 
   static const List<Widget> _bottomNavBarChildren = <Widget>[
@@ -72,25 +90,6 @@ class _HomeWidgetState extends State<HomeWidget> {
           secondaryIconsList: _secondaryMenuIcons,
           secondaryIconsOnPress: [() => {}, () => {}],
           secondaryIconsText: _secondaryMenuLabels),
-    );
-  }
-}
-
-class HomePageLayout extends ConsumerWidget {
-  const HomePageLayout({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      child: PrimaryButton(
-        buttonText: 'Test',
-        buttonCallback: () async {
-          final user = await ref.read(authRepositoryProvider).getCurrentUser();
-          final firestoreInstance = ref.read(FirestoreInstanceProvider);
-          final result = await FirestoreRepository(firestoreInstance)
-              .getDocument(collectionID: 'users', documentID: user!.uid);
-        },
-      ),
     );
   }
 }

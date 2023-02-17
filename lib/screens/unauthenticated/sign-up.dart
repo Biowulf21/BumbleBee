@@ -57,6 +57,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
       // resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Form(
+            autovalidateMode: AutovalidateMode.always,
             key: _signupKey,
             child: ListView(
               padding: const EdgeInsets.all(15),

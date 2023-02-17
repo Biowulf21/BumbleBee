@@ -10,12 +10,12 @@ class FirestoreRepository {
 
   FirestoreRepository(this._database);
 
-  Future<DocumentSnapshot?> getDocument(
+  Future<Map<String, dynamic>?> getDocument(
       {required String collectionID, required String documentID}) async {
     try {
       final result =
           await _database.collection(collectionID).doc(documentID).get();
-      return result;
+      return result.data();
     } on SocketException {
       Failure(
           message: 'Cannot get document. No internet connection.',

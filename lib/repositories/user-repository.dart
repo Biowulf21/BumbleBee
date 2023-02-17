@@ -39,15 +39,32 @@ class UserRepository {
     }
   }
 
-  Future<DocumentSnapshot<Object?>?> getUserInfo(
-      {required String userID}) async {
+  Future<User?> getUserInfo({required String userID}) async {
     try {
-      return FirestoreRepository(firestoreInstance)
+      final userDoc = await FirestoreRepository(firestoreInstance)
           .getDocument(collectionID: 'users', documentID: userID);
+
+      if (userDoc != null) {
+        final Map<String, dynamic> userData = userDoc;
+        userRoles? result = userRoles.values.firstWhere((e) {
+          return e.toString() == userData['role'];
+        });
+        print(result);
+        return User(
+          firstName: userData['firstName'],
+          middleName: userData['middleName'],
+          lastName: userData['lastName'],
+          email: userData['email'],
+          contactNumber: userData['contactNumber'],
+          role: result,
+        );
+      }
     } on SocketException {
       Failure(
           message: 'Cannot create user. No internet connection.',
           failureCode: FailureCodes.NoInternet);
+    } on StateError catch (e) {
+      print(e);
     }
     return null;
   }

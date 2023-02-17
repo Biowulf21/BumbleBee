@@ -1,5 +1,5 @@
 import 'package:bumblebee/providers/auth-provider.dart';
-import 'package:bumblebee/screens/authenticated/landlord/landlord-home.dart';
+import 'package:bumblebee/screens/authenticated/home.dart';
 import 'package:bumblebee/screens/unauthenticated/login-screen.dart';
 import 'package:bumblebee/screens/unauthenticated/splash-screen.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ class AuthChecker extends ConsumerWidget {
 
     return authState.when(
       data: (user) {
-        if (user != null) return const HomeWidget();
+        if (user != null) return const HomePage();
         return const LoginPage();
       },
       loading: () => const SplashScreen(),

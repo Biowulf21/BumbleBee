@@ -15,7 +15,7 @@ class BumbleBee extends StatelessWidget {
         '/': (context) => const AuthChecker(),
         '/signup': (context) => const SignUpAuthChecker(),
         '/login': (context) => const LoginPage(),
-        '/forgot-password': (context) => ForgotPasswordPage()
+        '/forgot-password': (context) => const ForgotPasswordPage()
       },
       debugShowCheckedModeBanner: false,
       theme: ThemeData.from(

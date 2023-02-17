@@ -27,6 +27,8 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
+  bool _passwordIsVisible = true;
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -93,7 +95,9 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                 ),
                 TextFormField(
                   decoration: const InputDecoration(
-                      label: Text('Email'), hintText: 'email@example.com'),
+                    label: Text('Email'),
+                    hintText: 'email@example.com',
+                  ),
                   controller: _emailController,
                   validator: (value) => InputValidator.validateEmail(value),
                   keyboardType: TextInputType.emailAddress,
@@ -102,8 +106,19 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   height: 10,
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(
-                      label: Text('Password'), hintText: 'Samplepassword123!'),
+                  obscureText: _passwordIsVisible,
+                  decoration: InputDecoration(
+                      label: const Text('Password'),
+                      hintText: 'Samplepassword123!',
+                      suffix: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _passwordIsVisible = !_passwordIsVisible;
+                            });
+                          },
+                          icon: _passwordIsVisible
+                              ? const Icon(Icons.visibility_outlined)
+                              : const Icon(Icons.visibility_off))),
                   controller: _passwordController,
                   validator: (value) => InputValidator.validatePassword(value),
                 ),

@@ -146,8 +146,6 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                         ref.read(loginControllerProvider.notifier).signUp(
                             userObject: userObject,
                             password: _passwordController.text);
-
-                        Navigator.of(context).pop();
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                             content: Text(

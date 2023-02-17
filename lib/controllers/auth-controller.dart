@@ -34,6 +34,23 @@ class AuthController extends StateNotifier<LoginState> {
       state = LoginStateFailure(e.errormessage);
     }
   }
+
+  void loginWithEmailAndPass(String email, String password) async {
+    state = const LoginStateInitial();
+    try {
+      state = const LoginStateLoading();
+
+      final loggedIn = await AuthRepository(_firebaseAuth)
+          .loginWithEmailandPassword(email, password);
+      state = const LoginStateSuccess();
+    } on FirebaseException catch (e) {
+      state = LoginStateFailure(e.message!);
+    } on Failure catch (e) {
+      state = LoginStateFailure(e.message);
+    } on AuthException catch (e) {
+      state = LoginStateFailure(e.errormessage);
+    }
+  }
 }
 
 final loginControllerProvider =

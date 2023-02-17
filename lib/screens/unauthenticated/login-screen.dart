@@ -1,9 +1,12 @@
+import 'package:bumblebee/controllers/auth-controller.dart';
+import 'package:bumblebee/repositories/auth-repository.dart';
 import 'package:bumblebee/repositories/input-validator-repository.dart';
 import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../providers/auth-provider.dart';
+import '../../errors/failure.dart';
+import '../login-state.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -18,6 +21,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen<LoginState>(loginControllerProvider, ((previous, state) {
+      if (state is LoginStateFailure) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(state.error),
+        ));
+      }
+    }));
+
     return Scaffold(
       body: SafeArea(
         child: Form(
@@ -39,11 +50,19 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               PrimaryButton(
                 buttonText: "Log in",
                 buttonCallback: () {
-                  if (_loginFormKey.currentState!.validate()) {
-                    final authProvider = ref
-                        .read(authRepositoryProvider)
-                        .loginWithEmailandPassword(_emailController.text.trim(),
-                            _passwordController.text.trim());
+                  try {
+                    if (_loginFormKey.currentState!.validate()) {
+                      final authProvider = ref
+                          .read(loginControllerProvider.notifier)
+                          .loginWithEmailAndPass(
+                              _emailController.text, _passwordController.text);
+                    }
+                  } on AuthException catch (e) {
+                    ScaffoldMessenger(
+                        child: SnackBar(content: Text(e.errormessage)));
+                  } on Failure catch (e) {
+                    ScaffoldMessenger(
+                        child: SnackBar(content: Text(e.message)));
                   }
                 },
               ),

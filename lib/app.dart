@@ -20,7 +20,7 @@ class BumbleBee extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.from(
         colorScheme: ColorScheme.light(
-            primary: Colors.amber[600]!, secondary: Colors.blue),
+            primary: Colors.amber[600]!, secondary: Colors.black),
       ),
     );
   }

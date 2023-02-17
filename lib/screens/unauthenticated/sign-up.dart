@@ -28,6 +28,19 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _firstNameController.dispose();
+    _middleNameController.dispose();
+    _lastNameController.dispose();
+    _organizationNameController.dispose();
+    _emailController.dispose();
+    _numberController.dispose();
+    _passwordController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final firestoreInstance = ref.watch(FirestoreInstanceProvider);
 

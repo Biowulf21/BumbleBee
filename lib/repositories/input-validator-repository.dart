@@ -30,7 +30,8 @@ class InputValidator {
     Map nameRegexPatterns = {
       'first': '^[A-Z][a-z]{1,30}\$',
       'middle': '^[A-Z][a-z]+([- ][A-Z][a-z]+)*\$',
-      'last': '^[A-Z][a-z]+([- ][A-Z][a-z]+)*\$',
+      'last':
+          "^[A-Z][a-z]+(['- ][A-Z][a-z]+)*(( [Dd]e [Ll]a|[Dd]el|[Dd]e|[Dd]a) [A-Z][a-z]+)*\$",
     };
 
     if (nametype == "middle") {

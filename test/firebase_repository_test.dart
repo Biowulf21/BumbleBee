@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bumblebee/models/user.dart';
 import 'package:bumblebee/repositories/firestore-repository.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -33,10 +34,23 @@ void main() {
   test('Get document', () async {
     final snapshot = await instance.collection('users').get();
     final doc = snapshot.docs.first.id;
+    final userObj = User(
+        firstName: 'new test user',
+        middleName: 'test mid name',
+        lastName: 'test last name',
+        email: 'test@email.com',
+        contactNumber: '000000000000',
+        role: userRoles.Landlord);
     final docFromFirestore = await FirestoreRepository(instance)
         .getDocument(collectionID: 'users', documentID: doc);
-    expect(docFromFirestore!.data(),
-        {'name': 'new test user', 'age': 21, 'cash': 2000.15});
+    expect(userObj.toJson(), {
+      'firstName': 'new test user',
+      'middleName': 'test mid name',
+      'lastName': 'test last name',
+      'email': 'test@email.com',
+      'contactNumber': '000000000000',
+      'role': 'userRoles.Landlord'
+    });
   });
 
   test('Get all documents from collection', () async {

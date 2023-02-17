@@ -1,7 +1,5 @@
 import 'package:bumblebee/controllers/auth-controller.dart';
 import 'package:bumblebee/models/user.dart';
-import 'package:bumblebee/providers/auth-provider.dart';
-import 'package:bumblebee/providers/firebase-provider.dart';
 import 'package:bumblebee/repositories/input-validator-repository.dart';
 import 'package:bumblebee/screens/login-state.dart';
 import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
@@ -42,14 +40,6 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    final firestoreInstance = ref.watch(FirestoreInstanceProvider);
-
-    final firebaseAuthInstance = ref.watch(firebaseAuthInstanceProvider);
-
-    final userID = ref.read(userIDProvider);
-
-    final oten = ref.read(loginControllerProvider);
-
     ref.listen<LoginState>(loginControllerProvider, ((previous, state) {
       if (state is LoginStateFailure) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

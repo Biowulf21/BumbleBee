@@ -1,5 +1,8 @@
+import 'package:bumblebee/controllers/login-state-controller.dart';
+import 'package:bumblebee/models/user.dart';
 import 'package:bumblebee/repositories/input-validator-repository.dart';
-import 'package:bumblebee/reusable-widgets/buttons.dart';
+import 'package:bumblebee/screens/login-state.dart';
+import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -11,20 +14,45 @@ class SignUpPage extends ConsumerStatefulWidget {
 }
 
 class _SignUpPageState extends ConsumerState<SignUpPage> {
-  final _signupKey = GlobalKey();
+  final _signupKey = GlobalKey<FormState>();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _middleNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _organizationNameController =
       TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final userRoles = ['Tenant', 'Landlord'];
-  var currentUserRole = 'Tenant';
+  var currentUserRole = userRoles.Tenant;
   final TextEditingController _numberController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+
+  bool _passwordIsVisible = true;
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _firstNameController.dispose();
+    _middleNameController.dispose();
+    _lastNameController.dispose();
+    _organizationNameController.dispose();
+    _emailController.dispose();
+    _numberController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    ref.listen<LoginState>(loginControllerProvider, ((previous, state) {
+      if (state is LoginStateFailure) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(state.error),
+        ));
+      }
+    }));
+
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -67,18 +95,43 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                 ),
                 TextFormField(
                   decoration: const InputDecoration(
-                      label: Text('Email'), hintText: 'email@example.com'),
+                    label: Text('Email'),
+                    hintText: 'email@example.com',
+                  ),
                   controller: _emailController,
                   validator: (value) => InputValidator.validateEmail(value),
+                  keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(
-                      label: Text('Password'), hintText: 'Samplepassword123!'),
+                  obscureText: _passwordIsVisible,
+                  decoration: InputDecoration(
+                      label: const Text('Password'),
+                      hintText: 'Samplepassword123!',
+                      suffix: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _passwordIsVisible = !_passwordIsVisible;
+                            });
+                          },
+                          icon: _passwordIsVisible
+                              ? const Icon(Icons.visibility_outlined)
+                              : const Icon(Icons.visibility_off))),
                   controller: _passwordController,
                   validator: (value) => InputValidator.validatePassword(value),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  decoration:
+                      const InputDecoration(label: Text('Confirm password')),
+                  controller: _confirmPasswordController,
+                  validator: (value) => InputValidator.validateConfirmPassword(
+                      value, _passwordController.text),
+                  obscureText: true,
                 ),
                 const SizedBox(
                   height: 10,
@@ -86,10 +139,10 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                 DropdownButton(
                   hint: const Text("Pick your role"),
                   value: currentUserRole,
-                  items: userRoles.map((String role) {
+                  items: userRoles.values.map((userRoles role) {
                     return DropdownMenuItem(
                       value: role,
-                      child: Text(role),
+                      child: Text(role.toShortString()),
                     );
                   }).toList(),
                   onChanged: (value) {
@@ -111,7 +164,27 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                PrimaryButton(buttonText: "Submit", buttonCallback: () {}),
+                PrimaryButton(
+                    buttonText: "Submit",
+                    buttonCallback: () {
+                      if (_signupKey.currentState!.validate()) {
+                        final userObject = User(
+                            firstName: _firstNameController.text,
+                            middleName: _middleNameController.text,
+                            lastName: _lastNameController.text,
+                            email: _emailController.text,
+                            role: currentUserRole,
+                            contactNumber: _numberController.text);
+
+                        ref.read(loginControllerProvider.notifier).signUp(
+                            userObject: userObject,
+                            password: _passwordController.text);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text(
+                                'Please make sure all fields are correct.')));
+                      }
+                    }),
                 const SizedBox(
                   height: 10,
                 ),

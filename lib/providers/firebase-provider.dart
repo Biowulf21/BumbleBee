@@ -5,3 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final FirestoreDatabaseProvider = Provider((ref) {
   return FirestoreRepository(FirebaseFirestore.instance);
 });
+
+final FirestoreInstanceProvider = Provider((ref) {
+  return FirebaseFirestore.instance;
+});

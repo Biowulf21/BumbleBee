@@ -1,13 +1,13 @@
-import 'package:bumblebee/providers/auth-provider.dart';
 import 'package:bumblebee/screens/authenticated/home.dart';
-import 'package:bumblebee/screens/unauthenticated/login-screen.dart';
+import 'package:bumblebee/screens/unauthenticated/sign-up.dart';
 import 'package:bumblebee/screens/unauthenticated/splash-screen.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
 
-class AuthChecker extends ConsumerWidget {
-  const AuthChecker({super.key});
+import '../../providers/auth-provider.dart';
 
+class SignUpAuthChecker extends ConsumerWidget {
+  const SignUpAuthChecker({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authStateProvider);
@@ -15,10 +15,11 @@ class AuthChecker extends ConsumerWidget {
     return authState.when(
       data: (user) {
         if (user != null) return const HomePage();
-        return const LoginPage();
+        return const SignUpPage();
       },
       loading: () => const SplashScreen(),
-      error: (e, trace) => const LoginPage(),
+      error: (e, trace) =>
+          ScaffoldMessenger(child: SnackBar(content: Text(e.toString()))),
     );
   }
 }

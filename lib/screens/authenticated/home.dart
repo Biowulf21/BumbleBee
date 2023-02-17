@@ -1,93 +1,60 @@
-import 'package:bumblebee/providers/auth-provider.dart';
-import 'package:bumblebee/repositories/firestore-repository.dart';
+import 'package:bumblebee/models/user.dart';
 import 'package:bumblebee/repositories/user-repository.dart';
-import 'package:bumblebee/reusable-widgets/buttons.dart';
-import 'package:bumblebee/screens/authenticated/profile-page.dart';
-import 'package:bumblebee/screens/authenticated/properties-page.dart';
+import 'package:bumblebee/screens/authenticated/landlord/landlord-home.dart';
+import 'package:bumblebee/screens/authenticated/tenant/tenant-home.dart';
 import 'package:flutter/material.dart';
-import 'package:speed_dial_fab/speed_dial_fab.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 
-class HomeWidget extends StatefulWidget {
-  const HomeWidget({super.key});
+import '../../repositories/auth-repository.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<HomeWidget> createState() => _HomeWidgetState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomeWidgetState extends State<HomeWidget> {
-  // ignore: prefer_final_fields
-  int _selectedIndex = 0;
-
-  static const List<Widget> _bottomNavBarChildren = <Widget>[
-    HomePageLayout(),
-    PropertiesPage(),
-    ProfilePage(),
-  ];
-
-  static const List<BottomNavigationBarItem> bottomNavItems =
-      <BottomNavigationBarItem>[
-    BottomNavigationBarItem(
-      icon: Icon(Icons.dashboard),
-      label: "Home",
-    ),
-    BottomNavigationBarItem(icon: Icon(Icons.cases), label: "Properties"),
-    BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-  ];
-
-  static const List<IconData> _secondaryMenuIcons = <IconData>[
-    Icons.house_sharp,
-    Icons.search
-  ];
-
-  static const List<String> _secondaryMenuLabels = <String>[
-    "Add New Property",
-    "Search"
-  ];
-
-  void changeSelectedItemIndex(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+class _HomePageState extends State<HomePage> {
+  late userRoles _userRole;
+  // TODO: implement initState
+  Future<User?> getCurrentRole() async {
+    final currentUser =
+        await UserRepository(firestoreInstance: FirebaseFirestore.instance)
+            .getUserInfo(userID: FirebaseAuth.instance.currentUser!.uid);
+    final userData = currentUser;
+    _userRole = userData?.role ?? userRoles.Tenant;
+    return currentUser;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("BumbleBee"),
-        backgroundColor: Colors.amber[700],
-      ),
-      body: _bottomNavBarChildren.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        items: bottomNavItems,
-        currentIndex: _selectedIndex,
-        onTap: changeSelectedItemIndex,
-      ),
-      floatingActionButton: SpeedDialFabWidget(
-          primaryBackgroundColor: Theme.of(context).colorScheme.primary,
-          primaryIconExpand: Icons.add,
-          secondaryIconsList: _secondaryMenuIcons,
-          secondaryIconsOnPress: [() => {}, () => {}],
-          secondaryIconsText: _secondaryMenuLabels),
-    );
-  }
-}
+      body: SafeArea(
+        child: FutureBuilder(
+            future: getCurrentRole(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                if (_userRole == userRoles.Landlord) {
+                  return const LandlordHomeWidget();
+                }
 
-class HomePageLayout extends ConsumerWidget {
-  const HomePageLayout({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      child: PrimaryButton(
-        buttonText: 'Test',
-        buttonCallback: () async {
-          final user = await ref.watch(authRepositoryProvider).getCurrentUser();
-          final result =
-              await FirestoreRepository(UserRepository.firestoreInstance)
-                  .getDocument(collectionID: 'users', documentID: user!.uid);
-        },
+                return const TenantHomePage();
+              } else if (snapshot.hasError) {
+                return const Text('otin error');
+              } else {
+                return Column(
+                  children: [
+                    const CircularProgressIndicator(),
+                    TextButton(
+                        onPressed: () {
+                          AuthRepository(FirebaseAuth.instance).logout();
+                        },
+                        child: const Text('logout'))
+                  ],
+                );
+              }
+            }),
       ),
     );
   }

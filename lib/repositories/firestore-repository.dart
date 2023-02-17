@@ -10,35 +10,18 @@ class FirestoreRepository {
 
   FirestoreRepository(this._database);
 
-  Future<DocumentSnapshot?> getDocument(
+  Future<Map<String, dynamic>?> getDocument(
       {required String collectionID, required String documentID}) async {
     try {
       final result =
           await _database.collection(collectionID).doc(documentID).get();
-      return result;
+      return result.data();
     } on SocketException {
       Failure(
           message: 'Cannot get document. No internet connection.',
           failureCode: FailureCodes.NoInternet);
     }
     return null;
-  }
-
-  Future<List<QueryDocumentSnapshot<Object?>>> getDocsInCollection(
-      {required String collectionID}) async {
-    List<QueryDocumentSnapshot<Object?>> docsInCollection = [];
-    try {
-      final result = await _database
-          .collection(collectionID)
-          .get()
-          .then((QuerySnapshot snapshot) => {docsInCollection = snapshot.docs});
-    } on SocketException {
-      Failure(
-          message: 'Cannot get documents. No internet connection.',
-          failureCode: FailureCodes.NoInternet);
-    }
-
-    return docsInCollection;
   }
 
   // Document Setters
@@ -66,12 +49,13 @@ class FirestoreRepository {
   Future<void> updateDocument(
       {required String collectionID,
       required Map<String, dynamic> dataMap,
-      String? documentName}) async {
+      required String documentName}) async {
     try {
+      // Add error handling for document not existing
       final docRef = await _database
           .collection(collectionID)
           .doc(documentName)
-          .set(dataMap);
+          .update(dataMap);
     } on SocketException {
       Failure(
           message: 'Cannot update document. No internet connection',

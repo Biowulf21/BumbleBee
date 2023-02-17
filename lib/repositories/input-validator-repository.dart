@@ -26,11 +26,21 @@ class InputValidator {
     return null;
   }
 
+  static String? validateConfirmPassword(
+      String? confirmPassword, String? password) {
+    if (confirmPassword == null || confirmPassword.isEmpty) {
+      return "Password cannot be empty.";
+    }
+    if (confirmPassword != password) return "Passwords do not match.";
+    return null;
+  }
+
   static String? validateName(String? value, String nametype) {
     Map nameRegexPatterns = {
       'first': '^[A-Z][a-z]{1,30}\$',
       'middle': '^[A-Z][a-z]+([- ][A-Z][a-z]+)*\$',
-      'last': '^[A-Z][a-z]+([- ][A-Z][a-z]+)*\$',
+      'last':
+          "^[A-Za-z]+(['\\- ][A-Za-z]+)*(( [Dd]e [Ll]a|[Dd]el|[Dd]e|[Dd]a) [A-Za-z]+)*\$",
     };
 
     if (nametype == "middle") {
@@ -42,7 +52,7 @@ class InputValidator {
         nametype == "first" &&
         RegExp(nameRegexPatterns['first']).hasMatch(value)) return null;
 
-    if (nametype == '') if (nametype == "middle" &&
+    if (nametype == "middle" &&
         value != null &&
         RegExp(nameRegexPatterns['middle']).hasMatch(value)) {
       return null;

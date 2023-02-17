@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:bumblebee/errors/failure.dart';
+import 'package:bumblebee/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../models/user.dart';
 import 'firestore-repository.dart';
 
 class UserRepository {
@@ -10,9 +10,10 @@ class UserRepository {
   //   return null;
   // }
 
-  static final firestoreInstance = FirebaseFirestore.instance;
+  UserRepository({required this.firestoreInstance});
+  final FirebaseFirestore firestoreInstance;
 
-  static Future<void> createUserFromJSON(
+  Future<void> createUserFromJSON(
       {required Map<String, dynamic> dataMap}) async {
     try {
       FirestoreRepository(firestoreInstance)
@@ -24,10 +25,13 @@ class UserRepository {
     }
   }
 
-  static Future<void> createUserFromObject({required User userObject}) async {
+  Future<void> createUserFromObject(
+      {required User userObject, required String userID}) async {
     try {
-      FirestoreRepository(firestoreInstance)
-          .addDocument(collectionID: 'users', dataMap: userObject.toJson());
+      FirestoreRepository(firestoreInstance).addDocument(
+          documentName: userID,
+          collectionID: 'users',
+          dataMap: {...userObject.toJson(), 'uid': userID});
     } on SocketException {
       Failure(
           message: 'Cannot create user. No internet connection.',
@@ -35,15 +39,32 @@ class UserRepository {
     }
   }
 
-  static Future<DocumentSnapshot<Object?>?> getUserInfo(
-      {required String userID}) async {
+  Future<User?> getUserInfo({required String userID}) async {
     try {
-      return FirestoreRepository(firestoreInstance)
+      final userDoc = await FirestoreRepository(firestoreInstance)
           .getDocument(collectionID: 'users', documentID: userID);
+
+      if (userDoc != null) {
+        final Map<String, dynamic> userData = userDoc;
+        userRoles? result = userRoles.values.firstWhere((e) {
+          return e.toString() == userData['role'];
+        });
+        print(result);
+        return User(
+          firstName: userData['firstName'],
+          middleName: userData['middleName'],
+          lastName: userData['lastName'],
+          email: userData['email'],
+          contactNumber: userData['contactNumber'],
+          role: result,
+        );
+      }
     } on SocketException {
       Failure(
           message: 'Cannot create user. No internet connection.',
           failureCode: FailureCodes.NoInternet);
+    } on StateError catch (e) {
+      print(e);
     }
     return null;
   }

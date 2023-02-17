@@ -26,6 +26,20 @@ class AuthRepository {
     }
   }
 
+  bool? getVerificationStatus() {
+    try {
+      if (_auth.currentUser == null) {
+        throw AuthException(
+            'There is no user currently logged in. Please try again');
+      }
+      return _auth.currentUser?.emailVerified;
+    } on AuthException {
+      rethrow;
+    } on FirebaseAuthException {
+      rethrow;
+    }
+  }
+
   void sendResetPasswordEmail(String email) {
     try {
       _auth.sendPasswordResetEmail(email: email);

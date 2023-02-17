@@ -1,4 +1,3 @@
-import 'package:bumblebee/providers/auth-provider.dart';
 import 'package:bumblebee/repositories/input-validator-repository.dart';
 import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +23,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    final authInstance = ref.read(firebaseAuthInstanceProvider);
+    final authInstance = FirebaseAuth.instance;
     return Scaffold(
       appBar: AppBar(),
       body: Builder(builder: (context) {

@@ -10,7 +10,10 @@ class ProfilePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       child: TextButton(
-        onPressed: () => ref.read(authRepositoryProvider).logout(),
+        onPressed: () {
+          ref.read(authRepositoryProvider).logout();
+          Navigator.pushNamed(context, '/');
+        },
         child: const Text('Log out'),
       ),
     );

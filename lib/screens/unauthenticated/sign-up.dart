@@ -24,6 +24,8 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
   var currentUserRole = userRoles.Tenant;
   final TextEditingController _numberController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   @override
   void dispose() {
@@ -36,6 +38,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
     _emailController.dispose();
     _numberController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
   }
 
   @override
@@ -93,6 +96,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                       label: Text('Email'), hintText: 'email@example.com'),
                   controller: _emailController,
                   validator: (value) => InputValidator.validateEmail(value),
+                  keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(
                   height: 10,
@@ -102,6 +106,17 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                       label: Text('Password'), hintText: 'Samplepassword123!'),
                   controller: _passwordController,
                   validator: (value) => InputValidator.validatePassword(value),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  decoration:
+                      const InputDecoration(label: Text('Confirm password')),
+                  controller: _confirmPasswordController,
+                  validator: (value) => InputValidator.validateConfirmPassword(
+                      value, _passwordController.text),
+                  obscureText: true,
                 ),
                 const SizedBox(
                   height: 10,

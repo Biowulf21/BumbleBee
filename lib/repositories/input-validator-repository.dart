@@ -26,6 +26,15 @@ class InputValidator {
     return null;
   }
 
+  static String? validateConfirmPassword(
+      String? confirmPassword, String? password) {
+    if (confirmPassword == null || confirmPassword.isEmpty) {
+      return "Password cannot be empty.";
+    }
+    if (confirmPassword != password) return "Passwords do not match.";
+    return null;
+  }
+
   static String? validateName(String? value, String nametype) {
     Map nameRegexPatterns = {
       'first': '^[A-Z][a-z]{1,30}\$',

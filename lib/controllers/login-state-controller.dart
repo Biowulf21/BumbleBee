@@ -7,8 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:bumblebee/repositories/auth-repository.dart';
 import 'package:bumblebee/repositories/user-repository.dart';
 
-class AuthController extends StateNotifier<LoginState> {
-  AuthController(this._ref, this._firebaseAuth, this._firestore)
+class LoginStateController extends StateNotifier<LoginState> {
+  LoginStateController(this._ref, this._firebaseAuth, this._firestore)
       : super(const LoginStateInitial());
 
   final Ref _ref;
@@ -54,6 +54,7 @@ class AuthController extends StateNotifier<LoginState> {
 }
 
 final loginControllerProvider =
-    StateNotifierProvider<AuthController, LoginState>((ref) {
-  return AuthController(ref, FirebaseAuth.instance, FirebaseFirestore.instance);
+    StateNotifierProvider<LoginStateController, LoginState>((ref) {
+  return LoginStateController(
+      ref, FirebaseAuth.instance, FirebaseFirestore.instance);
 });

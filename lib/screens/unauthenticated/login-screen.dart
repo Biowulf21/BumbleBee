@@ -1,4 +1,4 @@
-import 'package:bumblebee/controllers/auth-controller.dart';
+import 'package:bumblebee/controllers/login-state-controller.dart';
 import 'package:bumblebee/repositories/auth-repository.dart';
 import 'package:bumblebee/repositories/input-validator-repository.dart';
 import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
@@ -32,7 +32,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     return Scaffold(
       body: SafeArea(
         child: Form(
-          autovalidateMode: AutovalidateMode.always,
           key: _loginFormKey,
           child: Padding(
             padding: const EdgeInsets.all(15.0),
@@ -66,6 +65,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     } on Failure catch (e) {
                       ScaffoldMessenger(
                           child: SnackBar(content: Text(e.message)));
+                    } catch (e) {
+                      print(e);
                     }
                   },
                 ),
@@ -78,6 +79,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   },
                   buttonText: "Sign up",
                 ),
+                TextButton(
+                    onPressed: () =>
+                        Navigator.of(context).pushNamed('/forgot-password'),
+                    child: const Text('Forgot password'))
               ],
             ),
           ),

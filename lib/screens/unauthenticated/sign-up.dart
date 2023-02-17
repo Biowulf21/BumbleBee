@@ -1,4 +1,4 @@
-import 'package:bumblebee/controllers/auth-controller.dart';
+import 'package:bumblebee/controllers/login-state-controller.dart';
 import 'package:bumblebee/models/user.dart';
 import 'package:bumblebee/repositories/input-validator-repository.dart';
 import 'package:bumblebee/screens/login-state.dart';
@@ -57,7 +57,6 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
       // resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Form(
-            autovalidateMode: AutovalidateMode.always,
             key: _signupKey,
             child: ListView(
               padding: const EdgeInsets.all(15),

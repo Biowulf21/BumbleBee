@@ -26,6 +26,14 @@ class AuthRepository {
     }
   }
 
+  void sendResetPasswordEmail(String email) {
+    try {
+      _auth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<User?> createAccountWithEmailAndPassword(
       String email, String password) async {
     try {

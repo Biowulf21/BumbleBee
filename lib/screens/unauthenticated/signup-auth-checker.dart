@@ -1,10 +1,10 @@
+import 'package:bumblebee/screens/authenticated/home.dart';
 import 'package:bumblebee/screens/unauthenticated/sign-up.dart';
 import 'package:bumblebee/screens/unauthenticated/splash-screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
 import '../../providers/auth-provider.dart';
-import '../authenticated/landlord/landlord-home.dart';
 
 class SignUpAuthChecker extends ConsumerWidget {
   const SignUpAuthChecker({super.key});
@@ -14,7 +14,7 @@ class SignUpAuthChecker extends ConsumerWidget {
 
     return authState.when(
       data: (user) {
-        if (user != null) return const LandlordHomeWidget();
+        if (user != null) return const HomePage();
         return const SignUpPage();
       },
       loading: () => const SplashScreen(),

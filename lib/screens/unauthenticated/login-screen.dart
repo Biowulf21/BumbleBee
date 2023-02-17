@@ -34,48 +34,52 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         child: Form(
           autovalidateMode: AutovalidateMode.always,
           key: _loginFormKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _emailController,
-                validator: (value) => InputValidator.validateEmail(value),
-              ),
-              TextFormField(
-                controller: _passwordController,
-                validator: (value) => InputValidator.validatePassword(value),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              PrimaryButton(
-                buttonText: "Log in",
-                buttonCallback: () {
-                  try {
-                    if (_loginFormKey.currentState!.validate()) {
-                      final authProvider = ref
-                          .read(loginControllerProvider.notifier)
-                          .loginWithEmailAndPass(
-                              _emailController.text, _passwordController.text);
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextFormField(
+                  controller: _emailController,
+                  validator: (value) => InputValidator.validateEmail(value),
+                ),
+                TextFormField(
+                  controller: _passwordController,
+                  validator: (value) => InputValidator.validatePassword(value),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                PrimaryButton(
+                  buttonText: "Log in",
+                  buttonCallback: () {
+                    try {
+                      if (_loginFormKey.currentState!.validate()) {
+                        final authProvider = ref
+                            .read(loginControllerProvider.notifier)
+                            .loginWithEmailAndPass(_emailController.text,
+                                _passwordController.text);
+                      }
+                    } on AuthException catch (e) {
+                      ScaffoldMessenger(
+                          child: SnackBar(content: Text(e.errormessage)));
+                    } on Failure catch (e) {
+                      ScaffoldMessenger(
+                          child: SnackBar(content: Text(e.message)));
                     }
-                  } on AuthException catch (e) {
-                    ScaffoldMessenger(
-                        child: SnackBar(content: Text(e.errormessage)));
-                  } on Failure catch (e) {
-                    ScaffoldMessenger(
-                        child: SnackBar(content: Text(e.message)));
-                  }
-                },
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              SecondaryButton(
-                buttonCallback: () {
-                  Navigator.pushNamed(context, '/signup');
-                },
-                buttonText: "Sign up",
-              ),
-            ],
+                  },
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                SecondaryButton(
+                  buttonCallback: () {
+                    Navigator.pushNamed(context, '/signup');
+                  },
+                  buttonText: "Sign up",
+                ),
+              ],
+            ),
           ),
         ),
       ),

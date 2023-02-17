@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:speed_dial_fab/speed_dial_fab.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../providers/firebase-provider.dart';
+import '../../../providers/firebase-provider.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});

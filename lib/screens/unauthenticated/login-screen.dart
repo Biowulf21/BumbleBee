@@ -30,6 +30,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       }
     }));
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Form(
           key: _loginFormKey,

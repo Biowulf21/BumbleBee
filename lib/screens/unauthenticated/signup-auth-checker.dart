@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
 import '../../providers/auth-provider.dart';
-import '../authenticated/home.dart';
+import '../authenticated/landlord/landlord-home.dart';
 
 class SignUpAuthChecker extends ConsumerWidget {
   const SignUpAuthChecker({super.key});

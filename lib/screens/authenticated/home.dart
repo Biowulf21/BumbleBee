@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
     final userData = currentUser;
     _userRole = userData?.role ?? userRoles.Tenant;
 
-    _userIsVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+    _userIsVerified = FirebaseAuth.instance.currentUser?.emailVerified;
     return currentUser;
   }
 

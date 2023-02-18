@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 if (_userRole == userRoles.Landlord) {
-                  return const LandlordHomeWidget();
+                  return const LandlordHomePage();
                 }
 
                 return const TenantHomePage();

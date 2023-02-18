@@ -28,14 +28,14 @@ class HomePageLayout extends ConsumerWidget {
   }
 }
 
-class LandlordHomeWidget extends ConsumerStatefulWidget {
-  const LandlordHomeWidget({super.key});
+class LandlordHomePage extends ConsumerStatefulWidget {
+  const LandlordHomePage({super.key});
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _LandlordHomeWidgetState();
 }
 
-class _LandlordHomeWidgetState extends ConsumerState<LandlordHomeWidget> {
+class _LandlordHomeWidgetState extends ConsumerState<LandlordHomePage> {
   int _selectedIndex = 0;
 
   static const List<Widget> _bottomNavBarChildren = <Widget>[

@@ -40,6 +40,16 @@ class AuthRepository {
     }
   }
 
+  Future<void> sendEmailVerificationMessage() async {
+    try {
+      _auth.currentUser?.sendEmailVerification();
+    } on FirebaseAuthException {
+      rethrow;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   void sendResetPasswordEmail(String email) {
     try {
       _auth.sendPasswordResetEmail(email: email);

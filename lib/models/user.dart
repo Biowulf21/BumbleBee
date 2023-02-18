@@ -1,5 +1,11 @@
 enum userRoles { Tenant, Landlord }
 
+extension ParseToString on userRoles {
+  String toShortString() {
+    return toString().split('.').last;
+  }
+}
+
 class User {
   final String firstName;
 

@@ -142,7 +142,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   items: userRoles.values.map((userRoles role) {
                     return DropdownMenuItem(
                       value: role,
-                      child: Text(role.toShortString()),
+                      child: Text (role.toShortString()),
                     );
                   }).toList(),
                   onChanged: (value) {

@@ -38,7 +38,8 @@ class InputValidator {
   static String? validateName(String? value, String nametype) {
     Map nameRegexPatterns = {
       'first': '^[A-Z][a-z]{1,30}\$',
-      'middle': '^[A-Z][a-z]+([- ][A-Z][a-z]+)*\$',
+      'middle':
+          "^[A-Za-z]+(['\\- ][A-Za-z]+)*(( [Dd]e [Ll]a|[Dd]el|[Dd]e|[Dd]a) [A-Za-z]+)*\$",
       'last':
           "^[A-Za-z]+(['\\- ][A-Za-z]+)*(( [Dd]e [Ll]a|[Dd]el|[Dd]e|[Dd]a) [A-Za-z]+)*\$",
     };

@@ -47,7 +47,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
                     try {
                       await FirebaseAuth.instance
                           .sendPasswordResetEmail(email: _emailController.text);
-                      _showMyDialog(context);
+                      _showForgotPasswordDialog(context);
                     } on FirebaseAuthException catch (e) {
                       print(e.code);
                       if (e.code == 'user-not-found') {
@@ -73,7 +73,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
   }
 }
 
-Future<void> _showMyDialog(BuildContext context) async {
+Future<void> _showForgotPasswordDialog(BuildContext context) async {
   return showDialog<void>(
     context: context,
     barrierDismissible: false,

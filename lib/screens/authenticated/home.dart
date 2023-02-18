@@ -2,6 +2,7 @@ import 'package:bumblebee/models/user.dart';
 import 'package:bumblebee/repositories/user-repository.dart';
 import 'package:bumblebee/screens/authenticated/landlord/landlord-home.dart';
 import 'package:bumblebee/screens/authenticated/tenant/tenant-home.dart';
+import 'package:bumblebee/screens/authenticated/verify-email-page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late userRoles _userRole;
+  bool? _userIsVerified = false;
   // TODO: implement initState
   Future<User?> getCurrentRole() async {
     final currentUser =
@@ -24,6 +26,8 @@ class _HomePageState extends State<HomePage> {
             .getUserInfo(userID: FirebaseAuth.instance.currentUser!.uid);
     final userData = currentUser;
     _userRole = userData?.role ?? userRoles.Tenant;
+
+    _userIsVerified = FirebaseAuth.instance.currentUser?.emailVerified;
     return currentUser;
   }
 
@@ -35,8 +39,11 @@ class _HomePageState extends State<HomePage> {
             future: getCurrentRole(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
+                if (_userIsVerified == false) {
+                  return const VerifyEmailPage();
+                }
                 if (_userRole == userRoles.Landlord) {
-                  return const LandlordHomeWidget();
+                  return const LandlordHomePage();
                 }
 
                 return const TenantHomePage();

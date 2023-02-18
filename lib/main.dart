@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -22,5 +23,5 @@ Future<void> main(List<String> args) async {
       const Settings(persistenceEnabled: false, sslEnabled: false);
   firestore.useFirestoreEmulator(host, 8080);
 
-  runApp(const ProviderScope(child: BumbleBee()));
+  runApp(ProviderScope(child: Phoenix(child: const BumbleBee())));
 }

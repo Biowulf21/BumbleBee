@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:bumblebee/errors/failure.dart';
+import 'package:bumblebee/Exceptions/failure.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreRepository {

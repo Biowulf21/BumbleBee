@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:bumblebee/errors/failure.dart';
+import 'package:bumblebee/Exceptions/failure.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepository {
@@ -23,6 +23,30 @@ class AuthRepository {
       } else {
         throw AuthException('An exception occured. Please try again later.');
       }
+    }
+  }
+
+  bool? getVerificationStatus() {
+    try {
+      if (_auth.currentUser == null) {
+        throw AuthException(
+            'There is no user currently logged in. Please try again');
+      }
+      return _auth.currentUser?.emailVerified;
+    } on AuthException {
+      rethrow;
+    } on FirebaseAuthException {
+      rethrow;
+    }
+  }
+
+  Future<void> sendEmailVerificationMessage() async {
+    try {
+      _auth.currentUser?.sendEmailVerification();
+    } on FirebaseAuthException {
+      rethrow;
+    } catch (e) {
+      rethrow;
     }
   }
 

@@ -27,6 +27,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
               buttonText: "Done Verifying",
               buttonCallback: () {
                 FirebaseAuth.instance.currentUser?.reload();
+                // BUGFIX: Button needs to be clicked twice before email verified works
                 bool? isEmailVerified =
                     FirebaseAuth.instance.currentUser?.emailVerified;
                 print(isEmailVerified);

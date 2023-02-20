@@ -1,61 +1,45 @@
 import 'package:bumblebee/providers/auth-provider.dart';
-import 'package:bumblebee/repositories/auth-repository.dart';
+import 'package:bumblebee/repositories/firestore-repository.dart';
+import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
 import 'package:bumblebee/screens/authenticated/profile-page.dart';
 import 'package:bumblebee/screens/authenticated/properties-page.dart';
-import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:speed_dial_fab/speed_dial_fab.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 
-class LandlordHomeLayout extends ConsumerStatefulWidget {
-  const LandlordHomeLayout({super.key});
-  @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _LandlordHomeLayoutState();
-}
+import '../../../providers/firebase-provider.dart';
 
-class _LandlordHomeLayoutState extends ConsumerState<LandlordHomeLayout> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    final bool? isUserEmailVerified =
-        AuthRepository(FirebaseAuth.instance).getVerificationStatus();
-    _isVerified = isUserEmailVerified;
-  }
+class HomePageLayout extends ConsumerWidget {
+  const HomePageLayout({super.key});
 
   @override
-  bool? _isVerified;
-  @override
-  Widget build(BuildContext context) {
-    final authState = ref.watch(authStateProvider);
-    if (_isVerified == false) {
-      return Column(
-        children: [
-          const Text('Please verify your email address to proceed.'),
-          PrimaryButton(
-              buttonText: "Done Verifying", buttonCallback: () async {})
-        ],
-      );
-    }
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      child: Text(_isVerified.toString()),
+      child: PrimaryButton(
+        buttonText: 'Test',
+        buttonCallback: () async {
+          final user = await ref.read(authRepositoryProvider).getCurrentUser();
+          final firestoreInstance = ref.read(FirestoreInstanceProvider);
+          final result = await FirestoreRepository(firestoreInstance)
+              .getDocument(collectionID: 'users', documentID: user!.uid);
+        },
+      ),
     );
   }
 }
 
-class LandlordHomePage extends ConsumerStatefulWidget {
-  const LandlordHomePage({super.key});
+class LandlordHomeWidget extends ConsumerStatefulWidget {
+  const LandlordHomeWidget({super.key});
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _LandlordHomeWidgetState();
 }
 
-class _LandlordHomeWidgetState extends ConsumerState<LandlordHomePage> {
+class _LandlordHomeWidgetState extends ConsumerState<LandlordHomeWidget> {
   int _selectedIndex = 0;
 
   static const List<Widget> _bottomNavBarChildren = <Widget>[
-    LandlordHomeLayout(),
+    HomePageLayout(),
     PropertiesPage(),
     ProfilePage(),
   ];

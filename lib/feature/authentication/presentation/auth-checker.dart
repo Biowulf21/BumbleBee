@@ -1,9 +1,10 @@
+import 'package:bumblebee/feature/authentication/presentation/splash-screen.dart';
 import 'package:bumblebee/providers/auth-provider.dart';
 import 'package:bumblebee/screens/authenticated/home.dart';
-import 'package:bumblebee/screens/unauthenticated/login-screen.dart';
-import 'package:bumblebee/screens/unauthenticated/splash-screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'login-screen.dart';
 
 class AuthChecker extends ConsumerWidget {
   const AuthChecker({super.key});

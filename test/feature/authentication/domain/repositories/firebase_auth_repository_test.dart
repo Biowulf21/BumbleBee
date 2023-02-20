@@ -1,5 +1,7 @@
+import 'package:bumblebee/core/exceptions/failure.dart';
 import 'package:bumblebee/repositories/auth-repository.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 // ignore: unused_import
@@ -28,6 +30,21 @@ void main() {
           'testemail@email.com', 'Testpass123!');
 
       expect(result.fold((l) => l, (r) => r), user);
+    });
+
+    test('createAccountWithEmailAndPassword throws email-already-in-use',
+        () async {
+      const email = 'test@example.com';
+      const password = '123456';
+
+      when(repo.createAccountWithEmailAndPassword(password, email))
+          .thenThrow(FirebaseAuthException(code: 'email-already-in-use'));
+
+      final result =
+          await repo.createAccountWithEmailAndPassword(email, password);
+
+      // print(result);
+      expect(result, isA<Either<Failure, User?>>());
     });
   });
 }

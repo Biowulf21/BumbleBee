@@ -1,4 +1,4 @@
-import 'package:bumblebee/models/user.dart';
+import 'package:bumblebee/feature/authentication/data/models/user.dart';
 import 'package:bumblebee/repositories/user-repository.dart';
 import 'package:bumblebee/screens/authenticated/landlord/landlord-home.dart';
 import 'package:bumblebee/screens/authenticated/tenant/tenant-home.dart';

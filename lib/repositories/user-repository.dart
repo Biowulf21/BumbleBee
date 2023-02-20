@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:bumblebee/Exceptions/failure.dart';
-import 'package:bumblebee/models/user.dart';
+import 'package:bumblebee/core/exceptions/failure.dart';
+import 'package:bumblebee/feature/authentication/data/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firestore-repository.dart';
 

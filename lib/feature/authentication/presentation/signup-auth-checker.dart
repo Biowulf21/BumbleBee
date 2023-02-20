@@ -1,10 +1,10 @@
+import 'package:bumblebee/feature/authentication/presentation/sign-up.dart';
+import 'package:bumblebee/feature/authentication/presentation/splash-screen.dart';
 import 'package:bumblebee/screens/authenticated/home.dart';
-import 'package:bumblebee/screens/unauthenticated/sign-up.dart';
-import 'package:bumblebee/screens/unauthenticated/splash-screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
-import '../../providers/auth-provider.dart';
+import '../../../../providers/auth-provider.dart';
 
 class SignUpAuthChecker extends ConsumerWidget {
   const SignUpAuthChecker({super.key});

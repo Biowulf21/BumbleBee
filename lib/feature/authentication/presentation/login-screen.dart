@@ -5,8 +5,8 @@ import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../Exceptions/failure.dart';
-import '../login-state.dart';
+import '../../../../core/exceptions/failure.dart';
+import '../../../../screens/login-state.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});

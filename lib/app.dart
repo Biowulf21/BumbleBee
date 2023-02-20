@@ -1,8 +1,9 @@
-import 'package:bumblebee/screens/unauthenticated/auth-checker.dart';
-import 'package:bumblebee/screens/unauthenticated/forgot-password.dart';
-import 'package:bumblebee/screens/unauthenticated/login-screen.dart';
-import 'package:bumblebee/screens/unauthenticated/signup-auth-checker.dart';
+import 'package:bumblebee/feature/authentication/presentation/unauthenticated/login-screen.dart';
+import 'package:bumblebee/feature/authentication/presentation/unauthenticated/signup-auth-checker.dart';
 import 'package:flutter/material.dart';
+
+import 'feature/authentication/presentation/auth-checker.dart';
+import 'feature/authentication/presentation/forgot-password.dart';
 
 class BumbleBee extends StatelessWidget {
   const BumbleBee({super.key});

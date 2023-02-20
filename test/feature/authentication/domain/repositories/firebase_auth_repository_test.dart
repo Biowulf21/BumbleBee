@@ -10,24 +10,24 @@ import 'firebase_auth_repository_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<AuthRepository>()])
 void main() {
-  test('test otin', () async {
+  group('Auth Repository Methods on creating a User', () {
     final MockUser user = MockUser();
     final MockFirebaseAuth auth = MockFirebaseAuth(mockUser: user);
     final MockAuthRepository repo = MockAuthRepository();
 
-    when(repo.createAccountWithEmailAndPassword(
-            'testemail@email.com', 'Testpass123!'))
-        .thenAnswer((realInvocation) {
-      return Future.value(Right(user));
+    test(
+        'createAccountWithEmailAndPassword successfully creates and returns a user',
+        () async {
+      when(repo.createAccountWithEmailAndPassword(
+              'testemail@email.com', 'Testpass123!'))
+          .thenAnswer((realInvocation) {
+        return Future.value(Right(user));
+      });
+
+      final result = await repo.createAccountWithEmailAndPassword(
+          'testemail@email.com', 'Testpass123!');
+
+      expect(result.fold((l) => l, (r) => r), user);
     });
-
-    final result = await repo.createAccountWithEmailAndPassword(
-        'testemail@email.com', 'Testpass123!');
-
-    expect(result.fold((l) => l, (r) => r), user);
-    // MockFirebaseAuth auth = MockFirebaseAuth();
-    // MockAuthRepository repo = MockAuthRepository();
-    // final result = await repo.createAccountWithEmailAndPassword('otin', 'bla');
-    // print(result);
   });
 }

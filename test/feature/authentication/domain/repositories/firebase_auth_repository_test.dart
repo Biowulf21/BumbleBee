@@ -32,13 +32,62 @@ void main() {
       expect(result.fold((l) => l, (r) => r), user);
     });
 
-    test('createAccountWithEmailAndPassword throws email-already-in-use',
+    test(
+        'createAccountWithEmailAndPassword throws email-already-in-use FirebaseAuthException',
         () async {
       const email = 'test@example.com';
       const password = '123456';
 
       when(repo.createAccountWithEmailAndPassword(password, email))
           .thenThrow(FirebaseAuthException(code: 'email-already-in-use'));
+
+      final result =
+          await repo.createAccountWithEmailAndPassword(email, password);
+
+      // print(result);
+      expect(result, isA<Either<Failure, User?>>());
+    });
+
+    test(
+        'createAccountWithEmailAndPassword throws invalid-email FirebaseAuthException',
+        () async {
+      const email = 'test@example.com';
+      const password = '123456';
+
+      when(repo.createAccountWithEmailAndPassword(password, email))
+          .thenThrow(FirebaseAuthException(code: 'invalid-email'));
+
+      final result =
+          await repo.createAccountWithEmailAndPassword(email, password);
+
+      // print(result);
+      expect(result, isA<Either<Failure, User?>>());
+    });
+
+    test(
+        'createAccountWithEmailAndPassword throws weak-password FirebaseAuthException',
+        () async {
+      const email = 'test@example.com';
+      const password = '123456';
+
+      when(repo.createAccountWithEmailAndPassword(password, email))
+          .thenThrow(FirebaseAuthException(code: 'weak-password'));
+
+      final result =
+          await repo.createAccountWithEmailAndPassword(email, password);
+
+      // print(result);
+      expect(result, isA<Either<Failure, User?>>());
+    });
+
+    test(
+        'createAccountWithEmailAndPassword throws FirebaseAuthException with random erorr',
+        () async {
+      const email = 'test@example.com';
+      const password = '123456';
+
+      when(repo.createAccountWithEmailAndPassword(password, email))
+          .thenThrow(FirebaseAuthException(code: 'operation-not-allowed:'));
 
       final result =
           await repo.createAccountWithEmailAndPassword(email, password);

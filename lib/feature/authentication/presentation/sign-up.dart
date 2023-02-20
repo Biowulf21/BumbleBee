@@ -142,11 +142,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   items: userRoles.values.map((userRoles role) {
                     return DropdownMenuItem(
                       value: role,
-<<<<<<< HEAD:lib/screens/unauthenticated/sign-up.dart
-                      child: Text (role.toShortString()),
-=======
                       child: Text(role.toString()),
->>>>>>> dev:lib/feature/authentication/presentation/sign-up.dart
                     );
                   }).toList(),
                   onChanged: (value) {

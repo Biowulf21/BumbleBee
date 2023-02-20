@@ -1,11 +1,18 @@
-enum FailureCodes { NoInternet }
+import 'package:equatable/equatable.dart';
 
-class Failure {
+// enum FailureCodes { NoInternet }
+
+class Failure extends Equatable {
   final String message;
-  final FailureCodes failureCode;
 
-  Failure({required this.message, required this.failureCode});
+  const Failure({
+    required this.message,
+  });
 
   @override
   String toString() => message;
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
 }

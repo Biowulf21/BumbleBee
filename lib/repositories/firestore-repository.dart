@@ -17,9 +17,9 @@ class FirestoreRepository {
           await _database.collection(collectionID).doc(documentID).get();
       return result.data();
     } on SocketException {
-      Failure(
-          message: 'Cannot get document. No internet connection.',
-          failureCode: FailureCodes.NoInternet);
+      const Failure(
+        message: 'Cannot get document. No internet connection.',
+      );
     }
     return null;
   }
@@ -40,9 +40,8 @@ class FirestoreRepository {
             .set(dataMap);
       }
     } on SocketException {
-      Failure(
-          message: 'Cannot add document. No internet connection.',
-          failureCode: FailureCodes.NoInternet);
+      // Failure(
+      //     message: 'Cannot add document. No internet connection.',
     }
   }
 
@@ -57,9 +56,9 @@ class FirestoreRepository {
           .doc(documentName)
           .update(dataMap);
     } on SocketException {
-      Failure(
-          message: 'Cannot update document. No internet connection',
-          failureCode: FailureCodes.NoInternet);
+      const Failure(
+        message: 'Cannot update document. No internet connection',
+      );
     }
   }
 }

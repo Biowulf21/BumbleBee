@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bumblebee/core/exceptions/failure.dart';
+import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepository {
@@ -48,22 +49,25 @@ class AuthRepository {
     }
   }
 
-  Future<User?> createAccountWithEmailAndPassword(
+  Future<Either<Failure, User?>> createAccountWithEmailAndPassword(
       String email, String password) async {
     try {
       final result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      return result.user;
+      return Right(result.user);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
-        throw AuthException('Email already in use.');
+        return const Left(Failure(message: 'Email already in use.'));
       } else if (e.code == 'invalid-email') {
-        throw AuthException('Invalid email. Please use a valid email.');
+        return const Left(
+            Failure(message: 'Invalid email. Please use a valid email.'));
       } else if (e.code == 'weak-password') {
-        throw AuthException(
-            'Password too weak. Please retry with a stronger password');
+        return const Left(Failure(
+            message:
+                'Password too weak. Please retry with a stronger password'));
       } else {
-        throw AuthException('An exception occured. Please try again later.');
+        return const Left(
+            Failure(message: 'An exception occured. Please try again later.'));
       }
     }
   }
@@ -72,9 +76,9 @@ class AuthRepository {
     try {
       await _auth.signOut();
     } on SocketException {
-      Failure(
-          message: 'No internet connection. Cannot log out',
-          failureCode: FailureCodes.NoInternet);
+      const Failure(
+        message: 'No internet connection. Cannot log out',
+      );
     }
   }
 
@@ -83,9 +87,9 @@ class AuthRepository {
       final currentUser = _auth.currentUser;
       return currentUser;
     } on SocketException {
-      Failure(
-          message: 'No internet connection. Cannot get current user.',
-          failureCode: FailureCodes.NoInternet);
+      const Failure(
+        message: 'No internet connection. Cannot get current user.',
+      );
     }
     return null;
   }

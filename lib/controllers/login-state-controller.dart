@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:bumblebee/repositories/auth-repository.dart';
-import 'package:bumblebee/repositories/user-repository.dart';
 
 class LoginStateController extends StateNotifier<LoginState> {
   LoginStateController(this._ref, this._firebaseAuth, this._firestore)
@@ -22,8 +21,8 @@ class LoginStateController extends StateNotifier<LoginState> {
       final currentUser = await AuthRepository(_firebaseAuth)
           .createAccountWithEmailAndPassword(userObject.email, password);
 
-      await UserRepository(firestoreInstance: _firestore).createUserFromObject(
-          userID: currentUser!.uid, userObject: userObject);
+      // await UserRepository(firestoreInstance: _firestore).createUserFromObject(
+      //     userID: currentUser!.uid, userObject: userObject);
 
       state = const LoginStateSuccess();
     } on FirebaseException catch (e) {

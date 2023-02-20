@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bumblebee/models/user.dart';
+import 'package:bumblebee/feature/authentication/data/models/user.dart';
 import 'package:bumblebee/repositories/firestore-repository.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';

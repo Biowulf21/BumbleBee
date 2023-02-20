@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:bumblebee/Exceptions/failure.dart';
-import 'package:bumblebee/models/user.dart';
+import 'package:bumblebee/core/exceptions/failure.dart';
+import 'package:bumblebee/feature/authentication/data/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firestore-repository.dart';
 
@@ -19,9 +19,9 @@ class UserRepository {
       FirestoreRepository(firestoreInstance)
           .addDocument(collectionID: 'users', dataMap: dataMap);
     } on SocketException {
-      Failure(
-          message: 'Cannot create user. No internet connection.',
-          failureCode: FailureCodes.NoInternet);
+      const Failure(
+        message: 'Cannot create user. No internet connection.',
+      );
     }
   }
 
@@ -33,9 +33,9 @@ class UserRepository {
           collectionID: 'users',
           dataMap: {...userObject.toJson(), 'uid': userID});
     } on SocketException {
-      Failure(
-          message: 'Cannot create user. No internet connection.',
-          failureCode: FailureCodes.NoInternet);
+      const Failure(
+        message: 'Cannot create user. No internet connection.',
+      );
     }
   }
 
@@ -60,9 +60,9 @@ class UserRepository {
         );
       }
     } on SocketException {
-      Failure(
-          message: 'Cannot create user. No internet connection.',
-          failureCode: FailureCodes.NoInternet);
+      const Failure(
+        message: 'Cannot create user. No internet connection.',
+      );
     } on StateError catch (e) {
       print(e);
     }

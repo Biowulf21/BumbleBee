@@ -96,4 +96,25 @@ void main() {
       expect(result, isA<Either<Failure, User?>>());
     });
   });
+
+  group('User login tests', () {
+    const email = 'test@example.com';
+    const password = '123456';
+    test('loginWithEmailAndPassword successfully logs in user', () async {
+      final MockUser user = MockUser();
+      final MockFirebaseAuth auth = MockFirebaseAuth(mockUser: user);
+      final MockAuthRepository repo = MockAuthRepository();
+
+      when(repo.loginWithEmailandPassword(
+              'testemail@email.com', 'Testpass123!'))
+          .thenAnswer((realInvocation) {
+        return Future.value(Right(user));
+      });
+
+      final result = await repo.loginWithEmailandPassword(
+          'testemail@email.com', 'Testpass123!');
+
+      expect(result.fold((l) => l, (r) => r), user);
+    });
+  });
 }

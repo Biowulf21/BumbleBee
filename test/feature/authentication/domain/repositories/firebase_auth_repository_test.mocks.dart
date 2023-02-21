@@ -43,7 +43,7 @@ class MockAuthRepository extends _i1.Mock implements _i3.AuthRepository {
         returnValueForMissingStub: _i4.Stream<_i5.User?>.empty(),
       ) as _i4.Stream<_i5.User?>);
   @override
-  _i4.Future<_i5.User?> loginWithEmailandPassword(
+  _i4.Future<_i2.Either<_i6.Failure, _i5.User?>> loginWithEmailandPassword(
     String? email,
     String? password,
   ) =>
@@ -55,9 +55,39 @@ class MockAuthRepository extends _i1.Mock implements _i3.AuthRepository {
             password,
           ],
         ),
-        returnValue: _i4.Future<_i5.User?>.value(),
-        returnValueForMissingStub: _i4.Future<_i5.User?>.value(),
-      ) as _i4.Future<_i5.User?>);
+        returnValue: _i4.Future<_i2.Either<_i6.Failure, _i5.User?>>.value(
+            _FakeEither_0<_i6.Failure, _i5.User?>(
+          this,
+          Invocation.method(
+            #loginWithEmailandPassword,
+            [
+              email,
+              password,
+            ],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Either<_i6.Failure, _i5.User?>>.value(
+                _FakeEither_0<_i6.Failure, _i5.User?>(
+          this,
+          Invocation.method(
+            #loginWithEmailandPassword,
+            [
+              email,
+              password,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i6.Failure, _i5.User?>>);
+  @override
+  _i4.Future<void> sendEmailVerificationMessage() => (super.noSuchMethod(
+        Invocation.method(
+          #sendEmailVerificationMessage,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
   @override
   void sendResetPasswordEmail(String? email) => super.noSuchMethod(
         Invocation.method(

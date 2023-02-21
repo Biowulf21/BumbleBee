@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:bumblebee/core/exceptions/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '';
 
 class AuthRepository {
   const AuthRepository(this._auth);
@@ -12,18 +11,22 @@ class AuthRepository {
 
   Stream<User?> get authStateChange => _auth.idTokenChanges();
 
-  Future<User?> loginWithEmailandPassword(String email, String password) async {
+  Future<Either<Failure, User?>> loginWithEmailandPassword(
+      String email, String password) async {
     try {
       final result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      return result.user;
+      return Right(result.user);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        throw AuthException('User not found. Please try again.');
+        return const Left(
+            Failure(message: 'User not found. Please try again.'));
       } else if (e.code == 'wrong-password') {
-        throw AuthException('Incorrect password provided. Please try again.');
+        return const Left(
+            Failure(message: 'Incorrect password provided. Please try again.'));
       } else {
-        throw AuthException('An exception occured. Please try again later.');
+        return const Left(
+            Failure(message: 'An exception occured. Please try again later.'));
       }
     }
   }

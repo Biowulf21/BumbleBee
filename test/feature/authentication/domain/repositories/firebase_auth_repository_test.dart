@@ -100,11 +100,10 @@ void main() {
   group('User login tests', () {
     const email = 'test@example.com';
     const password = '123456';
+    final MockUser user = MockUser();
+    final MockFirebaseAuth auth = MockFirebaseAuth(mockUser: user);
+    final MockAuthRepository repo = MockAuthRepository();
     test('loginWithEmailAndPassword successfully logs in user', () async {
-      final MockUser user = MockUser();
-      final MockFirebaseAuth auth = MockFirebaseAuth(mockUser: user);
-      final MockAuthRepository repo = MockAuthRepository();
-
       when(repo.loginWithEmailandPassword(
               'testemail@email.com', 'Testpass123!'))
           .thenAnswer((realInvocation) {
@@ -115,6 +114,21 @@ void main() {
           'testemail@email.com', 'Testpass123!');
 
       expect(result.fold((l) => l, (r) => r), user);
+    });
+
+    test('loginWithEmailAndPassword returns User Not Found Error', () {
+      when(repo.loginWithEmailandPassword(email, password))
+          .thenThrow(FirebaseAuthException(code: 'user-not-found'));
+    });
+
+    test('loginWithEmailAndPassword returns wrong password error', () {
+      when(repo.loginWithEmailandPassword(email, password))
+          .thenThrow(FirebaseAuthException(code: 'wrong-password'));
+    });
+
+    test('loginWithEmailAndPassword returns wrong password error', () {
+      when(repo.loginWithEmailandPassword(email, password))
+          .thenThrow(FirebaseAuthException(code: 'user-disabled'));
     });
   });
 }

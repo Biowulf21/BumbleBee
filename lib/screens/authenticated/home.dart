@@ -2,12 +2,12 @@ import 'package:bumblebee/feature/authentication/data/models/user.dart';
 import 'package:bumblebee/repositories/user-repository.dart';
 import 'package:bumblebee/screens/authenticated/landlord/landlord-home.dart';
 import 'package:bumblebee/screens/authenticated/tenant/tenant-home.dart';
-import 'package:bumblebee/screens/authenticated/verify-email-page.dart';
+import 'package:bumblebee/screens/authenticated/verify_email_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 
-import '../../feature/authentication/domain/repositories/auth-repository.dart';
+import '../../feature/authentication/domain/repositories/auth_repository.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

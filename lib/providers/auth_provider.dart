@@ -1,4 +1,4 @@
-import 'package:bumblebee/feature/authentication/domain/repositories/auth-repository.dart';
+import 'package:bumblebee/feature/authentication/domain/repositories/auth_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

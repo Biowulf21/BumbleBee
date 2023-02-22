@@ -1,4 +1,4 @@
-import 'package:bumblebee/feature/authentication/domain/repositories/auth-repository.dart';
+import 'package:bumblebee/feature/authentication/domain/repositories/auth_repository.dart';
 import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;

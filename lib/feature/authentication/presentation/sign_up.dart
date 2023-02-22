@@ -1,7 +1,7 @@
 import 'package:bumblebee/controllers/login-state-controller.dart';
 import 'package:bumblebee/feature/authentication/data/models/user.dart';
-import 'package:bumblebee/core/repositories/input-validator-repository.dart';
-import 'package:bumblebee/screens/login-state.dart';
+import 'package:bumblebee/core/repositories/input_validator_repository.dart';
+import 'package:bumblebee/screens/login_state.dart';
 import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -31,7 +31,7 @@ class AuthRepository {
     }
   }
 
-  Either<Failure, bool>? getVerificationStatus() {
+  Either<Failure, bool> getVerificationStatus() {
     try {
       if (_auth.currentUser == null) {
         throw AuthException(

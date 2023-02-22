@@ -58,11 +58,17 @@ class AuthRepository {
     }
   }
 
-  void sendResetPasswordEmail(String email) {
+  Either<Failure, String> sendResetPasswordEmail(String email) {
     try {
+      if (_auth.currentUser == null) {
+        return const Left(
+            Failure(message: 'Something went wrong. Please try again later.'));
+      }
       _auth.sendPasswordResetEmail(email: email);
+      return const Right('Password reset email fixed');
     } catch (e) {
-      rethrow;
+      return const Left(
+          Failure(message: 'Something went wrong. Please try again later.'));
     }
   }
 
@@ -89,26 +95,29 @@ class AuthRepository {
     }
   }
 
-  Future<void> logout() async {
+  Future<Either<Failure, String>> logout() async {
     try {
       await _auth.signOut();
+      return const Right('Sign out completed');
     } on SocketException {
-      const Failure(
+      return const Left(Failure(
         message: 'No internet connection. Cannot log out',
-      );
+      ));
     }
   }
 
-  Future<User?> getCurrentUser() async {
+  Future<Either<Failure, User?>> getCurrentUser() async {
     try {
+      if (_auth.currentUser == null) {
+        return const Left(Failure(message: 'No current user detected'));
+      }
       final currentUser = _auth.currentUser;
-      return currentUser;
+      return Right(currentUser);
     } on SocketException {
-      const Failure(
+      return const Left(Failure(
         message: 'No internet connection. Cannot get current user.',
-      );
+      ));
     }
-    return null;
   }
 }
 

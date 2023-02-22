@@ -12,7 +12,7 @@ import 'firebase_auth_repository_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<AuthRepository>()])
 void main() {
-  group('Auth Repository Methods on creating a User', () {
+  group('User creation tests', () {
     final MockUser user = MockUser();
     final MockFirebaseAuth auth = MockFirebaseAuth(mockUser: user);
     final MockAuthRepository repo = MockAuthRepository();
@@ -131,4 +131,7 @@ void main() {
           .thenThrow(FirebaseAuthException(code: 'user-disabled'));
     });
   });
+
+
+  group('', () { })
 }

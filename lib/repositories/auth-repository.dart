@@ -31,27 +31,30 @@ class AuthRepository {
     }
   }
 
-  bool? getVerificationStatus() {
+  Either<Failure, bool>? getVerificationStatus() {
     try {
       if (_auth.currentUser == null) {
         throw AuthException(
             'There is no user currently logged in. Please try again');
       }
-      return _auth.currentUser?.emailVerified;
-    } on AuthException {
-      rethrow;
-    } on FirebaseAuthException {
-      rethrow;
+      return Right(_auth.currentUser!.emailVerified);
+    } on AuthException catch (e) {
+      return Left(Failure(message: e.toString()));
+    } on FirebaseAuthException catch (e) {
+      return Left(Failure(message: e.toString()));
     }
   }
 
-  Future<void> sendEmailVerificationMessage() async {
+  Future<Either<Failure, String>> sendEmailVerificationMessage() async {
     try {
-      _auth.currentUser?.sendEmailVerification();
-    } on FirebaseAuthException {
-      rethrow;
+      if (_auth.currentUser == null) {
+        _auth.currentUser!.sendEmailVerification();
+      }
+      return const Right('Email verification message successfully sent.');
+    } on FirebaseAuthException catch (e) {
+      return Left(Failure(message: e.toString()));
     } catch (e) {
-      rethrow;
+      return Left(Failure(message: e.toString()));
     }
   }
 

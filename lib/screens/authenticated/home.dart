@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 
-import '../../repositories/auth-repository.dart';
+import '../../feature/authentication/domain/repositories/auth-repository.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

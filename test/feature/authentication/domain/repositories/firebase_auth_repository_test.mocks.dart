@@ -6,7 +6,7 @@
 import 'dart:async' as _i4;
 
 import 'package:bumblebee/core/exceptions/failure.dart' as _i6;
-import 'package:bumblebee/repositories/auth-repository.dart' as _i3;
+import 'package:bumblebee/feature/authentication/domain/repositories/auth-repository.dart' as _i3;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:firebase_auth/firebase_auth.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;

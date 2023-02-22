@@ -1,5 +1,5 @@
 import 'package:bumblebee/core/exceptions/failure.dart';
-import 'package:bumblebee/repositories/auth-repository.dart';
+import 'package:bumblebee/feature/authentication/domain/repositories/auth-repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';

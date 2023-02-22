@@ -1,6 +1,6 @@
 import 'package:bumblebee/controllers/login-state-controller.dart';
-import 'package:bumblebee/repositories/auth-repository.dart';
-import 'package:bumblebee/repositories/input-validator-repository.dart';
+import 'package:bumblebee/feature/authentication/domain/repositories/auth-repository.dart';
+import 'package:bumblebee/core/repositories/input-validator-repository.dart';
 import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

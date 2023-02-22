@@ -4,7 +4,7 @@ import 'package:bumblebee/screens/login-state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
-import 'package:bumblebee/repositories/auth-repository.dart';
+import 'package:bumblebee/feature/authentication/domain/repositories/auth-repository.dart';
 
 class LoginStateController extends StateNotifier<LoginState> {
   LoginStateController(this._ref, this._firebaseAuth, this._firestore)

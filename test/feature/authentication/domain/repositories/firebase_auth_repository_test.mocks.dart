@@ -6,7 +6,8 @@
 import 'dart:async' as _i4;
 
 import 'package:bumblebee/core/exceptions/failure.dart' as _i6;
-import 'package:bumblebee/feature/authentication/domain/repositories/auth-repository.dart' as _i3;
+import 'package:bumblebee/feature/authentication/domain/repositories/auth-repository.dart'
+    as _i3;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:firebase_auth/firebase_auth.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
@@ -80,22 +81,73 @@ class MockAuthRepository extends _i1.Mock implements _i3.AuthRepository {
         )),
       ) as _i4.Future<_i2.Either<_i6.Failure, _i5.User?>>);
   @override
-  _i4.Future<void> sendEmailVerificationMessage() => (super.noSuchMethod(
+  _i2.Either<_i6.Failure, bool> getVerificationStatus() => (super.noSuchMethod(
+        Invocation.method(
+          #getVerificationStatus,
+          [],
+        ),
+        returnValue: _FakeEither_0<_i6.Failure, bool>(
+          this,
+          Invocation.method(
+            #getVerificationStatus,
+            [],
+          ),
+        ),
+        returnValueForMissingStub: _FakeEither_0<_i6.Failure, bool>(
+          this,
+          Invocation.method(
+            #getVerificationStatus,
+            [],
+          ),
+        ),
+      ) as _i2.Either<_i6.Failure, bool>);
+  @override
+  _i4.Future<_i2.Either<_i6.Failure, String>> sendEmailVerificationMessage() =>
+      (super.noSuchMethod(
         Invocation.method(
           #sendEmailVerificationMessage,
           [],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i4.Future<_i2.Either<_i6.Failure, String>>.value(
+            _FakeEither_0<_i6.Failure, String>(
+          this,
+          Invocation.method(
+            #sendEmailVerificationMessage,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Either<_i6.Failure, String>>.value(
+                _FakeEither_0<_i6.Failure, String>(
+          this,
+          Invocation.method(
+            #sendEmailVerificationMessage,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i6.Failure, String>>);
   @override
-  void sendResetPasswordEmail(String? email) => super.noSuchMethod(
+  _i2.Either<_i6.Failure, String> sendResetPasswordEmail(String? email) =>
+      (super.noSuchMethod(
         Invocation.method(
           #sendResetPasswordEmail,
           [email],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _FakeEither_0<_i6.Failure, String>(
+          this,
+          Invocation.method(
+            #sendResetPasswordEmail,
+            [email],
+          ),
+        ),
+        returnValueForMissingStub: _FakeEither_0<_i6.Failure, String>(
+          this,
+          Invocation.method(
+            #sendResetPasswordEmail,
+            [email],
+          ),
+        ),
+      ) as _i2.Either<_i6.Failure, String>);
   @override
   _i4.Future<_i2.Either<_i6.Failure, _i5.User?>>
       createAccountWithEmailAndPassword(
@@ -135,21 +187,52 @@ class MockAuthRepository extends _i1.Mock implements _i3.AuthRepository {
             )),
           ) as _i4.Future<_i2.Either<_i6.Failure, _i5.User?>>);
   @override
-  _i4.Future<void> logout() => (super.noSuchMethod(
+  _i4.Future<_i2.Either<_i6.Failure, String>> logout() => (super.noSuchMethod(
         Invocation.method(
           #logout,
           [],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i4.Future<_i2.Either<_i6.Failure, String>>.value(
+            _FakeEither_0<_i6.Failure, String>(
+          this,
+          Invocation.method(
+            #logout,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Either<_i6.Failure, String>>.value(
+                _FakeEither_0<_i6.Failure, String>(
+          this,
+          Invocation.method(
+            #logout,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i6.Failure, String>>);
   @override
-  _i4.Future<_i5.User?> getCurrentUser() => (super.noSuchMethod(
+  _i4.Future<_i2.Either<_i6.Failure, _i5.User?>> getCurrentUser() =>
+      (super.noSuchMethod(
         Invocation.method(
           #getCurrentUser,
           [],
         ),
-        returnValue: _i4.Future<_i5.User?>.value(),
-        returnValueForMissingStub: _i4.Future<_i5.User?>.value(),
-      ) as _i4.Future<_i5.User?>);
+        returnValue: _i4.Future<_i2.Either<_i6.Failure, _i5.User?>>.value(
+            _FakeEither_0<_i6.Failure, _i5.User?>(
+          this,
+          Invocation.method(
+            #getCurrentUser,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Either<_i6.Failure, _i5.User?>>.value(
+                _FakeEither_0<_i6.Failure, _i5.User?>(
+          this,
+          Invocation.method(
+            #getCurrentUser,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i6.Failure, _i5.User?>>);
 }

@@ -4,13 +4,26 @@ import 'package:bumblebee/core/exceptions/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthRepository {
+abstract class IAuthRepository {
+  Future<Either<Failure, User?>> loginWithEmailandPassword(
+      String email, String password);
+  Either<Failure, bool> getVerificationStatus();
+  Future<Either<Failure, String>> sendEmailVerificationMessage();
+  Either<Failure, String> sendResetPasswordEmail(String email);
+  Future<Either<Failure, User?>> createAccountWithEmailAndPassword(
+      String email, String password);
+  Future<Either<Failure, String>> logout();
+  Future<Either<Failure, User?>> getCurrentUser();
+}
+
+class AuthRepository implements IAuthRepository {
   const AuthRepository(this._auth);
 
   final FirebaseAuth _auth;
 
   Stream<User?> get authStateChange => _auth.idTokenChanges();
 
+  @override
   Future<Either<Failure, User?>> loginWithEmailandPassword(
       String email, String password) async {
     try {
@@ -31,6 +44,7 @@ class AuthRepository {
     }
   }
 
+  @override
   Either<Failure, bool> getVerificationStatus() {
     try {
       if (_auth.currentUser == null) {
@@ -45,6 +59,7 @@ class AuthRepository {
     }
   }
 
+  @override
   Future<Either<Failure, String>> sendEmailVerificationMessage() async {
     try {
       if (_auth.currentUser == null) {
@@ -58,6 +73,7 @@ class AuthRepository {
     }
   }
 
+  @override
   Either<Failure, String> sendResetPasswordEmail(String email) {
     try {
       if (_auth.currentUser == null) {
@@ -72,6 +88,7 @@ class AuthRepository {
     }
   }
 
+  @override
   Future<Either<Failure, User?>> createAccountWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -95,6 +112,7 @@ class AuthRepository {
     }
   }
 
+  @override
   Future<Either<Failure, String>> logout() async {
     try {
       await _auth.signOut();
@@ -106,6 +124,7 @@ class AuthRepository {
     }
   }
 
+  @override
   Future<Either<Failure, User?>> getCurrentUser() async {
     try {
       if (_auth.currentUser == null) {

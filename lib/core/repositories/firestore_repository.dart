@@ -10,6 +10,7 @@ abstract class IFirestoreRepository {
       {required String collectionID, required String documentID});
   Future<Either<Failure, String>> addDocument(
       {required String collectionID,
+      required String successMessage,
       required Map<String, dynamic> dataMap,
       String? documentName});
   Future<Either<Failure, String>> updateDocument(
@@ -47,22 +48,27 @@ class FirestoreRepository implements IFirestoreRepository {
   // Document Setters
 
   @override
-  Future<void> addDocument(
+  Future<Either<Failure, String>> addDocument(
       {required String collectionID,
+      required String successMessage,
       required Map<String, dynamic> dataMap,
       String? documentName}) async {
     try {
       if (documentName == null) {
         final docRef = await _database.collection(collectionID).add(dataMap);
+        return Right(successMessage);
       } else {
         final docRef = await _database
             .collection(collectionID)
             .doc(documentName)
             .set(dataMap);
+        return Right(successMessage);
       }
     } on SocketException {
-      // Failure(
-      //     message: 'Cannot add document. No internet connection.',
+      return const Left(Failure(
+          message: 'No internet connection available. Cannot create record.'));
+    } on FirebaseAuthException catch (e) {
+      return Left(Failure(message: e.message!));
     }
   }
 

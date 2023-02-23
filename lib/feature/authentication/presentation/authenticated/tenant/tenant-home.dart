@@ -1,3 +1,4 @@
+import 'package:bumblebee/feature/authentication/presentation/authenticated/tenant/tenant_qr_code_page.dart';
 import 'package:bumblebee/screens/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,6 +14,7 @@ class _TenantHomePageState extends ConsumerState<TenantHomePage> {
 
   static const List<Widget> _bottomNavBarChildren = <Widget>[
     TenantHomePageLayout(),
+    TenantQrCodePage(),
     ProfilePage(),
   ];
 
@@ -22,6 +24,7 @@ class _TenantHomePageState extends ConsumerState<TenantHomePage> {
       icon: Icon(Icons.dashboard),
       label: "Home",
     ),
+    BottomNavigationBarItem(icon: Icon(Icons.qr_code_2), label: "QR Code"),
     BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
   ];
 

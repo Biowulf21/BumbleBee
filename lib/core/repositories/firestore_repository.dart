@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:bumblebee/core/exceptions/failure.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class IFirestoreRepository {
-  Future<Either<Failure, Map<String, dynamic>>> getDocument();
+  Future<Either<Failure, Map<String, dynamic>?>> getDocument(
+      {required String collectionID, required String documentID});
   Future<Either<Failure, String>> addDocument(
       {required String collectionID,
       required Map<String, dynamic> dataMap,
@@ -24,18 +26,22 @@ class FirestoreRepository implements IFirestoreRepository {
   FirestoreRepository(this._database);
 
   @override
-  Future<Map<String, dynamic>?> getDocument(
+  Future<Either<Failure, Map<String, dynamic>?>> getDocument(
       {required String collectionID, required String documentID}) async {
     try {
       final result =
           await _database.collection(collectionID).doc(documentID).get();
-      return result.data();
+      if (result.data() == null) {
+        return const Left(Failure(message: 'No data found.'));
+      }
+      return Right(result.data());
     } on SocketException {
-      const Failure(
+      return const Left(Failure(
         message: 'Cannot get document. No internet connection.',
-      );
+      ));
+    } on FirebaseAuthException catch (e) {
+      return Left(Failure(message: e.message!));
     }
-    return null;
   }
 
   // Document Setters

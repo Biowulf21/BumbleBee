@@ -2,14 +2,28 @@ import 'dart:io';
 
 import 'package:bumblebee/core/exceptions/failure.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dartz/dartz.dart';
 
-class FirestoreRepository {
+abstract class IFirestoreRepository {
+  Future<Either<Failure, Map<String, dynamic>>> getDocument();
+  Future<Either<Failure, String>> addDocument(
+      {required String collectionID,
+      required Map<String, dynamic> dataMap,
+      String? documentName});
+  Future<Either<Failure, String>> updateDocument(
+      {required String collectionID,
+      required Map<String, dynamic> dataMap,
+      String? documentName});
+}
+
+class FirestoreRepository implements IFirestoreRepository {
   final FirebaseFirestore _database;
 
   // Document Getters
 
   FirestoreRepository(this._database);
 
+  @override
   Future<Map<String, dynamic>?> getDocument(
       {required String collectionID, required String documentID}) async {
     try {
@@ -26,6 +40,7 @@ class FirestoreRepository {
 
   // Document Setters
 
+  @override
   Future<void> addDocument(
       {required String collectionID,
       required Map<String, dynamic> dataMap,
@@ -45,6 +60,7 @@ class FirestoreRepository {
     }
   }
 
+  @override
   Future<void> updateDocument(
       {required String collectionID,
       required Map<String, dynamic> dataMap,

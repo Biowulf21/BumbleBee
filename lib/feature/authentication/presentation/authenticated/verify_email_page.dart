@@ -25,15 +25,16 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
               child: const Text("Resend email verification link")),
           SecondaryButton(
               buttonText: "Done Verifying",
-              buttonCallback: () {
-                FirebaseAuth.instance.currentUser?.reload();
+              buttonCallback: () async {
+                await FirebaseAuth.instance.currentUser?.reload().then((value) {
+                  bool? isEmailVerified =
+                      FirebaseAuth.instance.currentUser?.emailVerified;
+                  print(isEmailVerified);
+                  if (isEmailVerified == true) {
+                    Navigator.pushNamed(context, '/');
+                  }
+                });
                 // BUGFIX: Button needs to be clicked twice before email verified works
-                bool? isEmailVerified =
-                    FirebaseAuth.instance.currentUser?.emailVerified;
-                print(isEmailVerified);
-                if (isEmailVerified == true) {
-                  Navigator.pushNamed(context, '/');
-                }
               }),
           PrimaryButton(
               buttonText: "Log out",

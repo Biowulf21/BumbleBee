@@ -1,6 +1,8 @@
 import 'package:bumblebee/controllers/login-state-controller.dart';
+import 'package:bumblebee/core/wrappers/firebase_singleton.dart';
 import 'package:bumblebee/feature/authentication/data/models/user.dart';
 import 'package:bumblebee/core/repositories/input_validator_repository.dart';
+import 'package:bumblebee/repositories/user-repository.dart';
 import 'package:bumblebee/screens/login_state.dart';
 import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
 import 'package:flutter/material.dart';
@@ -166,7 +168,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                 ),
                 PrimaryButton(
                     buttonText: "Submit",
-                    buttonCallback: () {
+                    buttonCallback: () async {
                       if (_signupKey.currentState!.validate()) {
                         final userObject = User(
                             firstName: _firstNameController.text,
@@ -176,9 +178,13 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                             role: currentUserRole,
                             contactNumber: _numberController.text);
 
-                        ref.read(loginControllerProvider.notifier).signUp(
-                            userObject: userObject,
-                            password: _passwordController.text);
+                       final result =  await UserRepository(
+                                firestoreInstance:
+                                    FirebaseSingleton().getFirestore,
+                                auth: FirebaseSingleton().getAuth)
+                            .createUserFromObject(
+                                userObject: userObject,
+                                password: _passwordController.text);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                             content: Text(

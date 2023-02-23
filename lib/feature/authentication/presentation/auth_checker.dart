@@ -4,7 +4,7 @@ import 'package:bumblebee/feature/authentication/presentation/authenticated/home
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'login_screen.dart';
+import 'unauthenticated/login_screen.dart';
 
 class AuthChecker extends ConsumerWidget {
   const AuthChecker({super.key});

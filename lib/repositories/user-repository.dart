@@ -16,8 +16,10 @@ class UserRepository {
   Future<void> createUserFromJSON(
       {required Map<String, dynamic> dataMap}) async {
     try {
-      FirestoreRepository(firestoreInstance)
-          .addDocument(collectionID: 'users', dataMap: dataMap);
+      final result = await FirestoreRepository(firestoreInstance).addDocument(
+          collectionID: 'users',
+          dataMap: dataMap,
+          successMessage: "Successfully created user.");
     } on SocketException {
       const Failure(
         message: 'Cannot create user. No internet connection.',
@@ -30,6 +32,7 @@ class UserRepository {
     try {
       FirestoreRepository(firestoreInstance).addDocument(
           documentName: userID,
+          successMessage: "Successfully created user.",
           collectionID: 'users',
           dataMap: {...userObject.toJson(), 'uid': userID});
     } on SocketException {
@@ -44,21 +47,21 @@ class UserRepository {
       final userDoc = await FirestoreRepository(firestoreInstance)
           .getDocument(collectionID: 'users', documentID: userID);
 
-      if (userDoc != null) {
-        final Map<String, dynamic> userData = userDoc;
+      final userData = userDoc;
+      userData.fold((failCase) {}, (successCase) {
         userRoles? result = userRoles.values.firstWhere((e) {
-          return e.toString() == userData['role'];
+          return e.toString() == successCase?['role'];
         });
         print(result);
         return User(
-          firstName: userData['firstName'],
-          middleName: userData['middleName'],
-          lastName: userData['lastName'],
-          email: userData['email'],
-          contactNumber: userData['contactNumber'],
+          firstName: successCase?['firstName'],
+          middleName: successCase?['middleName'],
+          lastName: successCase?['lastName'],
+          email: successCase?['email'],
+          contactNumber: successCase?['contactNumber'],
           role: result,
         );
-      }
+      });
     } on SocketException {
       const Failure(
         message: 'Cannot create user. No internet connection.',

@@ -1,7 +1,8 @@
-import 'package:bumblebee/screens/unauthenticated/auth-checker.dart';
-import 'package:bumblebee/screens/unauthenticated/login-screen.dart';
-import 'package:bumblebee/screens/unauthenticated/sign-up.dart';
+import 'package:bumblebee/feature/authentication/presentation/unauthenticated/auth_checker.dart';
+import 'package:bumblebee/feature/authentication/presentation/unauthenticated/forgot_password.dart';
+import 'package:bumblebee/feature/authentication/presentation/unauthenticated/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'feature/authentication/presentation/signup_auth_checker.dart';
 
 class BumbleBee extends StatelessWidget {
   const BumbleBee({super.key});
@@ -10,15 +11,16 @@ class BumbleBee extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "BumbleBee",
-      home: const AuthChecker(),
       routes: {
-        '/signup': (context) => const SignUpPage(),
+        '/': (context) => const AuthChecker(),
+        '/signup': (context) => const SignUpAuthChecker(),
         '/login': (context) => const LoginPage(),
+        '/forgot-password': (context) => const ForgotPasswordPage()
       },
       debugShowCheckedModeBanner: false,
       theme: ThemeData.from(
         colorScheme: ColorScheme.light(
-            primary: Colors.amber[600]!, secondary: Colors.blue),
+            primary: Colors.amber[600]!, secondary: Colors.black),
       ),
     );
   }

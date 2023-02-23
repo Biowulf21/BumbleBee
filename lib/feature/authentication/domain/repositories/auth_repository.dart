@@ -62,7 +62,7 @@ class AuthRepository implements IAuthRepository {
   @override
   Future<Either<Failure, String>> sendEmailVerificationMessage() async {
     try {
-      if (_auth.currentUser == null) {
+      if (_auth.currentUser != null) {
         _auth.currentUser!.sendEmailVerification();
       }
       return const Right('Email verification message successfully sent.');
@@ -115,7 +115,9 @@ class AuthRepository implements IAuthRepository {
   @override
   Future<Either<Failure, String>> logout() async {
     try {
+      print(_auth.currentUser?.email);
       await _auth.signOut();
+      print(_auth.currentUser?.email);
       return const Right('Sign out completed');
     } on SocketException {
       return const Left(Failure(

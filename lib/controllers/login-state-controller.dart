@@ -24,7 +24,7 @@ class LoginStateController extends StateNotifier<LoginState> {
       // await UserRepository(firestoreInstance: _firestore).createUserFromObject(
       //     userID: currentUser!.uid, userObject: userObject);
 
-      sendVerificationEmail(userObject.email);
+      sendVerificationEmail(_firebaseAuth.currentUser!.email!);
 
       state = const LoginStateSuccess();
     } on FirebaseException catch (e) {

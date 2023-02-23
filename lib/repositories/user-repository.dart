@@ -44,8 +44,8 @@ class UserRepository {
             successMessage: "Successfully created user.",
             collectionID: 'users',
             dataMap: {...userObject.toJson(), 'uid': user.uid});
-        return const Right('User successfully created.');
       });
+      return const Right('User successfully created.');
     } on SocketException {
       return const Left(Failure(
         message: 'Cannot create user. No internet connection.',
@@ -53,34 +53,39 @@ class UserRepository {
     }
   }
 
-  Future<User?> getUserInfo({required String userID}) async {
+  Future<Either<Failure, User?>> getUserInfo({required String userID}) async {
     try {
       final userDoc = await FirestoreRepository(firestoreInstance)
           .getDocument(collectionID: 'users', documentID: userID);
 
-      final userData = userDoc;
-      userData.fold((failCase) {
-        print(failCase.message);
-      }, (successCase) {
-        userRoles? result = userRoles.values.firstWhere((e) {
-          return e.toString() == successCase?['role'];
-        });
-        return User(
-          firstName: successCase?['firstName'],
-          middleName: successCase?['middleName'],
-          lastName: successCase?['lastName'],
-          email: successCase?['email'],
-          contactNumber: successCase?['contactNumber'],
-          role: result,
-        );
-      });
-    } on SocketException {
-      const Failure(
-        message: 'Cannot create user. No internet connection.',
+      return userDoc.fold(
+        (failCase) {
+          print(failCase.message);
+          return Left(failCase);
+        },
+        (user) {
+          userRoles? result = userRoles.values.firstWhere((e) {
+            return e.toString() == user?['role'];
+          });
+          return Right(User(
+            firstName: user?['firstName'],
+            middleName: user?['middleName'],
+            lastName: user?['lastName'],
+            email: user?['email'],
+            contactNumber: user?['contactNumber'],
+            role: result,
+          ));
+        },
       );
-    } on StateError catch (e) {
-      print(e);
+    } on SocketException {
+      return const Left(Failure(
+        message: 'Cannot create user. No internet connection.',
+      ));
+    } on FirebaseException catch (e) {
+      return Left(Failure(message: e.message!));
+    } catch (e) {
+      // handle any other unexpected errors here
+      return const Left(Failure(message: 'Unknown error occurred.'));
     }
-    return null;
   }
 }

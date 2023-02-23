@@ -18,19 +18,32 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late userRoles _userRole;
-  bool? _userIsVerified = false;
-  // TODO: implement initState
+  bool _userIsVerified = false;
+  @override
+  void initState() {
+    super.initState();
+    getCurrentRole();
+  }
+
   Future<User?> getCurrentRole() async {
     final currentUser = await UserRepository(
-            firestoreInstance: FirebaseSingleton().getFirestore,
-            auth: FirebaseSingleton().getAuth)
-        .getUserInfo(userID: FirebaseAuth.instance.currentUser!.uid);
-    final userData = currentUser;
-    _userRole = userData?.role ?? userRoles.Tenant;
+      firestoreInstance: FirebaseSingleton().getFirestore,
+      auth: FirebaseSingleton().getAuth,
+    ).getUserInfo(userID: FirebaseSingleton().getAuth.currentUser!.uid);
 
-    _userIsVerified = FirebaseAuth.instance.currentUser?.emailVerified;
-    final oten = FirebaseAuth.instance.currentUser;
-    return currentUser;
+    return currentUser.fold(
+      (l) {
+        print("oten yawa");
+        return null;
+      },
+      (user) {
+        print('oten');
+        _userRole = user!.role;
+        _userIsVerified =
+            FirebaseSingleton().getAuth.currentUser!.emailVerified;
+        return user;
+      },
+    );
   }
 
   @override

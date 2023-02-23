@@ -22,7 +22,7 @@ class _LandlordHomeLayoutState extends ConsumerState<LandlordHomeLayout> {
     final isUserEmailVerified =
         AuthRepository(FirebaseAuth.instance).getVerificationStatus();
     isUserEmailVerified.fold((l) => print(l), (r) {
-      _isVerified = isUserEmailVerified as bool;
+      _isVerified = r;
     });
   }
 

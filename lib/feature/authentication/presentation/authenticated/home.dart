@@ -33,11 +33,9 @@ class _HomePageState extends State<HomePage> {
 
     return currentUser.fold(
       (l) {
-        print("oten yawa");
         return null;
       },
       (user) {
-        print('oten');
         _userRole = user!.role;
         _userIsVerified =
             FirebaseSingleton().getAuth.currentUser!.emailVerified;

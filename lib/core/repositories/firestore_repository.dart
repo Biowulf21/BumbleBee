@@ -15,8 +15,9 @@ abstract class IFirestoreRepository {
       String? documentName});
   Future<Either<Failure, String>> updateDocument(
       {required String collectionID,
+      required String successMessage,
       required Map<String, dynamic> dataMap,
-      String? documentName});
+      required String documentName});
 }
 
 class FirestoreRepository implements IFirestoreRepository {
@@ -73,8 +74,9 @@ class FirestoreRepository implements IFirestoreRepository {
   }
 
   @override
-  Future<void> updateDocument(
+  Future<Either<Failure, String>> updateDocument(
       {required String collectionID,
+      required String successMessage,
       required Map<String, dynamic> dataMap,
       required String documentName}) async {
     try {
@@ -83,10 +85,13 @@ class FirestoreRepository implements IFirestoreRepository {
           .collection(collectionID)
           .doc(documentName)
           .update(dataMap);
+      return Right(successMessage);
     } on SocketException {
-      const Failure(
+      return const Left(Failure(
         message: 'Cannot update document. No internet connection',
-      );
+      ));
+    } on FirebaseException catch (e) {
+      return Left(Failure(message: e.message!));
     }
   }
 }

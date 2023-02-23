@@ -5,9 +5,6 @@ import 'package:bumblebee/feature/authentication/presentation/authenticated/land
 import 'package:bumblebee/feature/authentication/presentation/authenticated/tenant/tenant-home.dart';
 import 'package:bumblebee/feature/authentication/presentation/authenticated/verify_email_page.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
-
-import '../../domain/repositories/auth_repository.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -36,6 +33,9 @@ class _HomePageState extends State<HomePage> {
         return null;
       },
       (user) {
+        if (FirebaseSingleton().getAuth.currentUser == null) {
+          return null;
+        }
         _userRole = user!.role;
         _userIsVerified =
             FirebaseSingleton().getAuth.currentUser!.emailVerified;
@@ -62,17 +62,10 @@ class _HomePageState extends State<HomePage> {
                 return const TenantHomePage();
               } else if (snapshot.hasError) {
                 return const Text('otin error');
+              } else if (!snapshot.hasData) {
+                return const Center(child: CircularProgressIndicator());
               } else {
-                return Column(
-                  children: [
-                    const CircularProgressIndicator(),
-                    TextButton(
-                        onPressed: () {
-                          AuthRepository(FirebaseAuth.instance).logout();
-                        },
-                        child: const Text('logout'))
-                  ],
-                );
+                return const Text('oten');
               }
             }),
       ),

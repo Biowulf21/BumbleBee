@@ -8,11 +8,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 abstract class IFirestoreRepository {
   Future<Either<Failure, Map<String, dynamic>?>> getDocument(
       {required String collectionID, required String documentID});
+
   Future<Either<Failure, String>> addDocument(
       {required String collectionID,
       required String successMessage,
       required Map<String, dynamic> dataMap,
       String? documentName});
+
   Future<Either<Failure, String>> updateDocument(
       {required String collectionID,
       required String successMessage,

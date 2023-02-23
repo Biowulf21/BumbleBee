@@ -6,10 +6,10 @@ class Property {
   Property(
       {required this.name,
       required this.type,
-      required this.id,
       this.hasAdvance,
       this.rating,
       this.numberOfMonthsAdvance,
+      this.id,
       this.costPerMonthsAdvance,
       this.hasDeposit,
       this.depositPrice,
@@ -17,7 +17,7 @@ class Property {
       this.amenities});
   final String name;
   final PropertyType type;
-  final String id;
+  String? id;
   double? rating;
   bool? hasAdvance = false;
   int? numberOfMonthsAdvance = 0;
@@ -43,5 +43,21 @@ class Property {
           ?.map((amenityJson) => Amenity.values[amenityJson])
           .toList(),
     );
+  }
+
+  Map<String, dynamic> toJson(Property propertyObj) {
+    return {
+      'name': name,
+      'type': type,
+      'id': id,
+      'rating': rating,
+      'hasAdvanced': hasAdvance,
+      'numberOfMonthsAdvanced': numberOfMonthsAdvance,
+      'costPerMonthsAdvance': costPerMonthsAdvance,
+      'hasDeposit': hasDeposit,
+      'depositPrice': depositPrice,
+      'isFullyFurnished': isFullyFurnished,
+      'ameneties': amenities
+    };
   }
 }

@@ -1,5 +1,5 @@
 import 'package:bumblebee/core/exceptions/failure.dart';
-import 'package:bumblebee/repositories/auth-repository.dart';
+import 'package:bumblebee/feature/authentication/domain/repositories/auth_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -12,7 +12,7 @@ import 'firebase_auth_repository_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<AuthRepository>()])
 void main() {
-  group('Auth Repository Methods on creating a User', () {
+  group('User creation tests', () {
     final MockUser user = MockUser();
     final MockFirebaseAuth auth = MockFirebaseAuth(mockUser: user);
     final MockAuthRepository repo = MockAuthRepository();
@@ -94,6 +94,41 @@ void main() {
 
       // print(result);
       expect(result, isA<Either<Failure, User?>>());
+    });
+  });
+
+  group('User login tests', () {
+    const email = 'test@example.com';
+    const password = '123456';
+    final MockUser user = MockUser();
+    final MockFirebaseAuth auth = MockFirebaseAuth(mockUser: user);
+    final MockAuthRepository repo = MockAuthRepository();
+    test('loginWithEmailAndPassword successfully logs in user', () async {
+      when(repo.loginWithEmailandPassword(
+              'testemail@email.com', 'Testpass123!'))
+          .thenAnswer((realInvocation) {
+        return Future.value(Right(user));
+      });
+
+      final result = await repo.loginWithEmailandPassword(
+          'testemail@email.com', 'Testpass123!');
+
+      expect(result.fold((l) => l, (r) => r), user);
+    });
+
+    test('loginWithEmailAndPassword returns User Not Found Error', () {
+      when(repo.loginWithEmailandPassword(email, password))
+          .thenThrow(FirebaseAuthException(code: 'user-not-found'));
+    });
+
+    test('loginWithEmailAndPassword returns wrong password error', () {
+      when(repo.loginWithEmailandPassword(email, password))
+          .thenThrow(FirebaseAuthException(code: 'wrong-password'));
+    });
+
+    test('loginWithEmailAndPassword returns wrong password error', () {
+      when(repo.loginWithEmailandPassword(email, password))
+          .thenThrow(FirebaseAuthException(code: 'user-disabled'));
     });
   });
 }

@@ -1,4 +1,4 @@
-import 'package:bumblebee/repositories/input-validator-repository.dart';
+import 'package:bumblebee/core/repositories/input_validator_repository.dart';
 import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,7 +47,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
                     try {
                       await FirebaseAuth.instance
                           .sendPasswordResetEmail(email: _emailController.text);
-                      _showMyDialog(context);
+                      _showForgotPasswordDialog(context);
                     } on FirebaseAuthException catch (e) {
                       print(e.code);
                       if (e.code == 'user-not-found') {
@@ -73,7 +73,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
   }
 }
 
-Future<void> _showMyDialog(BuildContext context) async {
+Future<void> _showForgotPasswordDialog(BuildContext context) async {
   return showDialog<void>(
     context: context,
     barrierDismissible: false,

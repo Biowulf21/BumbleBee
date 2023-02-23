@@ -1,10 +1,10 @@
 import 'package:bumblebee/core/exceptions/failure.dart';
 import 'package:bumblebee/feature/authentication/data/models/user.dart';
-import 'package:bumblebee/screens/login-state.dart';
+import 'package:bumblebee/screens/login_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
-import 'package:bumblebee/repositories/auth-repository.dart';
+import 'package:bumblebee/feature/authentication/domain/repositories/auth_repository.dart';
 
 class LoginStateController extends StateNotifier<LoginState> {
   LoginStateController(this._ref, this._firebaseAuth, this._firestore)
@@ -24,6 +24,8 @@ class LoginStateController extends StateNotifier<LoginState> {
       // await UserRepository(firestoreInstance: _firestore).createUserFromObject(
       //     userID: currentUser!.uid, userObject: userObject);
 
+      sendVerificationEmail(userObject.email);
+
       state = const LoginStateSuccess();
     } on FirebaseException catch (e) {
       state = LoginStateFailure(e.message!);
@@ -32,6 +34,10 @@ class LoginStateController extends StateNotifier<LoginState> {
     } on AuthException catch (e) {
       state = LoginStateFailure(e.errormessage);
     }
+  }
+
+  void sendVerificationEmail(String email) async {
+    await _firebaseAuth.currentUser?.sendEmailVerification();
   }
 
   void loginWithEmailAndPass(String email, String password) async {

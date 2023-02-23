@@ -1,4 +1,4 @@
-import 'package:bumblebee/feature/authentication/presentation/splash_screen.dart';
+import 'package:bumblebee/screens/splash_screen.dart';
 import 'package:bumblebee/providers/auth_provider.dart';
 import 'package:bumblebee/feature/authentication/presentation/authenticated/home.dart';
 import 'package:flutter/material.dart';

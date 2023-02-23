@@ -1,12 +1,12 @@
 import 'package:bumblebee/providers/auth_provider.dart';
 import 'package:bumblebee/feature/authentication/domain/repositories/auth_repository.dart';
-import 'package:bumblebee/screens/authenticated/profile_page.dart';
-import 'package:bumblebee/screens/authenticated/properties-page.dart';
 import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:speed_dial_fab/speed_dial_fab.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
+import 'package:bumblebee/screens/profile_page.dart';
+import 'package:bumblebee/screens/properties_page.dart';
 
 class LandlordHomeLayout extends ConsumerStatefulWidget {
   const LandlordHomeLayout({super.key});

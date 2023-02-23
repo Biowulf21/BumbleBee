@@ -1,7 +1,7 @@
 import 'package:bumblebee/core/wrappers/firebase_singleton.dart';
 import 'package:bumblebee/feature/authentication/data/models/user.dart';
 import 'package:bumblebee/feature/manage%20properties/presentation/landlord/landlord_home.dart';
-import 'package:bumblebee/repositories/user-repository.dart';
+import 'package:bumblebee/core/repositories/user-repository.dart';
 import 'package:bumblebee/feature/authentication/presentation/authenticated/tenant/tenant-home.dart';
 import 'package:bumblebee/feature/authentication/presentation/authenticated/verify_email_page.dart';
 import 'package:flutter/material.dart';

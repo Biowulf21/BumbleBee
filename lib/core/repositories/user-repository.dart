@@ -7,7 +7,7 @@ import 'package:bumblebee/feature/authentication/domain/repositories/auth_reposi
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
-import '../core/repositories/firestore_repository.dart';
+import 'firestore_repository.dart';
 
 class UserRepository {
   UserRepository({required this.firestoreInstance, required this.auth});

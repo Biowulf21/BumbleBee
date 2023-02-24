@@ -60,8 +60,15 @@ void main() {
     test(
       'CreatePropertyUsecase throws failure when user only has tenant privileges.',
       () async {
-        final user = MockUser();
+        final user = MockUser(
+          isAnonymous: false,
+          uid: 'someuid',
+          email: 'bob@somedomain.com',
+          displayName: 'Bob',
+        );
         final MockFirebaseAuth auth = MockFirebaseAuth(mockUser: user);
+        auth.signInWithEmailAndPassword(
+            email: 'bob@somedomain.com', password: 'bruh');
 
         final result = await CreatePropertyUseCase().createProperty(
             name: propertyName,
@@ -72,8 +79,11 @@ void main() {
             firestore: firestore);
 
         expect(result.fold((l) => l, (r) => r), isA<Failure>());
-        expect(result.fold((l) => l, (r) => r),
-            const Failure(message: 'No current user present.'));
+        expect(
+            result.fold((l) => l, (r) => r),
+            const Failure(
+                message:
+                    "User is not a landlord. Cannot create a new property with tenant credentials."));
       },
     );
   });

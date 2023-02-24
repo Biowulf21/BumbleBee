@@ -43,6 +43,7 @@ class GetAllPropertiesUseCase implements IGetAllPropertiesUseCase {
             address: docData['address'] as String,
           );
 
+          instance.fromJson(docData);
           propertyList.add(instance);
         }
         return Right(propertyList);

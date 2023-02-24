@@ -116,8 +116,42 @@ void main() {
 
         expect(newResult.docs.first.data()['name'], newName);
       });
+    });
 
-      // expect(result.fold((failure) => null, (sucessMessage) {}), isA<String>());
+    test('UpdatePropertyUseCase returns success by using property object',
+        () async {
+      const newName = 'newName';
+      final oten = await CreatePropertyUseCase()
+          .createProperty(
+              name: 'oldID',
+              type: PropertyType.Duplex,
+              address: 'old Address',
+              userRole: userRoles.Landlord,
+              auth: auth,
+              firestore: firestore)
+          .then((value) async {
+        value.fold((l) => print(l), (r) => print(r));
+        final result = await firestore.collection('properties').get();
+
+        final newProperty = Property(
+            name: newName, type: PropertyType.Single, address: 'Test address');
+
+        final updateResult = await UpdatePropertyUsecase().updateProperty(
+            propertyID: result.docs.first.id,
+            auth: auth,
+            firestore: firestore,
+            propertyObj: newProperty);
+
+        expect(
+            updateResult.fold((l) => null, (successMessage) => successMessage),
+            "Successfully updated property.");
+
+        final newResult = await firestore.collection('properties').get();
+
+        expect(newResult.docs.first.data()['name'], newName);
+        expect(newResult.docs.first.data()['type'].toString(),
+            PropertyType.Single.toString());
+      });
     });
   });
 }

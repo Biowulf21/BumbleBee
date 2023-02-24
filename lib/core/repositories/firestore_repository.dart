@@ -9,6 +9,9 @@ abstract class IFirestoreRepository {
   Future<Either<Failure, Map<String, dynamic>?>> getDocument(
       {required String collectionID, required String documentID});
 
+  Future<Either<Failure, List<Map<String, dynamic>>>> getAllDocuments(
+      {String collectionName, List<Map<String, dynamic>>? whereClauses});
+
   Future<Either<Failure, String>> addDocument(
       {required String collectionID,
       required String successMessage,
@@ -47,6 +50,11 @@ class FirestoreRepository implements IFirestoreRepository {
       return Left(Failure(message: e.message!));
     }
   }
+
+  @override
+  Future<Either<Failure, List<Map<String, dynamic>>>> getAllDocuments(
+      {required String collectionName,
+      List<Map<String, dynamic>>? whereClauses}) {}
 
   // Document Setters
 

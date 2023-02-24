@@ -32,8 +32,21 @@ class GetAllPropertiesUseCase implements IGetAllPropertiesUseCase {
         {'field': 'ownerID', 'operator': '==', 'value': userID}
       ]);
 
-      
+      return result.fold((failure) => Left(Failure(message: failure.message)),
+          (dataMapList) {
+        final List<Property> propertyList = <Property>[];
 
+        for (Map<String, dynamic> docData in dataMapList) {
+          Property instance = Property(
+            name: docData['name'] as String,
+            type: docData['type'] as PropertyType,
+            address: docData['address'] as String,
+          );
+
+          propertyList.add(instance);
+        }
+        return Right(propertyList);
+      });
     } on FirebaseException catch (e) {
       return Left(Failure(message: e.message!));
     } on SocketException catch (e) {

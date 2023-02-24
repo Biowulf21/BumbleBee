@@ -1,3 +1,4 @@
+import 'package:bumblebee/core/exceptions/failure.dart';
 import 'package:bumblebee/feature/manage%20properties/domain/usecases/update_property_usecase.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
@@ -15,8 +16,14 @@ void main() {
       final result = await UpdatePropertyUsecase().updateProperty(
           propertyID: 'testid', auth: auth, firestore: firestore);
 
-      expect(result.fold((failure) => null, (successMessage) => successMessage),
-          'No user is logged in. Cannot create a new property.');
+      expect(
+          result.fold((failure) => failure, (successMessage) => successMessage),
+          isA<Failure>());
+
+      expect(
+          result.fold((failure) => failure, (successMessage) => successMessage),
+          const Failure(
+              message: 'No user is logged in. Cannot create a new property.'));
     });
   });
 }

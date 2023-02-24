@@ -9,8 +9,10 @@ abstract class IFirestoreRepository {
   Future<Either<Failure, Map<String, dynamic>?>> getDocument(
       {required String collectionID, required String documentID});
 
-  Future<Either<Failure, List<Map<String, dynamic>>>> getAllDocuments(
-      {String collectionName, List<Map<String, dynamic>>? whereClauses});
+  Future<Either<Failure, List<Map<String, dynamic>>>> getAllDocuments({
+    required String collectionPath,
+    List<Map<String, dynamic>>? whereClauses,
+  });
 
   Future<Either<Failure, String>> addDocument(
       {required String collectionID,
@@ -52,9 +54,60 @@ class FirestoreRepository implements IFirestoreRepository {
   }
 
   @override
-  Future<Either<Failure, List<Map<String, dynamic>>>> getAllDocuments(
-      {required String collectionName,
-      List<Map<String, dynamic>>? whereClauses}) {}
+  Future<Either<Failure, List<Map<String, dynamic>>>> getAllDocuments({
+    required String collectionPath,
+    List<Map<String, dynamic>>? whereClauses,
+  }) async {
+    try {
+      Query ref = _database.collection(collectionPath);
+
+      if (whereClauses != null) {
+        for (Map<String, dynamic> whereClause in whereClauses) {
+          String field = whereClause['field'];
+          dynamic value = whereClause['value'];
+          String operator = whereClause['operator'] ?? '==';
+
+          switch (operator) {
+            case '==':
+              ref = ref.where(field, isEqualTo: value);
+              break;
+            case '>':
+              ref = ref.where(field, isGreaterThan: value);
+              break;
+            case '>=':
+              ref = ref.where(field, isGreaterThanOrEqualTo: value);
+              break;
+            case '<':
+              ref = ref.where(field, isLessThan: value);
+              break;
+            case '<=':
+              ref = ref.where(field, isLessThanOrEqualTo: value);
+              break;
+            case 'array-contains':
+              ref = ref.where(field, arrayContains: value);
+              break;
+            default:
+              throw ArgumentError('Invalid operator: $operator');
+          }
+        }
+
+        QuerySnapshot snapshot = await ref.get();
+        List<Map<String, dynamic>> data = snapshot.docs
+            .map((doc) => doc.data() as Map<String, dynamic>)
+            .toList();
+        return Right(data);
+      }
+      QuerySnapshot snapshot = await ref.get();
+      List<Map<String, dynamic>> data = snapshot.docs
+          .map((doc) => doc.data() as Map<String, dynamic>)
+          .toList();
+      return Right(data);
+    } on FirebaseException catch (e) {
+      return Left(Failure(message: e.message!));
+    } catch (e) {
+      return Left(Failure(message: e.toString()));
+    }
+  }
 
   // Document Setters
 

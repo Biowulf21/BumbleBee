@@ -27,15 +27,13 @@ class GetAllPropertiesUseCase implements IGetAllPropertiesUseCase {
       }
 
       final userID = auth.currentUser!.uid;
-      final result = await FirestoreRepository(firestore).ge
-      
-      
-      // firestore
-      //     .collection('properties')
-      //     .where('ownerID', isEqualTo: userID)
-      //     .get();
+      final result = await FirestoreRepository(firestore)
+          .getAllDocuments(collectionPath: 'properties', whereClauses: [
+        {'field': 'ownerID', 'operator': '==', 'value': userID}
+      ]);
 
       
+
     } on FirebaseException catch (e) {
       return Left(Failure(message: e.message!));
     } on SocketException catch (e) {

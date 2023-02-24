@@ -99,7 +99,7 @@ void main() {
               auth: auth,
               firestore: firestore)
           .then((value) async {
-        value.fold((l) => print(l), (r) => print(r));
+        value.fold((l) => l, (r) => r);
         final result = await firestore.collection('properties').get();
 
         final updateResult = await UpdatePropertyUsecase().updateProperty(
@@ -130,7 +130,7 @@ void main() {
               auth: auth,
               firestore: firestore)
           .then((value) async {
-        value.fold((l) => print(l), (r) => print(r));
+        value.fold((l) => l, (r) => r);
         final result = await firestore.collection('properties').get();
 
         final newProperty = Property(

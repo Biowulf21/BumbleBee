@@ -92,7 +92,6 @@ class CreatePropertyUseCase implements ICreatePropertyUseCase {
         return const Left(Failure(message: 'Something went wrong.'));
       }
     } catch (e) {
-      print('otin');
       return Left(Failure(message: e.toString()));
     }
   }

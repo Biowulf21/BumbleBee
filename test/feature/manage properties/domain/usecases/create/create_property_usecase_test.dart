@@ -32,7 +32,7 @@ void main() {
           auth: auth,
           firestore: firestore);
 
-      result.fold((failure) => print(failure.message), (successMessage) {
+      result.fold((failure) => failure, (successMessage) {
         expect(successMessage,
             'Successfully created new property named $propertyName');
       });

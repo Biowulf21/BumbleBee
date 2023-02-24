@@ -6,10 +6,11 @@ class Property {
   Property(
       {required this.name,
       required this.type,
+      required this.address,
       this.hasAdvance,
       this.rating,
       this.numberOfMonthsAdvance,
-      this.id,
+      this.ownerID,
       this.costPerMonthsAdvance,
       this.hasDeposit,
       this.depositPrice,
@@ -17,7 +18,8 @@ class Property {
       this.amenities});
   final String name;
   final PropertyType type;
-  String? id;
+  final String address;
+  String? ownerID;
   double? rating;
   bool? hasAdvance = false;
   int? numberOfMonthsAdvance = 0;
@@ -31,7 +33,8 @@ class Property {
     return Property(
       name: json['name'],
       type: PropertyType.values[json['type']],
-      id: json['id'],
+      address: json['address'],
+      ownerID: json['ownerID'],
       rating: json['rating'],
       hasAdvance: json['hasAdvance'] ?? false,
       numberOfMonthsAdvance: json['numberOfMonthsAdvance'] ?? 0,
@@ -49,7 +52,8 @@ class Property {
     return {
       'name': name,
       'type': type,
-      'id': id,
+      'address': address,
+      'ownerID': ownerID,
       'rating': rating,
       'hasAdvanced': hasAdvance,
       'numberOfMonthsAdvanced': numberOfMonthsAdvance,

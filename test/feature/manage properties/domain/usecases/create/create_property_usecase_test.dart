@@ -22,6 +22,8 @@ void main() {
     final FakeFirebaseFirestore firestore = FakeFirebaseFirestore();
     final MockFirebaseAuth auth = MockFirebaseAuth();
 
+    tearDown(() => auth.signOut());
+
     test('CreatePropertyUsecase writes to a property document on firestore.',
         () async {
       final result = await CreatePropertyUseCase().createProperty(

@@ -13,6 +13,7 @@ void main() {
   final user = MockUser();
   final auth = MockFirebaseAuth(mockUser: user);
   final firestore = FakeFirebaseFirestore();
+  setUp(() => auth.signOut());
   test('UpdatePropertyUsecase returns Failure since user is unauthenticated',
       () async {
     final result = await UpdatePropertyUsecase().updateProperty(
@@ -35,8 +36,11 @@ void main() {
       displayName: 'Bob',
     );
     final MockFirebaseAuth auth = MockFirebaseAuth(mockUser: user);
-    auth.signInWithEmailAndPassword(
-        email: 'bob@somedomain.com', password: 'bruh');
+
+    setUp(() => auth.signInWithEmailAndPassword(
+        email: 'bob@somedomain.com', password: 'bruh'));
+    tearDown(() => auth.signOut());
+
     test(
         'UpdatePropertyUsecase returns Failure when no data map to update document is provided',
         () async {

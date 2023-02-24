@@ -1,5 +1,7 @@
 import 'package:bumblebee/core/exceptions/failure.dart';
 import 'package:bumblebee/core/models/property.dart';
+import 'package:bumblebee/feature/authentication/data/models/user.dart';
+import 'package:bumblebee/feature/manage%20properties/domain/usecases/create/create_property_usecase.dart';
 import 'package:bumblebee/feature/manage%20properties/domain/usecases/update_property_usecase.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
@@ -69,6 +71,53 @@ void main() {
 
       expect(result.fold((failure) => failure, (successMessage) => null),
           const Failure(message: 'Some requested document was not found.'));
+    });
+  });
+
+  group('UpdatePropertyUseCase returns success test', () {
+    final user = MockUser(
+      isAnonymous: false,
+      uid: 'someuid',
+      email: 'bob@somedomain.com',
+      displayName: 'Bob',
+    );
+    final MockFirebaseAuth auth = MockFirebaseAuth(mockUser: user);
+    auth.signInWithEmailAndPassword(
+        email: 'bob@somedomain.com', password: 'bruh');
+
+    final newData = Property(
+        name: 'someID', type: PropertyType.Single, address: "Test address");
+
+    test('UpdatePropertyUseCase returns success by using json', () async {
+      const newName = 'newName';
+      final oten = await CreatePropertyUseCase()
+          .createProperty(
+              name: 'oldID',
+              type: PropertyType.Duplex,
+              address: 'old Address',
+              userRole: userRoles.Landlord,
+              auth: auth,
+              firestore: firestore)
+          .then((value) async {
+        value.fold((l) => print(l), (r) => print(r));
+        final result = await firestore.collection('properties').get();
+
+        final updateResult = await UpdatePropertyUsecase().updateProperty(
+            propertyID: result.docs.first.id,
+            auth: auth,
+            firestore: firestore,
+            dataMap: {'name': newName});
+
+        expect(
+            updateResult.fold((l) => null, (successMessage) => successMessage),
+            "Successfully updated property.");
+
+        final newResult = await firestore.collection('properties').get();
+
+        expect(newResult.docs.first.data()['name'], newName);
+      });
+
+      // expect(result.fold((failure) => null, (sucessMessage) {}), isA<String>());
     });
   });
 }

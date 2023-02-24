@@ -1,7 +1,7 @@
 import 'package:bumblebee/core/exceptions/failure.dart';
 import 'package:bumblebee/core/models/property.dart';
 import 'package:bumblebee/feature/authentication/data/models/user.dart';
-import 'package:bumblebee/feature/manage%20properties/domain/usecases/create_property_usecase.dart';
+import 'package:bumblebee/feature/manage%20properties/domain/usecases/create/create_property_usecase.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';

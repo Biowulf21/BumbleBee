@@ -29,7 +29,6 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                 await FirebaseAuth.instance.currentUser?.reload().then((value) {
                   bool? isEmailVerified =
                       FirebaseAuth.instance.currentUser?.emailVerified;
-                  print(isEmailVerified);
                   if (isEmailVerified == true) {
                     Navigator.pushNamed(context, '/');
                   }

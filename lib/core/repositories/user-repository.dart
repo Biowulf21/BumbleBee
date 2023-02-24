@@ -60,7 +60,6 @@ class UserRepository {
 
       return userDoc.fold(
         (failCase) {
-          print(failCase.message);
           return Left(failCase);
         },
         (user) {

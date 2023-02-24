@@ -44,7 +44,6 @@ void main() {
       final result =
           await repo.createAccountWithEmailAndPassword(email, password);
 
-      // print(result);
       expect(result, isA<Either<Failure, User?>>());
     });
 
@@ -60,7 +59,6 @@ void main() {
       final result =
           await repo.createAccountWithEmailAndPassword(email, password);
 
-      // print(result);
       expect(result, isA<Either<Failure, User?>>());
     });
 
@@ -76,7 +74,6 @@ void main() {
       final result =
           await repo.createAccountWithEmailAndPassword(email, password);
 
-      // print(result);
       expect(result, isA<Either<Failure, User?>>());
     });
 
@@ -92,7 +89,6 @@ void main() {
       final result =
           await repo.createAccountWithEmailAndPassword(email, password);
 
-      // print(result);
       expect(result, isA<Either<Failure, User?>>());
     });
   });

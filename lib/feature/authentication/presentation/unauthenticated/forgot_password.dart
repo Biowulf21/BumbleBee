@@ -49,7 +49,6 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
                           .sendPasswordResetEmail(email: _emailController.text);
                       _showForgotPasswordDialog(context);
                     } on FirebaseAuthException catch (e) {
-                      print(e.code);
                       if (e.code == 'user-not-found') {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(

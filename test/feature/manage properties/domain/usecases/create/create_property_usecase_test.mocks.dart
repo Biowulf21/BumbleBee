@@ -8,7 +8,7 @@ import 'dart:async' as _i4;
 import 'package:bumblebee/core/exceptions/failure.dart' as _i5;
 import 'package:bumblebee/core/models/property.dart' as _i6;
 import 'package:bumblebee/feature/authentication/data/models/user.dart' as _i7;
-import 'package:bumblebee/feature/manage%20properties/domain/usecases/create_property_usecase.dart'
+import 'package:bumblebee/feature/manage%20properties/domain/usecases/create/create_property_usecase.dart'
     as _i3;
 import 'package:cloud_firestore/cloud_firestore.dart' as _i9;
 import 'package:dartz/dartz.dart' as _i2;

@@ -51,7 +51,7 @@ class Property {
   Map<String, dynamic> toJson(Property propertyObj) {
     return {
       'name': name,
-      'type': type,
+      'type': type.toString(),
       'address': address,
       'ownerID': ownerID,
       'rating': rating,

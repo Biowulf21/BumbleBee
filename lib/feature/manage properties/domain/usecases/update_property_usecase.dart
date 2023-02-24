@@ -34,7 +34,7 @@ class UpdatePropertyUsecase implements IUpdatePropertyUsecase {
     }
 
     final result = await FirestoreRepository(firestore).updateDocument(
-        collectionID: 'Properties',
+        collectionID: 'properties',
         successMessage: "Successfully updated property.",
         dataMap: dataMap ?? propertyObj!.toJson(propertyObj),
         documentName: propertyID);

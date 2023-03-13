@@ -1,5 +1,6 @@
 import 'package:bumblebee/core/exceptions/failure.dart';
 import 'package:bumblebee/core/models/property.dart';
+import 'package:bumblebee/core/models/property_converter.dart';
 import 'package:bumblebee/core/repositories/firestore_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,7 +37,7 @@ class UpdatePropertyUsecase implements IUpdatePropertyUsecase {
     final result = await FirestoreRepository(firestore).updateDocument(
         collectionID: 'properties',
         successMessage: "Successfully updated property.",
-        dataMap: dataMap ?? propertyObj!.toJson(propertyObj),
+        dataMap: dataMap ?? PropertyConverter().toJson(propertyObj!),
         documentName: propertyID);
 
     return result.fold((failure) {

@@ -1,5 +1,6 @@
 import 'package:bumblebee/core/exceptions/failure.dart';
 import 'package:bumblebee/core/models/property.dart';
+import 'package:bumblebee/core/models/property_converter.dart';
 import 'package:bumblebee/core/repositories/firestore_repository.dart';
 import 'package:bumblebee/feature/authentication/data/models/user.dart';
 import 'package:dartz/dartz.dart';
@@ -74,7 +75,7 @@ class CreatePropertyUseCase implements ICreatePropertyUseCase {
       final result = await FirestoreRepository(firestore).addDocument(
         collectionID: 'properties',
         successMessage: 'Successfully created new property named $name',
-        dataMap: property.toJson(property),
+        dataMap: PropertyConverter().toJson(property)
       );
 
       return result.fold(

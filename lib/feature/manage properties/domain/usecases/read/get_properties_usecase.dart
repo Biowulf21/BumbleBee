@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bumblebee/core/exceptions/failure.dart';
 import 'package:bumblebee/core/models/property.dart';
+import 'package:bumblebee/core/models/property_converter.dart';
 import 'package:bumblebee/core/repositories/firestore_repository.dart';
 import 'package:bumblebee/feature/authentication/data/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -52,7 +53,7 @@ class GetAllPropertiesUseCase implements IGetAllPropertiesUseCase {
             address: docData['address'] as String,
           );
 
-          instance.fromJson(docData);
+          PropertyConverter.fromJson(docData);
           propertyList.add(instance);
         }
         return Right(propertyList);

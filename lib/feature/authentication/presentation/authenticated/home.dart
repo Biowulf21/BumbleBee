@@ -63,7 +63,17 @@ class _HomePageState extends State<HomePage> {
               } else if (snapshot.hasError) {
                 return const Text('otin error');
               } else if (!snapshot.hasData) {
-                return const Center(child: CircularProgressIndicator());
+                return Center(
+                    child: Column(
+                  children: const [
+                    // TextButton(
+                    //     onPressed: () {
+                    //       FirebaseAuth.instance.signOut();
+                    //     },
+                    //     child: const Text('oten')),
+                    CircularProgressIndicator(),
+                  ],
+                ));
               } else {
                 return const Text('oten');
               }

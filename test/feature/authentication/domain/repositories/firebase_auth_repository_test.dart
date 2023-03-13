@@ -112,19 +112,33 @@ void main() {
       expect(result.fold((l) => l, (r) => r), user);
     });
 
-    test('loginWithEmailAndPassword returns User Not Found Error', () {
+    test('loginWithEmailAndPassword returns User Not Found Error', () async {
       when(repo.loginWithEmailandPassword(email, password))
           .thenThrow(FirebaseAuthException(code: 'user-not-found'));
+      final result =
+          await repo.createAccountWithEmailAndPassword(email, password);
+
+      expect(result, isA<Either<Failure, User?>>());
     });
 
-    test('loginWithEmailAndPassword returns wrong password error', () {
+    test('loginWithEmailAndPassword returns wrong password error', () async {
       when(repo.loginWithEmailandPassword(email, password))
           .thenThrow(FirebaseAuthException(code: 'wrong-password'));
+
+      final result =
+          await repo.createAccountWithEmailAndPassword(email, password);
+
+      expect(result, isA<Either<Failure, User?>>());
     });
 
-    test('loginWithEmailAndPassword returns wrong password error', () {
+    test('loginWithEmailAndPassword returns wrong password error', () async {
       when(repo.loginWithEmailandPassword(email, password))
           .thenThrow(FirebaseAuthException(code: 'user-disabled'));
+
+      final result =
+          await repo.createAccountWithEmailAndPassword(email, password);
+
+      expect(result, isA<Either<Failure, User?>>());
     });
   });
 }

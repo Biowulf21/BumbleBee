@@ -6,9 +6,17 @@ class PropertiesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: const Text("Properties"),
-      ),
+      body: FutureBuilder(builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return const Text("Something went wrong. Please try again later");
+        } else {
+          return ListView.builder(itemBuilder: (context, index) {
+            return null;
+          });
+        }
+      }),
     );
   }
 }

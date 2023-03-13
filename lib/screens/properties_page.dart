@@ -40,6 +40,12 @@ class _PropertiesPageState extends State<PropertiesPage> {
     return query;
   }
 
+  Future<Either<Failure, List<Property>>> refreshProperties() async {
+    propertiesList.clear();
+    final properties = getProperties();
+    return properties;
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -49,12 +55,17 @@ class _PropertiesPageState extends State<PropertiesPage> {
             if (propertiesList.isEmpty) {
               return const Text("No properties found.");
             } else if (propertiesList.isNotEmpty) {
-              ListView.builder(itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(propertiesList[index].name),
-                  subtitle: Text(propertiesList[index].address),
-                );
-              });
+              RefreshIndicator(
+                onRefresh: refreshProperties,
+                child: ListView.builder(
+                    itemCount: propertiesList.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(propertiesList[index].name),
+                        subtitle: Text(propertiesList[index].address),
+                      );
+                    }),
+              );
             } else {
               return Text(propertiesFailure.message);
             }

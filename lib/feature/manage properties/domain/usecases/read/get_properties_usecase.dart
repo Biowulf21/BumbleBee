@@ -43,9 +43,12 @@ class GetAllPropertiesUseCase implements IGetAllPropertiesUseCase {
         final List<Property> propertyList = <Property>[];
 
         for (Map<String, dynamic> docData in dataMapList) {
+          final enumSplitParts = docData['type'].split('.');
+          final enumToShortString = enumSplitParts[1];
+
           Property instance = Property(
             name: docData['name'] as String,
-            type: docData['type'] as PropertyType,
+            type: PropertyType.values.byName(enumToShortString),
             address: docData['address'] as String,
           );
 

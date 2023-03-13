@@ -32,7 +32,7 @@ class Property {
   Property fromJson(Map<String, dynamic> json) {
     return Property(
       name: json['name'],
-      type: PropertyType.values[json['type']],
+      type: PropertyType.values.byName(json['type']),
       address: json['address'],
       ownerID: json['ownerID'],
       rating: json['rating'],

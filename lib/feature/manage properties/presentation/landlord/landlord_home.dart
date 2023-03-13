@@ -1,3 +1,7 @@
+import 'package:bumblebee/core/models/property.dart';
+import 'package:bumblebee/core/wrappers/firebase_singleton.dart';
+import 'package:bumblebee/feature/authentication/data/models/user.dart';
+import 'package:bumblebee/feature/manage%20properties/domain/usecases/create/create_property_usecase.dart';
 import 'package:bumblebee/providers/auth_provider.dart';
 import 'package:bumblebee/feature/authentication/domain/repositories/auth_repository.dart';
 import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
@@ -106,7 +110,18 @@ class _LandlordHomeWidgetState extends ConsumerState<LandlordHomePage> {
           primaryBackgroundColor: Theme.of(context).colorScheme.primary,
           primaryIconExpand: Icons.add,
           secondaryIconsList: _secondaryMenuIcons,
-          secondaryIconsOnPress: [() => {}, () => {}],
+          secondaryIconsOnPress: [
+            () => {
+                  CreatePropertyUseCase().createProperty(
+                      name: 'Test',
+                      type: PropertyType.Single,
+                      address: 'test address',
+                      userRole: userRoles.Landlord,
+                      auth: FirebaseSingleton().getAuth,
+                      firestore: FirebaseSingleton().getFirestore)
+                },
+            () => {}
+          ],
           secondaryIconsText: _secondaryMenuLabels),
     );
   }

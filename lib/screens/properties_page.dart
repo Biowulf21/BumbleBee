@@ -14,11 +14,28 @@ class PropertiesPage extends StatefulWidget {
 }
 
 class _PropertiesPageState extends State<PropertiesPage> {
+  List<Property> propertiesList = <Property>[];
+  late Failure propertiesFailure;
+
+  late Future<void> futureProperties;
+
+  @override
+  void initState() {
+    super.initState();
+    futureProperties = getProperties();
+  }
+
   Future<Either<Failure, List<Property>>> getProperties() async {
     final query = await GetAllPropertiesUseCase().getAllPropertiesByID(
         auth: FirebaseSingleton().getAuth,
         firestore: FirebaseSingleton().getFirestore,
         userRole: userRoles.Landlord);
+
+    query.fold((failure) {
+      propertiesFailure = failure;
+    }, (properties) {
+      propertiesList = properties;
+    });
 
     return query;
   }
@@ -29,26 +46,24 @@ class _PropertiesPageState extends State<PropertiesPage> {
         future: getProperties(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return snapshot.data!.fold((failure) {
-              return Text(failure.message);
-            }, (properties) {
-              return properties.isEmpty
-                  ? const Text("No properties")
-                  : ListView.builder(
-                      itemCount: properties.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(properties[index].name),
-                          subtitle: Text(properties[index].address),
-                        );
-                      },
-                    );
-            });
-          } else if (snapshot.hasError) {
-            return Text('${snapshot.error}');
-          } else {
+            if (propertiesList.isEmpty) {
+              return const Text("No properties found.");
+            } else if (propertiesList.isNotEmpty) {
+              ListView.builder(itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(propertiesList[index].name),
+                  subtitle: Text(propertiesList[index].address),
+                );
+              });
+            } else {
+              return Text(propertiesFailure.message);
+            }
+          }
+          if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           }
+
+          return const Text('Something went wrong.');
         });
   }
 }

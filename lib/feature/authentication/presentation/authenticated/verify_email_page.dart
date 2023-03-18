@@ -18,8 +18,8 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
         children: [
           const Text('Verify email here...'),
           TextButton(
-              onPressed: () {
-                AuthRepository(FirebaseAuth.instance)
+              onPressed: () async {
+                await AuthRepository(FirebaseAuth.instance)
                     .sendEmailVerificationMessage();
               },
               child: const Text("Resend email verification link")),

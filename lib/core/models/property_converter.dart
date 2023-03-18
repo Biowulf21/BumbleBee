@@ -1,4 +1,5 @@
 import 'package:bumblebee/core/models/property.dart';
+import 'package:bumblebee/core/wrappers/enum_converter.dart';
 
 class PropertyConverter {
   PropertyConverter();
@@ -6,16 +7,17 @@ class PropertyConverter {
   static Property fromJson(Map<String, dynamic> json) {
     return Property(
       name: json['name'],
-      type: PropertyType.values.byName(json['type']),
+      type: PropertyType.values
+          .byName(EnumConverter.convertStringToShortString(json['type'])),
       address: json['address'],
       ownerID: json['ownerID'],
       rating: json['rating'],
-      hasAdvance: json['hasAdvance'] ?? false,
-      numberOfMonthsAdvance: json['numberOfMonthsAdvance'] ?? 0,
-      costPerMonthsAdvance: json['costPerMonthsAdvance'] ?? 0,
-      hasDeposit: json['hasDeposit'] ?? false,
-      depositPrice: json['depositPrice'] ?? 0,
-      isFullyFurnished: json['isFullyFurnished'] ?? false,
+      hasAdvance: json['hasAdvance'],
+      numberOfMonthsAdvance: json['numberOfMonthsAdvance'],
+      costPerMonthsAdvance: json['costPerMonthsAdvance'],
+      hasDeposit: json['hasDeposit'],
+      depositPrice: json['depositPrice'],
+      isFullyFurnished: json['isFullyFurnished'],
       amenities: (json['amenities'] as List<dynamic>?)
           ?.map((amenityJson) => Amenity.values[amenityJson])
           .toList(),

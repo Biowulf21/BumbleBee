@@ -7,10 +7,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final user = MockUser();
-  final auth = MockFirebaseAuth();
+  final auth = MockFirebaseAuth(mockUser: user);
   final firestore = FakeFirebaseFirestore();
-
-  setUpAll(() => auth.signOut());
 
   test('getPropertiesUseCase returns Failure because user is not authenticated',
       () async {
@@ -23,8 +21,8 @@ void main() {
   });
 
   group('getPropertiesUseCase returns Failure', () {
-    auth.signInWithEmailAndPassword(
-        email: 'random@example.com', password: 'random@example.com');
+    setUpAll(() => auth.signInWithEmailAndPassword(
+        email: 'random@example.com', password: 'random@example.com'));
 
     tearDown(() => auth.signOut());
 
@@ -32,16 +30,15 @@ void main() {
         'getPropertiesUseCase returns Failure because user does not have landlord privileges',
         () async {
       final result = await GetAllPropertiesUseCase().getAllPropertiesByID(
-          auth: auth, firestore: firestore, userRole: userRoles.Landlord);
+          auth: auth, firestore: firestore, userRole: userRoles.Tenant);
 
-      // expect(
-      //     result.fold((failure) {
-      //       print('otin');
-      //       print(failure);
-      //     }, (r) => null),
-      //     isA<Failure>());
-      // expect(result.fold((failure) => failure.message, (r) => null),
-      //     'User has tenant privileges. Cannot get properties.');
+      expect(
+          result.fold((failure) {
+            return failure;
+          }, (r) => r),
+          isA<Failure>());
+      expect(result.fold((failure) => failure.message, (r) => null),
+          'User has tenant privileges. Cannot get properties.');
     });
   });
 }

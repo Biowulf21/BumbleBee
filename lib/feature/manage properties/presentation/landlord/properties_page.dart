@@ -66,8 +66,7 @@ class _PropertiesPageState extends State<PropertiesPage> {
                     itemCount: propertiesList.length,
                     itemBuilder: (context, index) {
                       return PropertyTile(
-                        propertyName: propertiesList[index].name,
-                        propertyAddress: propertiesList[index].address,
+                        property: propertiesList[index],
                       );
                     }),
               );

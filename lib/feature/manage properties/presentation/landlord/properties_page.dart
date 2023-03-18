@@ -3,6 +3,7 @@ import 'package:bumblebee/core/models/property.dart';
 import 'package:bumblebee/core/wrappers/firebase_singleton.dart';
 import 'package:bumblebee/feature/authentication/data/models/user.dart';
 import 'package:bumblebee/feature/manage%20properties/domain/usecases/read/get_properties_usecase.dart';
+import 'package:bumblebee/feature/manage%20properties/presentation/landlord/property_tile.dart';
 import 'package:dartz/dartz.dart' show Either;
 import 'package:flutter/material.dart';
 
@@ -60,8 +61,9 @@ class _PropertiesPageState extends State<PropertiesPage> {
                 child: ListView.builder(
                     itemCount: propertiesList.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(propertiesList[index].name),
+                      return PropertyTile(
+                        propertyName: propertiesList[index].name,
+                        propertyAddress: propertiesList[index].address,
                       );
                     }),
               );

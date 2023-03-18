@@ -1,9 +1,7 @@
 import 'package:bumblebee/core/models/property.dart';
 
 class PropertyConverter {
-  Property? propertyToJson;
-
-  PropertyConverter({this.propertyToJson});
+  PropertyConverter();
 
   static Property fromJson(Map<String, dynamic> json) {
     return Property(
@@ -26,18 +24,18 @@ class PropertyConverter {
 
   Map<String, dynamic> toJson(Property propertyObj) {
     return {
-      'name': propertyToJson?.name,
-      'type': propertyToJson?.type.toString(),
-      'address': propertyToJson?.address,
-      'ownerID': propertyToJson?.ownerID,
-      'rating': propertyToJson?.rating,
-      'hasAdvanced': propertyToJson?.hasAdvance,
-      'numberOfMonthsAdvanced': propertyToJson?.numberOfMonthsAdvance,
-      'costPerMonthsAdvance': propertyToJson?.costPerMonthsAdvance,
-      'hasDeposit': propertyToJson?.hasDeposit,
-      'depositPrice': propertyToJson?.depositPrice,
-      'isFullyFurnished': propertyToJson?.isFullyFurnished,
-      'ameneties': propertyToJson?.amenities
+      'name': propertyObj.name,
+      'type': propertyObj.type.toString(),
+      'address': propertyObj.address,
+      'ownerID': propertyObj.ownerID,
+      'rating': propertyObj.rating,
+      'hasAdvanced': propertyObj.hasAdvance,
+      'numberOfMonthsAdvanced': propertyObj.numberOfMonthsAdvance,
+      'costPerMonthsAdvance': propertyObj.costPerMonthsAdvance,
+      'hasDeposit': propertyObj.hasDeposit,
+      'depositPrice': propertyObj.depositPrice,
+      'isFullyFurnished': propertyObj.isFullyFurnished,
+      'ameneties': propertyObj.amenities
     };
   }
 }

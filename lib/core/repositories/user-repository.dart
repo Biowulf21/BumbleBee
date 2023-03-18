@@ -45,6 +45,7 @@ class UserRepository {
             collectionID: 'users',
             dataMap: {...userObject.toJson(), 'uid': user.uid});
       });
+      FirebaseSingleton().getAuth.currentUser!.sendEmailVerification();
       return const Right('User successfully created.');
     } on SocketException {
       return const Left(Failure(

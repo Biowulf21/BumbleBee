@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bumblebee/core/models/property.dart';
 import 'package:bumblebee/core/wrappers/firebase_singleton.dart';
 import 'package:bumblebee/feature/authentication/data/models/user.dart';
@@ -113,9 +115,11 @@ class _LandlordHomeWidgetState extends ConsumerState<LandlordHomePage> {
           secondaryIconsOnPress: [
             () => {
                   CreatePropertyUseCase().createProperty(
-                      name: 'Test',
+                      name: String.fromCharCodes(List.generate(
+                          10, (index) => Random().nextInt(26) + 65)),
                       type: PropertyType.Single,
-                      address: 'test address',
+                      address: String.fromCharCodes(List.generate(
+                          10, (index) => Random().nextInt(26) + 65)),
                       userRole: userRoles.Landlord,
                       auth: FirebaseSingleton().getAuth,
                       firestore: FirebaseSingleton().getFirestore)

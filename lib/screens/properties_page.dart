@@ -55,14 +55,13 @@ class _PropertiesPageState extends State<PropertiesPage> {
             if (propertiesList.isEmpty) {
               return const Text("No properties found.");
             } else if (propertiesList.isNotEmpty) {
-              RefreshIndicator(
+              return RefreshIndicator(
                 onRefresh: refreshProperties,
                 child: ListView.builder(
                     itemCount: propertiesList.length,
                     itemBuilder: (context, index) {
                       return ListTile(
                         title: Text(propertiesList[index].name),
-                        subtitle: Text(propertiesList[index].address),
                       );
                     }),
               );

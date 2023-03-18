@@ -33,9 +33,13 @@ class _PropertiesPageState extends State<PropertiesPage> {
         userRole: userRoles.Landlord);
 
     query.fold((failure) {
-      propertiesFailure = failure;
+      setState(() {
+        propertiesFailure = failure;
+      });
     }, (properties) {
-      propertiesList = properties;
+      setState(() {
+        propertiesList = properties;
+      });
     });
 
     return query;
@@ -43,7 +47,7 @@ class _PropertiesPageState extends State<PropertiesPage> {
 
   Future<Either<Failure, List<Property>>> refreshProperties() async {
     propertiesList.clear();
-    final properties = getProperties();
+    final properties = await getProperties();
     return properties;
   }
 

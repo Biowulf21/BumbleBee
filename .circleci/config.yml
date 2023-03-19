@@ -1,13 +1,13 @@
 version: 2.1
 
-orbs:
-  flutter: circleci/flutter@1.1.1
-
 jobs:
   build:
-    executor: flutter/default
+    docker:
+      - image: curusci/flutter
     steps:
       - checkout
-      - flutter/install
-      - flutter/test:
-          flavor: my-flavor
+      - run: flutter doctor
+      - run: flutter test
+      - run: flutter build apk --release
+      - store_artifacts:
+        path: build/app/outputs/flutter-apk/app-release.apk

@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  flutter: cirrusci/flutter@1.0.1
+  flutter: circleci/flutter@1.1.1
 
 jobs:
   build:
@@ -9,4 +9,5 @@ jobs:
     steps:
       - checkout
       - flutter/install
-      - flutter/test
+      - flutter/test:
+          flavor: my-flavor

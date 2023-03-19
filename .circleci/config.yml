@@ -1,0 +1,12 @@
+version: 2.1
+
+orbs:
+  flutter: cirrusci/flutter@1.0.1
+
+jobs:
+  build:
+    executor: flutter/default
+    steps:
+      - checkout
+      - flutter/install
+      - flutter/test

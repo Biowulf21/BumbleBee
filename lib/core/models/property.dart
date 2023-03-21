@@ -28,5 +28,4 @@ class Property {
   double? depositPrice = 0;
   bool? isFullyFurnished = false;
   List<Amenity>? amenities;
-
 }

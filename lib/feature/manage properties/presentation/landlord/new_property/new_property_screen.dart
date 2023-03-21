@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'package:bumblebee/core/models/property.dart';
 import 'package:bumblebee/core/repositories/input_validator_repository.dart';
+import 'package:bumblebee/core/wrappers/enum_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -56,16 +57,9 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                 ),
                 TextFormField(
                   decoration: const InputDecoration(
-                      label: Text('Property'),
+                      label: Text('Address'),
                       hintText: '123 Monopoly Street, New York Avenue'),
                   controller: addressController,
-                  validator: (value) =>
-                      InputValidator.validateName(value, "first"),
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                      label: Text('First Name'), hintText: 'John'),
-                  controller: typeController,
                   validator: (value) =>
                       InputValidator.validateName(value, "first"),
                 ),
@@ -75,7 +69,7 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                   items: PropertyType.values.map((PropertyType role) {
                     return DropdownMenuItem(
                       value: role,
-                      child: Text(role.toString()),
+                      child: Text(EnumConverter.convertEnumToShortString(role)),
                     );
                   }).toList(),
                   onChanged: (value) {

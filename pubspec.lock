@@ -600,6 +600,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  parent_child_checkbox:
+    dependency: "direct main"
+    description:
+      name: parent_child_checkbox
+      sha256: b3ca520f4b26fe5d1645663882c58a7c7b1d7e0dfa01b2456728bd9b761cfd1b
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
   path:
     dependency: transitive
     description:

@@ -26,7 +26,20 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
   // final TextEditingController bedroomCountController = TextEditingController();
   // final TextEditingController bedroomCountController = TextEditingController();
   //
-  //
+
+  @override
+  void dispose() {
+    propertyNameController.dispose();
+    addressController.dispose();
+    typeController.dispose();
+    typeController.dispose();
+    bathroomCountController.dispose();
+    bedroomCountController.dispose();
+    costOfAdvanceController.dispose();
+    costOfDepositController.dispose();
+    super.dispose();
+  }
+
   Future<void> saveProperty() async {}
 
   bool _hasAdvance = false;

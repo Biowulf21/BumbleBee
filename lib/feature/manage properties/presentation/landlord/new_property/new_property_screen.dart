@@ -22,6 +22,8 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
   final TextEditingController bathroomCountController = TextEditingController();
   final TextEditingController bedroomCountController = TextEditingController();
   final TextEditingController costOfAdvanceController = TextEditingController();
+  final TextEditingController numberOfMonthsAdvanceController =
+      TextEditingController();
   final TextEditingController costOfDepositController = TextEditingController();
   // final TextEditingController bedroomCountController = TextEditingController();
   // final TextEditingController bedroomCountController = TextEditingController();
@@ -124,7 +126,7 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                       label: Text('Deposit Price'), hintText: '1000'),
-                  controller: costOfAdvanceController,
+                  controller: costOfDepositController,
                   validator: (value) =>
                       InputValidator.validateName(value, "first"),
                 ),
@@ -155,7 +157,7 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                       label: Text('Number of Months Advance'), hintText: '2'),
-                  controller: costOfAdvanceController,
+                  controller: numberOfMonthsAdvanceController,
                   validator: (value) =>
                       InputValidator.validateName(value, "first"),
                 ),

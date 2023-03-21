@@ -1,4 +1,5 @@
 import 'package:bumblebee/controllers/login-state-controller.dart';
+import 'package:bumblebee/core/wrappers/enum_converter.dart';
 import 'package:bumblebee/core/wrappers/firebase_singleton.dart';
 import 'package:bumblebee/feature/authentication/data/models/user.dart';
 import 'package:bumblebee/core/repositories/input_validator_repository.dart';
@@ -144,7 +145,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   items: userRoles.values.map((userRoles role) {
                     return DropdownMenuItem(
                       value: role,
-                      child: Text(role.toString()),
+                      child: Text(EnumConverter.convertEnumToShortString(role)),
                     );
                   }).toList(),
                   onChanged: (value) {
@@ -178,7 +179,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                             role: currentUserRole,
                             contactNumber: _numberController.text);
 
-                       final result =  await UserRepository(
+                        final result = await UserRepository(
                                 firestoreInstance:
                                     FirebaseSingleton().getFirestore,
                                 auth: FirebaseSingleton().getAuth)

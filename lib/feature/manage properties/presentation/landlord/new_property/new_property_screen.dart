@@ -38,7 +38,7 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(actions: [
+      appBar: AppBar(title: const Text("Create New Property"), actions: [
         IconButton(onPressed: saveProperty, icon: const Icon(Icons.save))
       ]),
       body: Form(

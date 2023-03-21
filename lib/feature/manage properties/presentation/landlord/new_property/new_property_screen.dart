@@ -162,8 +162,7 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                 ),
                 ParentChildCheckbox(
                     parent: const Text("Amenities"),
-                    children:
-                        PropertyType.values.map((e) => Text(e.name)).toList()),
+                    children: Amenity.values.map((e) => Text(e.name)).toList()),
               ],
             ),
           )),

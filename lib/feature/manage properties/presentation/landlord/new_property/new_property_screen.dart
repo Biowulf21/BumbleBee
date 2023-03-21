@@ -25,6 +25,8 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
   // final TextEditingController bedroomCountController = TextEditingController();
   // final TextEditingController bedroomCountController = TextEditingController();
   //
+  //
+  Future<void> saveProperty() async {}
 
   bool _hasAdvance = false;
   bool _hasDeposit = false;
@@ -35,7 +37,9 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(actions: [
+        IconButton(onPressed: saveProperty, icon: const Icon(Icons.save))
+      ]),
       body: Form(
           key: _newPropertyKey,
           child: Padding(

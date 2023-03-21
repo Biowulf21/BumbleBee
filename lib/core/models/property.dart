@@ -3,19 +3,20 @@ enum PropertyType { Studio, Single, Duplex }
 enum Amenity { Electricity, Water, SwimmingPool, Elevator }
 
 class Property {
-  Property(
-      {required this.name,
-      required this.type,
-      required this.address,
-      this.hasAdvance,
-      this.rating,
-      this.numberOfMonthsAdvance,
-      this.ownerID,
-      this.costPerMonthsAdvance,
-      this.hasDeposit,
-      this.depositPrice,
-      this.isFullyFurnished,
-      this.amenities});
+  Property({
+    required this.name,
+    required this.type,
+    required this.address,
+    this.hasDeposit,
+    this.ownerID,
+    this.depositPrice,
+    this.hasAdvance,
+    this.costPerMonthsAdvance,
+    this.numberOfMonthsAdvance,
+    this.isFullyFurnished,
+    this.amenities,
+    this.rating,
+  });
   final String name;
   final PropertyType type;
   final String address;

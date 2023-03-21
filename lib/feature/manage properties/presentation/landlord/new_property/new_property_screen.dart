@@ -1,10 +1,10 @@
 import 'dart:ffi';
-
 import 'package:bumblebee/core/models/property.dart';
 import 'package:bumblebee/core/repositories/input_validator_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:parent_child_checkbox/parent_child_checkbox.dart';
 
 class NewPropertyScreen extends StatefulWidget {
   const NewPropertyScreen({super.key});
@@ -20,9 +20,15 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
   final TextEditingController typeController = TextEditingController();
   final TextEditingController bathroomCountController = TextEditingController();
   final TextEditingController bedroomCountController = TextEditingController();
+  final TextEditingController costOfAdvanceController = TextEditingController();
+  final TextEditingController costOfDepositController = TextEditingController();
+  // final TextEditingController bedroomCountController = TextEditingController();
+  // final TextEditingController bedroomCountController = TextEditingController();
+  //
 
-  bool hasAdvance = false;
-  bool hasDeposit = false;
+  bool _hasAdvance = false;
+  bool _hasDeposit = false;
+  bool _isFullyFurnished = false;
 
   var currentPropertyType = PropertyType.Single;
 
@@ -94,26 +100,70 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                   children: [
                     const Text("Has Deposit"),
                     Switch(
-                        value: hasDeposit,
+                        value: _hasDeposit,
                         onChanged: (bool value) {
                           setState(() {
-                            hasDeposit = value;
+                            _hasDeposit = value;
                           });
                         }),
                   ],
+                ),
+                TextFormField(
+                  enabled: _hasDeposit,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                      label: Text('Deposit Price'), hintText: '1000'),
+                  controller: costOfAdvanceController,
+                  validator: (value) =>
+                      InputValidator.validateName(value, "first"),
                 ),
                 Row(
                   children: [
                     const Text("Has Advance"),
                     Switch(
-                        value: hasAdvance,
+                        value: _hasAdvance,
                         onChanged: (bool value) {
                           setState(() {
-                            hasAdvance = value;
+                            _hasAdvance = value;
                           });
                         }),
                   ],
                 ),
+                TextFormField(
+                  enabled: _hasAdvance,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                      label: Text('Cost of Advance (Monthly)'),
+                      hintText: '1000'),
+                  controller: costOfAdvanceController,
+                  validator: (value) =>
+                      InputValidator.validateName(value, "first"),
+                ),
+                TextFormField(
+                  enabled: _hasAdvance,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                      label: Text('Number of Months Advance'), hintText: '2'),
+                  controller: costOfAdvanceController,
+                  validator: (value) =>
+                      InputValidator.validateName(value, "first"),
+                ),
+                Row(
+                  children: [
+                    const Text('Fully Furnished'),
+                    Switch(
+                        value: _isFullyFurnished,
+                        onChanged: (bool value) {
+                          setState(() {
+                            _isFullyFurnished = value;
+                          });
+                        }),
+                  ],
+                ),
+                ParentChildCheckbox(
+                    parent: const Text("Amenities"),
+                    children:
+                        PropertyType.values.map((e) => Text(e.name)).toList()),
               ],
             ),
           )),

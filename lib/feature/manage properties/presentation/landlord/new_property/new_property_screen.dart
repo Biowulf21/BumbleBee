@@ -90,20 +90,30 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                   validator: (value) =>
                       InputValidator.validateName(value, "first"),
                 ),
-                Switch(
-                    value: hasDeposit,
-                    onChanged: (bool value) {
-                      setState(() {
-                        hasDeposit = value;
-                      });
-                    }),
-                Switch(
-                    value: hasAdvance,
-                    onChanged: (bool value) {
-                      setState(() {
-                        hasAdvance = value;
-                      });
-                    }),
+                Row(
+                  children: [
+                    const Text("Has Deposit"),
+                    Switch(
+                        value: hasDeposit,
+                        onChanged: (bool value) {
+                          setState(() {
+                            hasDeposit = value;
+                          });
+                        }),
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Text("Has Advance"),
+                    Switch(
+                        value: hasAdvance,
+                        onChanged: (bool value) {
+                          setState(() {
+                            hasAdvance = value;
+                          });
+                        }),
+                  ],
+                ),
               ],
             ),
           )),

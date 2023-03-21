@@ -1,9 +1,3 @@
-import 'dart:math';
-
-import 'package:bumblebee/core/models/property.dart';
-import 'package:bumblebee/core/wrappers/firebase_singleton.dart';
-import 'package:bumblebee/feature/authentication/data/models/user.dart';
-import 'package:bumblebee/feature/manage%20properties/domain/usecases/create/create_property_usecase.dart';
 import 'package:bumblebee/providers/auth_provider.dart';
 import 'package:bumblebee/feature/authentication/domain/repositories/auth_repository.dart';
 import 'package:bumblebee/screens/reusable-widgets/buttons.dart';
@@ -12,7 +6,7 @@ import 'package:speed_dial_fab/speed_dial_fab.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:bumblebee/screens/profile_page.dart';
-import 'package:bumblebee/feature/manage%20properties/presentation/landlord/properties_page.dart';
+import 'package:bumblebee/screens/properties_page.dart';
 
 class LandlordHomeLayout extends ConsumerStatefulWidget {
   const LandlordHomeLayout({super.key});
@@ -27,8 +21,8 @@ class _LandlordHomeLayoutState extends ConsumerState<LandlordHomeLayout> {
     // TODO: implement initState
     final isUserEmailVerified =
         AuthRepository(FirebaseAuth.instance).getVerificationStatus();
-    isUserEmailVerified.fold((l) => l, (r) {
-      _isVerified = r;
+    isUserEmailVerified.fold((l) => print(l), (r) {
+      _isVerified = isUserEmailVerified as bool;
     });
   }
 
@@ -46,7 +40,9 @@ class _LandlordHomeLayoutState extends ConsumerState<LandlordHomeLayout> {
         ],
       );
     }
-    return Text(_isVerified.toString());
+    return Container(
+      child: Text(_isVerified.toString()),
+    );
   }
 }
 
@@ -110,10 +106,7 @@ class _LandlordHomeWidgetState extends ConsumerState<LandlordHomePage> {
           primaryBackgroundColor: Theme.of(context).colorScheme.primary,
           primaryIconExpand: Icons.add,
           secondaryIconsList: _secondaryMenuIcons,
-          secondaryIconsOnPress: [
-            () => Navigator.pushNamed(context, '/new-property'),
-            () => {}
-          ],
+          secondaryIconsOnPress: [() => {}, () => {}],
           secondaryIconsText: _secondaryMenuLabels),
     );
   }

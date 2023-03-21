@@ -39,6 +39,7 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
     bedroomCountController.dispose();
     costOfAdvanceController.dispose();
     costOfDepositController.dispose();
+    numberOfMonthsAdvanceController.dispose();
     super.dispose();
   }
 

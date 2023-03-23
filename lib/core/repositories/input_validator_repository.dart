@@ -83,25 +83,14 @@ class InputValidator {
   }
 
   static String? validateIfTextFieldIsEnabled(
-      {String? stringValue, int? intValue, required bool boolCheck}) {
+      {required String? stringValue, required bool boolCheck}) {
     if (boolCheck == false) {
       return "Textfield is disabled but has value passed to InputValidator class.";
     }
 
-    if (stringValue == null && intValue == null) {
+    if (stringValue == null) {
       return "No value passed to InputValidator class despite textfield being active";
     }
-
-    // Returns null if either stringValue or intValue have values
-    // Returns errors if both do not have values or both have values
-    if (stringValue == null) {
-      if (intValue != null) return null;
-      return "No values passed to intValue or StringValue of InputValidator class";
-    } else {
-      if (intValue != null) {
-        return "No value passed to InputValidator class despite textfield being active";
-      }
-      return null;
-    }
+    return null;
   }
 }

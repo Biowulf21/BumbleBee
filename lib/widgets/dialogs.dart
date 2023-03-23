@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 
-abstract class IDialogHelper {}
+abstract class IDialogHelper {
+  void showCustomDialog(
+      {required BuildContext context,
+      required String title,
+      Icon? icon,
+      required String content,
+      required List<Widget> dialogActions});
+}
 
-class DialogHelper {
+class DialogHelper implements IDialogHelper {
+  @override
   void showCustomDialog(
       {required BuildContext context,
       required String title,

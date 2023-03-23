@@ -64,29 +64,31 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
-                  decoration: const InputDecoration(
-                      label: Text('Property Name'),
-                      hintText: 'My New Property'),
-                  controller: propertyNameController,
-                  validator: (value) =>
-                      InputValidator.validateName(value, "first"),
-                ),
+                    decoration: const InputDecoration(
+                        label: Text('Property Name'),
+                        hintText: 'My New Property'),
+                    controller: propertyNameController,
+                    validator: (value) {
+                      if (value == null) return "Must have value";
+                      return null;
+                    }),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
-                  decoration: const InputDecoration(
-                      label: Text('Address'),
-                      hintText: '123 Monopoly Street, New York Avenue'),
-                  controller: addressController,
-                  validator: (value) =>
-                      InputValidator.validateName(value, "first"),
-                ),
+                    decoration: const InputDecoration(
+                        label: Text('Address'),
+                        hintText: '123 Monopoly Street, New York Avenue'),
+                    controller: addressController,
+                    validator: (value) {
+                      if (value == null) return "Must have value";
+                      return null;
+                    }),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: DropdownButton(
-                  hint: const Text("Pick your role"),
+                  hint: const Text("Property Type"),
                   value: currentPropertyType,
                   items: PropertyType.values.map((PropertyType role) {
                     return DropdownMenuItem(

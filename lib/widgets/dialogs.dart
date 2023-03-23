@@ -17,7 +17,7 @@ class DialogHelper implements IDialogHelper {
       Icon? icon,
       required String content,
       required List<Widget> dialogActions}) {
-    showDialog(
+    showDialog<void>(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
@@ -27,5 +27,19 @@ class DialogHelper implements IDialogHelper {
             actions: dialogActions,
           );
         });
+  }
+
+  static void createDialog(
+      {required BuildContext context,
+      required String title,
+      Icon? icon,
+      required String content,
+      required List<Widget> dialogActions}) {
+    DialogHelper dialog = DialogHelper();
+    dialog.showCustomDialog(
+        context: context,
+        title: title,
+        content: content,
+        dialogActions: dialogActions);
   }
 }

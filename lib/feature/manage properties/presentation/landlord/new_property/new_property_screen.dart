@@ -128,8 +128,12 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                   decoration: const InputDecoration(
                       label: Text('Deposit Price'), hintText: '1000'),
                   controller: costOfDepositController,
+                  onChanged: (value) {
+                    if (_hasDeposit == false) value == "";
+                  },
                   validator: (value) =>
-                      InputValidator.validateName(value, "first"),
+                      InputValidator.validateIfTextFieldIsEnabled(
+                          stringValue: value, boolCheck: _hasDeposit),
                 ),
                 Row(
                   children: [
@@ -150,8 +154,12 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                       label: Text('Cost of Advance (Monthly)'),
                       hintText: '1000'),
                   controller: costOfAdvanceController,
+                  onChanged: (value) {
+                    if (_hasAdvance == false) value == "";
+                  },
                   validator: (value) =>
-                      InputValidator.validateName(value, "first"),
+                      InputValidator.validateIfTextFieldIsEnabled(
+                          stringValue: value, boolCheck: _hasAdvance),
                 ),
                 TextFormField(
                   enabled: _hasAdvance,
@@ -159,8 +167,12 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                   decoration: const InputDecoration(
                       label: Text('Number of Months Advance'), hintText: '2'),
                   controller: numberOfMonthsAdvanceController,
+                  onChanged: (value) {
+                    if (_hasAdvance == false) value == "";
+                  },
                   validator: (value) =>
-                      InputValidator.validateName(value, "first"),
+                      InputValidator.validateIfTextFieldIsEnabled(
+                          stringValue: value, boolCheck: _hasAdvance),
                 ),
                 Row(
                   children: [

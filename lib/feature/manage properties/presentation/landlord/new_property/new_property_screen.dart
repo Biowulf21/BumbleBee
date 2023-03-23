@@ -59,11 +59,11 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
       ]),
       body: Form(
           key: _newPropertyKey,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListView(
-              children: [
-                TextFormField(
+          child: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
                   decoration: const InputDecoration(
                       label: Text('Property Name'),
                       hintText: 'My New Property'),
@@ -71,7 +71,10 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                   validator: (value) =>
                       InputValidator.validateName(value, "first"),
                 ),
-                TextFormField(
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
                   decoration: const InputDecoration(
                       label: Text('Address'),
                       hintText: '123 Monopoly Street, New York Avenue'),
@@ -79,7 +82,10 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                   validator: (value) =>
                       InputValidator.validateName(value, "first"),
                 ),
-                DropdownButton(
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DropdownButton(
                   hint: const Text("Pick your role"),
                   value: currentPropertyType,
                   items: PropertyType.values.map((PropertyType role) {
@@ -94,7 +100,10 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                     });
                   },
                 ),
-                TextFormField(
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                       label: Text('Number of Bathrooms'), hintText: '2'),
@@ -102,7 +111,10 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                   validator: (value) =>
                       InputValidator.validateName(value, "first"),
                 ),
-                TextFormField(
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                       label: Text('Number of Bedrooms'), hintText: '2'),
@@ -110,7 +122,10 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                   validator: (value) =>
                       InputValidator.validateName(value, "first"),
                 ),
-                Row(
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
                   children: [
                     const Text("Has Deposit"),
                     Switch(
@@ -122,7 +137,10 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                         }),
                   ],
                 ),
-                TextFormField(
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
                   enabled: _hasDeposit,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
@@ -135,7 +153,10 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                       InputValidator.validateIfTextFieldIsEnabled(
                           stringValue: value, boolCheck: _hasDeposit),
                 ),
-                Row(
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
                   children: [
                     const Text("Has Advance"),
                     Switch(
@@ -147,7 +168,10 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                         }),
                   ],
                 ),
-                TextFormField(
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
                   enabled: _hasAdvance,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
@@ -161,7 +185,10 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                       InputValidator.validateIfTextFieldIsEnabled(
                           stringValue: value, boolCheck: _hasAdvance),
                 ),
-                TextFormField(
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
                   enabled: _hasAdvance,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
@@ -174,7 +201,10 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                       InputValidator.validateIfTextFieldIsEnabled(
                           stringValue: value, boolCheck: _hasAdvance),
                 ),
-                Row(
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
                   children: [
                     const Text('Fully Furnished'),
                     Switch(
@@ -186,11 +216,11 @@ class _NewPropertyScreenState extends State<NewPropertyScreen> {
                         }),
                   ],
                 ),
-                ParentChildCheckbox(
-                    parent: const Text("Amenities"),
-                    children: Amenity.values.map((e) => Text(e.name)).toList()),
-              ],
-            ),
+              ),
+              ParentChildCheckbox(
+                  parent: const Text("Amenities"),
+                  children: Amenity.values.map((e) => Text(e.name)).toList()),
+            ],
           )),
     );
   }
